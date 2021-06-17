@@ -12,61 +12,66 @@ class CreateUser extends React.Component{
             "password":""
         },
         error:false,
-        errorMsj:"a"
+        errorMsj:"",
+        msjOk:"Usuario creado exitosamente."
     }
+
+manejadorSubmit =e=>{e.preventDefault();}
 manejadorButton=()=>{
     let url= UrlCreateUsr ;
         axios.post(url, this.state.form).then(response => {
-                    this.setState
+            
+                   this.setState
                     ({
                         nombres : response.data.nombres,
                         apellidos : response.data.apellidos,
                         username : response.data.username,
-                        rolid : response.data.rolid,
-                        password : response.data.password
+                        rolid : response.data.rolid
                     })
                 }).catch(error => {
+                    console.log(error.response)
                     this.setState
                     ({
                         error : true,
-                        errorMsj:error.response.data.Error
+                        errorMsj:error.response.request.response
                     })
                 
     })        
     }
+    manejadorChange = async e=>{
+        await this.setState({
+            form:{
+                ...this.state.form,
+                [e.target.name]:e.target.value
+            }
+        })
+    }
+    
 render(){
     return(
         <div id="formContent">
-                <form action="/my-handling-form-page" method="post">
-                        <ul>
-                        <li>
-                            <label for="name">Nombres:</label>
-                            <input type="text" id="name" name="user_name" />
-                        </li>
-                        <li>
-                            <label for="apellido">Apellidos:</label>
-                            <input type="text" id="apellido" name="user_apellido" />
-                        </li>
-                        <li>
-                            <label for="Username">Username:</label>
-                            <input type="text" id="username" name="username" />
-                        </li>
-                        <li>
-                            <label for="rolid">rolid:</label>
-                            <input type="text" id="rolid" name="rolid" />
-                        </li>
-                        <li>
-                            <label for="password">password:</label>
-                            <input type="password" id="password" name="password" />
-                        </li>
-                        <li>
-                        <input type="submit" className="fadeIn fourth" value="Crear" onClick={this.manejadorButton}/>
-                        </li>
-                        </ul>
-                </form>
+          <form onSubmit={this.manejadorSubmit}>
+                    <input type="text"   name="nombres" placeholder="nombre" onChange={this.manejadorChange}/>
+                    <input type="text"   name="apellidos" placeholder="apeliidos" onChange={this.manejadorChange}/>
+                    <input type="text"   name="username" placeholder="username" onChange={this.manejadorChange}/>
+                    <input type="text"   name="rolid" placeholder="rolid" onChange={this.manejadorChange}/>
+                    <input type="password"   name="password" placeholder="password" onChange={this.manejadorChange}/>
+                    
+                    <input type="submit"  value="Create" onClick={this.manejadorButton}/>
+        </form>      
+
+        { this.state.error === true && 
+                        <div className="alert alert-danger" role="alert">
+                            {this.state.errorMsj}
+                        </div>
+                        
+                    }
+       
+               
         </div>
     );
 }
 }
+
 
 export default CreateUser;

@@ -5,9 +5,9 @@ import {UrlLogin} from    '../services/apirest';
 import axios from 'axios';
 class Login extends React.Component{
 
-constructor(props){
-    super(props);
-}    
+//constructor(props){
+//    super(props);
+//}    
 state={
     form:{
         "username":"",
@@ -30,7 +30,7 @@ manejadorButton=()=>{
     let url= UrlLogin ;
         axios.post(url, this.state.form).then(response => {
                     localStorage.setItem("Token",response.data.api_token);
-                    this.props.history.push("/create-user");
+                    this.props.history.push("/crudUser");
                 }).catch(error => {
                     this.setState
                     ({
