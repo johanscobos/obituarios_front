@@ -1,11 +1,13 @@
 
 html {
     background-color: #56baed;
+    height: 100%;
   }
   
   body {
     font-family: "Poppins", sans-serif;
     height: 100vh;
+    background-color: #cccccc;
   }
   
   a {
@@ -25,7 +27,12 @@ html {
     color: #cccccc;
   }
   
-  
+  /*******GRID CONTAINER************/
+  .grid-container{
+    display: grid;
+    background-color: #56baed;
+    grid-template-columns: 15% auto;
+  }
   
   /* STRUCTURE */
   
