@@ -33,7 +33,33 @@ html {
     background-color: #56baed;
     grid-template-columns: 15% auto;
   }
-  
+  .sidebar-nav{
+    width: 270px;
+  }
+  .bg-corporativo{
+    background-color: #002244 !important;
+  }
+  @media (min-width:992px) {
+
+    body{
+      overflow: auto !important;
+    }
+    .offcanvas-backdrop::before{
+      display: none;
+    }
+    main{
+      margin-left: 270px;
+    }
+    .sidebar-nav{
+      transform: none;
+      visibility: visible !important;
+      top:83px;
+      height: calc(100% - 83px);
+    }
+  }
+
+
+
   /* STRUCTURE */
   
   .wrapper {

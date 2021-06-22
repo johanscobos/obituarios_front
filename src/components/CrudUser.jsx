@@ -73,8 +73,8 @@ class CrudUser extends React.Component{
         
         })        
     }
-    seleccionarusuario=(usr)=>{
-        this.setState({
+    seleccionarusuario=async(usr)=>{
+        await this.setState({
             form:{
                 id:usr.id,
                 nombres: usr.nombres,
