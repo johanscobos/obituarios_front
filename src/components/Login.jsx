@@ -3,6 +3,7 @@ import '../assets/css/Login.css';
 import logo from '../assets/img/logo.png';
 import {UrlLogin} from    '../services/apirest';
 import axios from 'axios';
+import {Redirect} from 'react-router-dom'
 class Login extends React.Component{
 
 //constructor(props){

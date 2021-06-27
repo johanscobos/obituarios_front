@@ -6,17 +6,12 @@ import Login from './components/Login';
 import CreateUser from './components/createUser';
 import CrudUser from './components/CrudUser';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import Routes from './routes/routes';
 function App() {
   
   return (
     <React.Fragment>
-      <Router>
-        <Switch>
-          <Route path="/" exact render = {props=>(<Login{...props}/>)}></Route>
-          <Route path="/create-user" exact render = {props=>(<CreateUser{...props}/>)}></Route>
-          <Route path="/crudUser" exact render = {props=>(<CrudUser{...props}/>)}></Route>
-        </Switch>
-      </Router>
+        <Routes/>
     </React.Fragment>
   );
 }

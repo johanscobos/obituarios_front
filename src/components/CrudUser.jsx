@@ -3,14 +3,15 @@ import axios from 'axios';
 import {UrlShowUsr} from    '../services/apirest';
 import {UrlCreateUsr} from    '../services/apirest';
 import {UrlUpdateUsr} from    '../services/apirest';
+import {UrlDeleteUsr} from    '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit,faTrashAlt} from '@fortawesome/free-solid-svg-icons'
-import {Modal,ModalBody,ModalFooter,ModalHeader} from 'reactstrap'
+import {Modal,ModalBody,ModalFooter} from 'reactstrap'
 class CrudUser extends React.Component{
-
     state={
        usuarios:[],
        modalInsertar:false,
+       modalEliminar: false,
        form:{
         "id":"",
         "nombres":"",
@@ -29,11 +30,10 @@ class CrudUser extends React.Component{
     peticionGet=()=>{
         axios.get(UrlShowUsr).then(async response=>{
          await this.setState({usuarios: response.data[0]});
-        
         })
         }
     modalInsertar=()=>{
-        this.setState({modalInsertar: true})
+        this.setState({modalInsertar: !this.state.modalInsertar})
     }
     handleChange= async e=>{
         e.persist();
@@ -75,6 +75,7 @@ class CrudUser extends React.Component{
     }
     seleccionarusuario=(usr)=>{
         this.setState({
+            tipomodal:"actualizar",
             form:{
                 id:usr.id,
                 nombres: usr.nombres,
@@ -94,7 +95,14 @@ class CrudUser extends React.Component{
             })
         })
     }
+    peticionDelete=async()=>{
+        console.log('a');
+        await axios.put(UrlDeleteUsr+this.state.form.id).then(response=>{
+            this.setState({modalEliminar: false});
+            this.peticionGet();
 
+        })
+    }
 render(){
     const {usuarios} = this.state;
     const {form}=this.state;
@@ -123,9 +131,9 @@ render(){
                         <td>{usr.apellidos}</td>
                         <td>{usr.username}</td>
                         <td>
-                        <button className="btn btn-primary" onClick={()=>{this.seleccionarusuario(usr);this.modalInsertar("upd")}}><FontAwesomeIcon icon={faEdit}/></button>
+                        <button className="btn btn-primary" onClick={()=>{this.seleccionarusuario(usr);this.modalInsertar()}}><FontAwesomeIcon icon={faEdit}/></button>
                         {"   "}
-                        <button className="btn btn-danger"><FontAwesomeIcon icon={faTrashAlt}/></button>
+                        <button className="btn btn-danger" onClick={()=>{this.seleccionarusuario(usr);this.setState({modalEliminar:true})}}><FontAwesomeIcon icon={faTrashAlt}/></button>
                         </td>
                         </tr>
                         )}
@@ -155,6 +163,17 @@ render(){
                     <button className="btn btn-success" onClick={()=>this.peticionPost()}>Insertar</button>:
                     <button className="btn btn-success" onClick={()=>this.peticionPut()}>Actualizar</button>
                     }
+
+                    <button className="btn btn-danger" onClick={()=>this.modalInsertar()}>Cancelar</button>
+                </ModalFooter>
+            </Modal>
+            <Modal isOpen={this.state.modalEliminar}>
+                <ModalBody>
+                    ¿Estás seguro(a) que deseas eliminar al usuario {form&& form.nombres}
+                </ModalBody>
+                <ModalFooter>  
+                    <button className="btn btn-danger" onClick={()=>this.peticionDelete()}> Si</button>
+                    <button className="btn btn-secundary" onClick={()=>this.setState({modalEliminar:false})}>No</button>
                 </ModalFooter>
             </Modal>
         </div>
