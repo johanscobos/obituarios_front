@@ -8,7 +8,10 @@ export const Routes=() => {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component ={Login}/>
-          <Route exact path="/crudUser" component = {isAuth? CrudUser: Login}/>
+          { isAuth && 
+          <Route exact path="/crudUser" component={CrudUser} /> 
+        }
+          
         </Switch>
       </BrowserRouter>
         
