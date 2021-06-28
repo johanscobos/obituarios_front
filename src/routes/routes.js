@@ -1,8 +1,11 @@
 import {BrowserRouter,Switch,Route} from 'react-router-dom'
 import Login from '../components/Login';
 import CrudUser from '../components/CrudUser';
-import Portada from '../components/portada';
+import Header from '../components/Header';
+import Portada from '../components/Portada';
 import { isAuthenticated } from '../services/authentication';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faSearch} from '@fortawesome/free-solid-svg-icons'
 export const Routes=() => {
   const isAuth= isAuthenticated();
     return (
