@@ -1,26 +1,25 @@
 import {BrowserRouter,Switch,Route} from 'react-router-dom'
 import Login from '../components/Login';
 import CrudUser from '../components/CrudUser';
-import Header from '../components/Header';
-import Portada from '../components/Portada';
+import HeaderDasboard from '../components/HeaderDasboard';
+import Home from '../components/Home';
+//import '../assets/css/style.css';
+
 import { isAuthenticated } from '../services/authentication';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSearch} from '@fortawesome/free-solid-svg-icons'
+
 export const Routes=() => {
   const isAuth= isAuthenticated();
     return (
       <BrowserRouter>
-        
+    
+        <Switch>          
+        <Route path="/" exact><Home /></Route>
+        <Route path="/login" exact render = {props=>(<Login{...props}/>)}></Route>
 
-
-      
-        <Route exact path="/" component ={Portada}/>
-        <Route exact path="/login" component ={Login}/>
-        <Switch>
-          <Route path="/" exact render = {props=>(<Login{...props}/>)}></Route>
-          {
-           <section>
-              <Header />
+           <section className="test">
+              <HeaderDasboard />
 
             <div class="offcanvas offcanvas-start bg-dark bg-corporativo text-white sidebar-nav" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
               
@@ -48,8 +47,8 @@ export const Routes=() => {
                 <div className="container-fluid">
                   <div className="col-md-12">
                   { isAuth && 
-          <Route exact path="/crudUser" component={CrudUser} /> 
-        }
+                     <Route exact path="/crudUser" component={CrudUser} /> 
+                  }
                     <Route path="/crudUser" exact render = {props=>(<CrudUser{...props}/>)}></Route>
                   </div>               
                 </div>
@@ -57,7 +56,7 @@ export const Routes=() => {
               
               </section>
             
-          }
+          
           
           
         </Switch>

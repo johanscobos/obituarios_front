@@ -4,7 +4,7 @@ import {UrlShowUsr} from    '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSearch,faUser} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalBody,ModalFooter,ModalHeader} from 'reactstrap'
-class Header extends React.Component{ 
+class HeaderDasboard extends React.Component{ 
 
     
     
@@ -55,4 +55,4 @@ render(){
 }
 
 
-export default Header;
+export default HeaderDasboard;

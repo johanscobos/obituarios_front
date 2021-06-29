@@ -1,0 +1,92 @@
+/*::::::::::Estilos generales de la Aplicación:::::::::::*/
+html {
+    background-color: #56baed;
+    height: 100%;
+  }
+  
+  body {
+    font-family: "Poppins", sans-serif;
+    height: 100vh;
+    background-color: #fff;
+  }
+  
+  a {
+    color: #92badd;
+    display:inline-block;
+    text-decoration: none;
+    font-weight: 400;
+  }
+  
+  h2 {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    display:inline-block;
+    margin: 40px 8px 10px 8px; 
+    color: #002244;
+  }
+
+  /*:::::::::::::::::::::Home::::::::::::::::::::::::::::*/
+
+   header{
+    box-shadow: 0px 0px 10px 0px rgb(96 96 96 / 16%);
+   }  
+  .header_top{
+    background-color: #002244;
+    height: 25px;
+  }
+  .header_down{
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 0.5rem;
+    
+  }
+  .header_down_icono-linea{
+    display: flex;
+    align-items: center;  
+  }
+  .header_down_icono-linea h2{
+    margin: 0px 0px 0px 1rem;
+    text-align: left;
+  }
+  .btn-sesion{
+    background-color: #006091;
+  }
+  .btn-sesion:hover{
+    background-color: #d42f74;
+  }
+
+  /*:::::::::::::::::::Dashboard::::::::::::::::::::::::::*/
+
+  .grid-container{
+    display: grid;
+    background-color: #56baed;
+    grid-template-columns: 15% auto;
+  }
+  .sidebar-nav{
+    width: 270px;
+  }
+  .bg-corporativo{
+    background-color: #002244 !important;
+  }
+  @media (min-width:992px) {
+
+    body{
+      overflow: auto !important;
+    }
+    .offcanvas-backdrop::before{
+      display: none;
+    }
+    main{
+      margin-left: 270px;
+    }
+    .sidebar-nav{
+      transform: none;
+      visibility: visible !important;
+      top:83px;
+      height: calc(100% - 83px);
+    }
+  }
+/*=====================================================*/
