@@ -3,6 +3,8 @@ import Login from '../components/Login';
 import CrudUser from '../components/CrudUser';
 import HeaderDasboard from '../components/HeaderDasboard';
 import Home from '../components/Home';
+
+
 //import '../assets/css/style.css';
 
 import { isAuthenticated } from '../services/authentication';
@@ -21,7 +23,7 @@ export const Routes=() => {
            <section className="test">
               <HeaderDasboard />
 
-            <div class="offcanvas offcanvas-start bg-dark  text-white sidebar-nav" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas offcanvas-start bg-dark  menu-lateral text-white sidebar-nav" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
               
               <div class="offcanvas-body p-0">
                 <nav class="navbar-dark">

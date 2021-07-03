@@ -91,7 +91,7 @@ html {
 /*=====================================================*/
 
 
-/*:::::::::::::::::::Crud::::::::::::::::::::::::::*/
+/*:::::::::::::::::::::::Crud::::::::::::::::::::::::::*/
 input{
   margin:0.7rem 0;
 }
@@ -110,4 +110,14 @@ input{
 .btn-crear-usuario:hover{
 background-color: #ac295f;
 color:#fff;
+}
+
+/*:::::::::::::::::::Menú Lateral::::::::::::::::::::::*/
+.menu-lateral{
+ background-image: url(../img/bg-login.jpg);
+ background-size: cover;
+ background-repeat: no-repeat;
+}
+.logo-blanco{
+  width: 80%;
 }
