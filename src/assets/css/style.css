@@ -1,13 +1,13 @@
 /*::::::::::Estilos generales de la Aplicación:::::::::::*/
 html {
-    background-color: #56baed;
+   /* background-color: #56baed;*/
     height: 100%;
   }
   
   body {
     font-family: "Poppins", sans-serif;
     height: 100vh;
-    background-color: #fff;
+   /* background-color: #fff;*/
   }
   
   a {
@@ -40,8 +40,7 @@ html {
     display: flex;
     justify-content: space-between;
     align-items: center; 
-    padding: 0.5rem;
-    
+    padding: 0.5rem;    
   }
   .header_down_icono-linea{
     display: flex;
@@ -85,8 +84,30 @@ html {
     .sidebar-nav{
       transform: none;
       visibility: visible !important;
-      top:83px;
-      height: calc(100% - 83px);
+      top:76px;
+      height: calc(100% - 76px);
     }
   }
 /*=====================================================*/
+
+
+/*:::::::::::::::::::Crud::::::::::::::::::::::::::*/
+input{
+  margin:0.7rem 0;
+}
+.btn-edit{
+  background-color: #006091;
+  color: #fff;
+}
+.btn-edit:hover{
+  background-color: #002244;
+  color:#fff;
+}
+.btn-crear-usuario{
+  background-color: #d42f74;
+  color:#fff;
+}
+.btn-crear-usuario:hover{
+background-color: #ac295f;
+color:#fff;
+}

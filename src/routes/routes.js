@@ -21,7 +21,7 @@ export const Routes=() => {
            <section className="test">
               <HeaderDasboard />
 
-            <div class="offcanvas offcanvas-start bg-dark bg-corporativo text-white sidebar-nav" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas offcanvas-start bg-dark  text-white sidebar-nav" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
               
               <div class="offcanvas-body p-0">
                 <nav class="navbar-dark">
