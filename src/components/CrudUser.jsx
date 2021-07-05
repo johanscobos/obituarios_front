@@ -6,13 +6,13 @@ import {UrlUpdateUsr} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit,faTrashAlt} from '@fortawesome/free-solid-svg-icons'
-import {Modal,ModalBody,ModalFooter} from 'reactstrap'
+import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
 class CrudUser extends React.Component{
     state={
        usuarios:[],
        modalInsertar:false,
        modalEliminar: false,
-       form:{
+       form:{ 
         "id":"",
         "nombres":"",
         "apellidos":"",
@@ -103,6 +103,11 @@ class CrudUser extends React.Component{
 
         })
     }
+
+   
+      
+
+
 render(){
     const {usuarios} = this.state;
     const {form}=this.state;
@@ -110,15 +115,16 @@ render(){
         <React.Fragment>
         <div >
             <br />
-            <button className="btn btn-success" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}>Crear usuario</button>
+            <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}>Crear usuario</button>
             <br /><br />
-            <table className="table">
+            <table className="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>id</th>
-                        <th>nombres</th>
-                        <th>apellidos</th>
-                        <th>nombre usuario</th>
+                        <th>Id</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Nombre usuario</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -131,7 +137,7 @@ render(){
                         <td>{usr.apellidos}</td>
                         <td>{usr.username}</td>
                         <td>
-                        <button className="btn btn-primary" onClick={()=>{this.seleccionarusuario(usr);this.modalInsertar()}}><FontAwesomeIcon icon={faEdit}/></button>
+                        <button className="btn btn-edit" onClick={()=>{this.seleccionarusuario(usr);this.modalInsertar()}}><FontAwesomeIcon icon={faEdit}/></button>
                         {"   "}
                         <button className="btn btn-danger" onClick={()=>{this.seleccionarusuario(usr);this.setState({modalEliminar:true})}}><FontAwesomeIcon icon={faTrashAlt}/></button>
                         </td>
@@ -140,17 +146,29 @@ render(){
                     ) }
                 </tbody>
             </table>
-
+           
             <Modal isOpen= {this.state.modalInsertar} >
-                <ModalBody>
-                <form onSubmit={this.manejadorSubmit}>
-                    <input type="text"   name="nombres" placeholder="nombre" onChange={this.handleChange} value={form?form.nombres:""}/>
-                    <input type="text"   name="apellidos" placeholder="apeliidos" onChange={this.handleChange} value={form?form.apellidos:""}/>
-                    <input type="text"   name="username" placeholder="username"onChange={this.handleChange} value={form?form.username:""}/>
-                    <input type="text"   name="rolid" placeholder="rolid" onChange={this.handleChange} value={form?form.rolid:""}/>
-                    <input type="password"   name="password" placeholder="password" onChange={this.handleChange} value={form?form.password:""}/>
+
+            <div class="modal-header">
+             <h5 class="modal-title">Crear Usuario</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={()=>this.modalInsertar()}></button>
+      </div>      
+            <ModalBody>                    
+                   
+               
+                 <form onSubmit={this.manejadorSubmit}>
+                    
+                    <input type="text" className="form-control" name="nombres" placeholder="Nombres" onChange={this.handleChange} value={form?form.nombres:""}/>
+                 
+                    <input type="text" className="form-control" name="apellidos" placeholder="Apeliidos" onChange={this.handleChange} value={form?form.apellidos:""}/>
+                    <input type="text" className="form-control"name="username" placeholder="Username"onChange={this.handleChange} value={form?form.username:""}/>
+                    <input type="text" className="form-control"name="rolid" placeholder="rolid" onChange={this.handleChange} value={form?form.rolid:""}/>
+                    <input type="password" className="form-control"name="password" placeholder="password" onChange={this.handleChange} value={form?form.password:""}/>
                     
                 </form>   
+
+
+
                 { this.state.error === true && 
                         <div className="alert alert-danger" role="alert">
                             {this.state.errorMsj}
@@ -158,15 +176,20 @@ render(){
                 }
                 
                 </ModalBody>
+
+
                 <ModalFooter>
                     {this.state.tipomodal === "insertar"?
-                    <button className="btn btn-success" onClick={()=>this.peticionPost()}>Insertar</button>:
-                    <button className="btn btn-success" onClick={()=>this.peticionPut()}>Actualizar</button>
+                    <button className="btn btn-crear-usuario" onClick={()=>this.peticionPost()}>Insertar</button>:
+                    <button className="btn btn-crear-usuario" onClick={()=>this.peticionPut()}>Actualizar</button>
                     }
 
                     <button className="btn btn-danger" onClick={()=>this.modalInsertar()}>Cancelar</button>
                 </ModalFooter>
             </Modal>
+
+
+
             <Modal isOpen={this.state.modalEliminar}>
                 <ModalBody>
                     ¿Estás seguro(a) que deseas eliminar al usuario {form&& form.nombres}
@@ -176,6 +199,9 @@ render(){
                     <button className="btn btn-secundary" onClick={()=>this.setState({modalEliminar:false})}>No</button>
                 </ModalFooter>
             </Modal>
+
+
+            
         </div>
         </React.Fragment>
     );

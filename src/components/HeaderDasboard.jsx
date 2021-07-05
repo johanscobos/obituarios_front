@@ -4,10 +4,10 @@ import {UrlShowUsr} from    '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSearch,faUser} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalBody,ModalFooter,ModalHeader} from 'reactstrap'
-class Header extends React.Component{ 
+import LogoBlanco from '../assets/img/logo-la-ofrenda-blanco.png';
+class HeaderDasboard extends React.Component{ 
 
-    
-    
+        
 render(){
     return(
         
@@ -16,8 +16,8 @@ render(){
 
             <button class="navbar-toggler me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
             <span class="navbar-toggler-icon" data-bs-target="#offcanvasExample"></span>
-</button>
-                <a class="navbar-brand fw-bold text-uppercase me-auto" href="#">LA OFRENDA</a>
+            </button>
+                <a class="navbar-brand fw-bold text-uppercase me-auto" href="#"><img src={LogoBlanco} alt="Logo blanco La Oferta" className="logo-blanco" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
@@ -55,4 +55,4 @@ render(){
 }
 
 
-export default Header;
+export default HeaderDasboard;
