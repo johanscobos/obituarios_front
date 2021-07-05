@@ -6,9 +6,9 @@ import axios from 'axios';
 import {Redirect} from 'react-router-dom'
 class Login extends React.Component{
 
-//constructor(props){
-//    super(props);
-//}    
+constructor(props){
+    super(props);
+}    
 state={
     form:{
         "username":"",
@@ -31,7 +31,8 @@ manejadorButton=()=>{
     let url= UrlLogin ;
         axios.post(url, this.state.form).then(response => {
                     localStorage.setItem("Token",response.data.api_token);
-                    this.props.history.push("/crudUser");
+                    window.location = '/crudUser'
+                   // this.props.history.push("/crudUser");
                 }).catch(error => {
                     this.setState
                     ({

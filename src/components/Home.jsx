@@ -3,12 +3,19 @@ import axios from 'axios';
 import logoOfrenda from '../assets/img/logo-la-ofrenda.png';
 import iconoLinea from '../assets/img/icono-linea-gratuita.png';
 import Obituarios from '../components/Obituarios';
-import {UrlShowUsr} from    '../services/apirest';
+import {UrlShowObit} from    '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSearch,faUser} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalBody,ModalFooter,ModalHeader} from 'reactstrap'
 class Home extends React.Component{ 
-
+    componentDidMount(){
+        this.peticionGet();
+        }
+    peticionGet=()=>{
+        axios.get(UrlShowObit).then(async response=>{
+         await this.setState({obituarios: response.data[0]});
+        })
+        }
     
 render(){
     return(

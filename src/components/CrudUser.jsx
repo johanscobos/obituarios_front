@@ -148,11 +148,13 @@ render(){
             </table>
            
             <Modal isOpen= {this.state.modalInsertar} >
-
+           
             <div class="modal-header">
-             <h5 class="modal-title">Crear Usuario</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={()=>this.modalInsertar()}></button>
-      </div>      
+            {this.state.tipomodal === "insertar"?
+                    <h5 class="modal-title">Crear Usuario</h5> :<h5 class="modal-title">Actualizar Usuario</h5>                    
+                    }
+            </div>
+            
             <ModalBody>                    
                    
                

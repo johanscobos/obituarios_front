@@ -5,9 +5,19 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSearch,faUser} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalBody,ModalFooter,ModalHeader} from 'reactstrap'
 import LogoBlanco from '../assets/img/logo-la-ofrenda-blanco.png';
+import { Redirect } from 'react-router';
 class HeaderDasboard extends React.Component{ 
-
-        
+    manejadorChange = async e=>{
+        await this.setState({
+            
+                busqueda:e.target.value
+        })
+        console.log(this.state.busqueda);
+    }
+    cerrarSesion =()=>{
+        localStorage.removeItem('Token');
+        window.location = '/Login'
+    }  
 render(){
     return(
         
@@ -25,7 +35,7 @@ render(){
                 
                 <form class="d-flex ms-auto">
                 <div class="input-group my-3 my-lg-0">
-                    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2"/>
+                    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2" onChange = {this.manejadorChange}/>
                     <button class="btn btn-primary" type="button" id="button-addon2"><FontAwesomeIcon icon={faSearch}/></button>
                 </div>
                 </form>
@@ -41,6 +51,7 @@ render(){
                             <li><a class="dropdown-item" href="#">Another action</a></li>
                             <li><hr class="dropdown-divider"/></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li><button className="btn" onClick={()=>this.cerrarSesion()}>cerrar sesion</button></li>
                         </ul>
                         </li>
                     

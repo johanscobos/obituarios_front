@@ -1,4 +1,4 @@
-import {BrowserRouter,Switch,Route} from 'react-router-dom'
+import {BrowserRouter,Switch,Route, Redirect} from 'react-router-dom'
 import Login from '../components/Login';
 import CrudUser from '../components/CrudUser';
 import HeaderDasboard from '../components/HeaderDasboard';
@@ -48,10 +48,8 @@ export const Routes=() => {
               <main className="mt-5 pt-3">
                 <div className="container-fluid">
                   <div className="col-md-12">
-                  { isAuth && 
-                     <Route exact path="/crudUser" component={CrudUser} /> 
-                  }
-                    <Route path="/crudUser" exact render = {props=>(<CrudUser{...props}/>)}></Route>
+                 {isAuth ? 
+                 <Route path="/crudUser" exact render = {props=>(<CrudUser{...props}/>)}/>: <Redirect to ="/Login"></Redirect>}
                   </div>               
                 </div>
               </main>
