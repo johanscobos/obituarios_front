@@ -127,8 +127,10 @@ html {
     background-color: #006091;
     -webkit-animation-iteration-count: infinite;
     animation-iteration-count: infinite;
-    transform: scale(1.1); 
-    
+    transform: scale(1.1);     
+  }
+  .btn-paga-aqui:link{    
+    background-color: #002244;
   }
   
 
@@ -137,14 +139,18 @@ html {
     -webkit-transition: all 0.5s 0s ease;
     -moz-transition: all 0.5s 0s ease;
     -o-transition: all 0.5s 0s ease;
-    transition: all 0.5s 0s ease;
-    
+    transition: all 0.5s 0s ease;    
   }
   .btn-descarga-app:hover{
     background-color: #006091;
     -webkit-animation-iteration-count: infinite;
     animation-iteration-count: infinite;
     transform: scale(1.1); 
+  }
+  .btn-descarga-app::visited,
+  .btn-descarga-app::active,
+  .btn-descarga-app::link{
+    background-color: #002244;
   }
   .btn-sesion:hover{
     background-color: #d42f74;
@@ -169,7 +175,11 @@ html {
     -webkit-transition: all 0.5s 0s ease;
     -moz-transition: all 0.5s 0s ease;
     -o-transition: all 0.5s 0s ease;
-    transition: all 0.5s 0s ease;
+    transition: all 0.5s 0s ease;   
+  }
+  .btn-active-menu{
+    background-color: #56baed;
+    color: #002244 !important;
    
   }
   .menu-barra_lateral_item:hover{

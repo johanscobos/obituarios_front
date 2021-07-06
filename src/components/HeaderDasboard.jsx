@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {Link,NavLink} from 'react-router-dom'
 import {UrlShowUsr} from    '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSearch,faUser} from '@fortawesome/free-solid-svg-icons'
@@ -27,7 +28,7 @@ render(){
             <button class="navbar-toggler me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
             <span class="navbar-toggler-icon" data-bs-target="#offcanvasExample"></span>
             </button>
-                <a class="navbar-brand fw-bold text-uppercase me-auto" href="#"><img src={LogoBlanco} alt="Logo blanco La Oferta" className="logo-blanco" /></a>
+                <NavLink exact to="/" className="navbar-brand fw-bold text-uppercase me-auto"><img src={LogoBlanco} alt="Logo blanco La Oferta" className="logo-blanco" /></NavLink>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>

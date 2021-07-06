@@ -1,4 +1,4 @@
-import {BrowserRouter,Switch,Route, Redirect} from 'react-router-dom'
+import {BrowserRouter,Switch,Route, Redirect,Link,NavLink} from 'react-router-dom'
 import Login from '../components/Login';
 import CrudUser from '../components/CrudUser';
 import HeaderDasboard from '../components/HeaderDasboard';
@@ -29,7 +29,7 @@ export const Routes=() => {
                 <nav class="navbar-dark">
                   <ul className="navbar-nav menu-barra_lateral">                   
                     <li className="menu-barra_lateral_item">
-                      <a href="#" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faUser}/><span>Usuarios</span></a>
+                      <NavLink exact to="/CrudUser" className="nav-link px-3 btn-active-menu"><FontAwesomeIcon className="me-2" icon={faUser}/><span>Usuarios</span></NavLink>
                     </li>
                     <li className="menu-barra_lateral_item">
                       <a href="#" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faBible}/><span>Obituarios</span></a>
@@ -45,10 +45,10 @@ export const Routes=() => {
                     </li>
                     <li className="menu-barra_lateral_item">
                       <a href="#" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faNetworkWired}/><span>IP Servidor</span></a>
-                    </li>
+                    </li>                  
                    
                   </ul>
-                </nav>
+                </nav> 
                 
               </div>
             </div>     
