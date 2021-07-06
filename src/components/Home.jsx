@@ -6,6 +6,7 @@ import Obituarios from '../components/Obituarios';
 //import {UrlShowObit} from    '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSearch,faUser,faShoppingCart,faMobileAlt} from '@fortawesome/free-solid-svg-icons';
+import {faFacebook,faInstagram,faTwitter,faYoutube } from '@fortawesome/free-brands-svg-icons';
 import {Modal,ModalBody,ModalFooter,ModalHeader} from 'reactstrap'
 class Home extends React.Component{ 
     /*componentDidMount(){
@@ -26,10 +27,10 @@ render(){
                 <div className="container">
                 
                 <ul className="header_top_items">
-                    <li className="header_top_item"><FontAwesomeIcon icon={faUser} className="header_top_item_icon"/></li>
-                    <li className="header_top_item"><FontAwesomeIcon icon={faUser} className="header_top_item_icon"/></li>
-                    <li className="header_top_item"><FontAwesomeIcon icon={faUser} className="header_top_item_icon"/></li>
-                    <li className="header_top_item"><FontAwesomeIcon icon={faUser} className="header_top_item_icon"/></li>
+                    <li className="header_top_item"><FontAwesomeIcon icon={faFacebook} className="header_top_item_icon"/></li>
+                    <li className="header_top_item"><FontAwesomeIcon icon={faInstagram} className="header_top_item_icon"/></li>
+                    <li className="header_top_item"><FontAwesomeIcon icon={faTwitter} className="header_top_item_icon"/></li>
+                    <li className="header_top_item"><FontAwesomeIcon icon={faYoutube} className="header_top_item_icon"/></li>
                     <li className="header_top_item"><FontAwesomeIcon icon={faUser} className="header_top_item_icon"/></li>     
                                
                 </ul>
