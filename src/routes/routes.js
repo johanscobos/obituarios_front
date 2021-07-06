@@ -9,7 +9,7 @@ import Home from '../components/Home';
 
 import { isAuthenticated } from '../services/authentication';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faSearch} from '@fortawesome/free-solid-svg-icons'
+import {faSearch,faUser,faBible,faStoreAlt,faGripHorizontal,faArchway,faNetworkWired} from '@fortawesome/free-solid-svg-icons'
 
 export const Routes=() => {
   const isAuth= isAuthenticated();
@@ -27,18 +27,26 @@ export const Routes=() => {
               
               <div class="offcanvas-body p-0">
                 <nav class="navbar-dark">
-                  <ul className="navbar-nav">
-                    <li>
-                      <div class="text-muted small fw-bold text-uppercase px-3">
-                        SALAS
-                      </div>
+                  <ul className="navbar-nav menu-barra_lateral">                   
+                    <li className="menu-barra_lateral_item">
+                      <a href="#" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faUser}/><span>Usuarios</span></a>
                     </li>
-                    <li>
-                      <a href="#" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faSearch}/><span>Crear</span></a>
+                    <li className="menu-barra_lateral_item">
+                      <a href="#" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faBible}/><span>Obituarios</span></a>
                     </li>
-                    <li className="my-4">
-                      <hr/>
+                    <li className="menu-barra_lateral_item">
+                      <a href="#" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faStoreAlt}/><span>Sedes de Velación</span></a>
                     </li>
+                    <li className="menu-barra_lateral_item">
+                      <a href="#" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faGripHorizontal}/><span>Salas de Velación</span></a>
+                    </li>
+                    <li className="menu-barra_lateral_item">
+                      <a href="#" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faArchway}/><span>Cementerios</span></a>
+                    </li>
+                    <li className="menu-barra_lateral_item">
+                      <a href="#" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faNetworkWired}/><span>IP Servidor</span></a>
+                    </li>
+                   
                   </ul>
                 </nav>
                 

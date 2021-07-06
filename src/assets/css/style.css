@@ -165,6 +165,17 @@ html {
   .sidebar-nav{
     width: 270px;
   }
+  .menu-barra_lateral_item{
+    -webkit-transition: all 0.5s 0s ease;
+    -moz-transition: all 0.5s 0s ease;
+    -o-transition: all 0.5s 0s ease;
+    transition: all 0.5s 0s ease;
+   
+  }
+  .menu-barra_lateral_item:hover{
+    background-color: #d42f74;
+   
+  }
   .bg-corporativo{
     background-color: #002244 !important;
   }
