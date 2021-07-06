@@ -26,11 +26,11 @@ render(){
                 <div className="container">
                 
                 <ul className="header_top_items">
-                    <li><FontAwesomeIcon icon={faUser} className="header_top_item"/></li>
-                    <li><FontAwesomeIcon icon={faUser} className="header_top_item"/></li>
-                    <li><FontAwesomeIcon icon={faUser} className="header_top_item"/></li>
-                    <li><FontAwesomeIcon icon={faUser} className="header_top_item"/></li>
-                    <li><FontAwesomeIcon icon={faUser} className="header_top_item"/></li>     
+                    <li className="header_top_item"><FontAwesomeIcon icon={faUser} className="header_top_item_icon"/></li>
+                    <li className="header_top_item"><FontAwesomeIcon icon={faUser} className="header_top_item_icon"/></li>
+                    <li className="header_top_item"><FontAwesomeIcon icon={faUser} className="header_top_item_icon"/></li>
+                    <li className="header_top_item"><FontAwesomeIcon icon={faUser} className="header_top_item_icon"/></li>
+                    <li className="header_top_item"><FontAwesomeIcon icon={faUser} className="header_top_item_icon"/></li>     
                                
                 </ul>
                 </div>
