@@ -4,53 +4,38 @@ import {UrlShowUsr} from    '../services/apirest';
 import {UrlCreateUsr} from    '../services/apirest';
 import {UrlUpdateUsr} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
-import {UrlShowRole} from    '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit,faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
-import Select from 'react-select'
-import Obituarios from './Obituarios';
-class CrudUser extends React.Component{
+class CrudObituario extends React.Component{
     state={
        usuarios:[],
-       roles:[],
        modalInsertar:false,
        modalEliminar: false,
        form:{ 
         "id":"",
-        "nombres":"",
+        "nombre":"",
         "apellidos":"",
-        "username":"",
-        "roleid":"",
+        "ciudad":"",
+        "sedeid":"",
         "password":""
     },
     error:false,
     errorMsj:"",
-    tipomodal:"",
-    selectOptions : [],
-    roleid: null,
-    descripcion:""
+    tipomodal:""
     }
     componentDidMount(){
         this.peticionGet();
-        this.peticionGetRol();
         }
     peticionGet=()=>{
         axios.get(UrlShowUsr).then(async response=>{
-         await this.setState({usuarios: response.data});
-        })
-        }
-    peticionGetRol=()=>{
-        axios.get(UrlShowRole).then(async response=>{
-            await this.setState({roles: response.data[0]});
-            console.log(this.state)
+         await this.setState({obituarios: response.data[0]});
         })
         }
     modalInsertar=()=>{
         this.setState({modalInsertar: !this.state.modalInsertar})
     }
     handleChange= async e=>{
-        console.log(e.target.value);
         e.persist();
         await this.setState({
             form:{
@@ -58,17 +43,16 @@ class CrudUser extends React.Component{
                 [e.target.name]: e.target.value
             }
         })
+        console.log(this.state.form)
     }  
-
-    selectChange(event) {    this.setState({value: event.target.value});  }
     manejadorSubmit =e=>{e.preventDefault();}
-    
     peticionPost=async()=>{
         await axios.post(UrlCreateUsr, this.state.form).then(response => {
             this.modalInsertar();
             this.peticionGet();
             this.setState
             ({
+                
                 modalInsertar:false,
                 error:false,
                 nombres : response.data.nombres,
@@ -76,8 +60,6 @@ class CrudUser extends React.Component{
                 username : response.data.username,
                 rolid : response.data.rolid
             })
-
-            
         }).catch(error => {
             this.setState
             ({
@@ -114,6 +96,7 @@ class CrudUser extends React.Component{
         })
     }
     peticionDelete=async()=>{
+        console.log('a');
         await axios.put(UrlDeleteUsr+this.state.form.id).then(response=>{
             this.setState({modalEliminar: false});
             this.peticionGet();
@@ -122,19 +105,17 @@ class CrudUser extends React.Component{
     }
 
    
-    
+      
 
 
 render(){
     const {usuarios} = this.state;
     const {form}=this.state;
-    const {roles} = this.state;
-    console.log(usuarios);
     return(
         <React.Fragment>
         <div >
             <br />
-            <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}>Crear usuario</button>
+            <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}>Crear obituario</button>
             <br /><br />
             <table className="table table-striped table-hover">
                 <thead>
@@ -143,7 +124,7 @@ render(){
                         <th>Nombres</th>
                         <th>Apellidos</th>
                         <th>Nombre usuario</th>
-                        <th>Rol</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -155,7 +136,6 @@ render(){
                         <td>{usr.nombres}</td>
                         <td>{usr.apellidos}</td>
                         <td>{usr.username}</td>
-                        <td>{usr.descripcion}</td>
                         <td>
                         <button className="btn btn-edit" onClick={()=>{this.seleccionarusuario(usr);this.modalInsertar()}}><FontAwesomeIcon icon={faEdit}/></button>
                         {"   "}
@@ -171,7 +151,7 @@ render(){
            
             <div class="modal-header">
             {this.state.tipomodal === "insertar"?
-                    <h5 class="modal-title">Crear Usuario</h5> :<h5 class="modal-title">Actualizar Usuario</h5>                    
+                    <h5 class="modal-title">Crear Obituario</h5> :<h5 class="modal-title">Actualizar Obituario</h5>                    
                     }
             </div>
             
@@ -184,9 +164,7 @@ render(){
                  
                     <input type="text" className="form-control" name="apellidos" placeholder="Apeliidos" onChange={this.handleChange} value={form?form.apellidos:""}/>
                     <input type="text" className="form-control"name="username" placeholder="Username"onChange={this.handleChange} value={form?form.username:""}/>
-                    <select name="rolid" className="form-control" value={this.state.roleid} onChange={this.handleChange} >
-                        {this.state.roles.map((rol,index)=>{ return(<option key={rol.roleid} value={rol.roleid}>{rol.descripcion} </option>)})}
-                    </select>
+                    <input type="text" className="form-control"name="rolid" placeholder="rolid" onChange={this.handleChange} value={form?form.rolid:""}/>
                     <input type="password" className="form-control"name="password" placeholder="password" onChange={this.handleChange} value={form?form.password:""}/>
                     
                 </form>   
@@ -216,7 +194,7 @@ render(){
 
             <Modal isOpen={this.state.modalEliminar}>
                 <ModalBody>
-                    ¿Estás seguro(a) que deseas eliminar al usuario {form&& form.nombres}
+                    ¿Estás seguro(a) que deseas eliminar al obituario {form&& form.nombres}
                 </ModalBody>
                 <ModalFooter>  
                     <button className="btn btn-danger" onClick={()=>this.peticionDelete()}> Si</button>
@@ -233,4 +211,4 @@ render(){
 }
 
 
-export default CrudUser;
+export default CrudObituario;
