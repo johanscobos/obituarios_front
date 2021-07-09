@@ -1,6 +1,6 @@
 import React  from 'react';
 import '../assets/css/Login.css';
-import logo from '../assets/img/logo.png';
+import logoBlanco from '../assets/img/logo-la-ofrenda-blanco.png';
 import {UrlLogin} from    '../services/apirest';
 import axios from 'axios';
 import {Redirect} from 'react-router-dom'
@@ -50,17 +50,16 @@ render(){
             <div className="wrapper fadeInDown">
                 <div id="formContent">
                     
-                    <div className="fadeIn first">
+                    <div className="fadeIn first login-top">
                         <br /><br />
-                    <img src={logo} width="100px" alt="User Icon" />
+                    <img src={logoBlanco} width="100px" alt="User Icon" />
                     <br /><br />
                     </div>
-
-                    
-                    <form onSubmit={this.manejadorSubmit}>
-                    <input type="text"  className="fadeIn second" name="username" placeholder="user" onChange={this.manejadorChange}/>
-                    <input type="password"  className="fadeIn third" name="password" placeholder="password" onChange={this.manejadorChange}/>
-                    <input type="submit" className="fadeIn fourth" value="Log In" onClick={this.manejadorButton}/>
+                   
+                    <form onSubmit={this.manejadorSubmit} className="form-login">
+                    <input type="text"  className="fadeIn second form-control" name="username" placeholder="Usuario" onChange={this.manejadorChange}/>
+                    <input type="password"  className="fadeIn third form-control" name="password" placeholder="Contraseña" onChange={this.manejadorChange}/>
+                    <input type="submit" className="fadeIn fourth btn btn-ingresar" value="Ingresar" onClick={this.manejadorButton}/>
                     </form>
                     
                     { this.state.error === true && 
