@@ -4,4 +4,7 @@ export const UrlShowUsr="http://localhost:8089/user/showRole";
 export const UrlUpdateUsr="http://localhost:8089/user/update/";
 export const UrlDeleteUsr="http://localhost:8089/user/destroy/";
 export const UrlShowObit="http://localhost:8089/obituario/show/";
+export const UrlShowObithome="http://localhost:8089/obituario/showobithome/";
+export const UrlCreateObi="http://localhost:8089/obituarios/create"
+export const UrlUpdateObi="http://localhost:8089/user/update/";
 export const UrlShowRole="http://localhost:8089/role/show/";

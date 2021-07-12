@@ -114,7 +114,7 @@ class CrudUser extends React.Component{
         })
     }
     peticionDelete=async()=>{
-        await axios.put(UrlDeleteUsr+this.state.form.id).then(response=>{
+        await axios.delete(UrlDeleteUsr+this.state.form.id).then(response=>{
             this.setState({modalEliminar: false});
             this.peticionGet();
 

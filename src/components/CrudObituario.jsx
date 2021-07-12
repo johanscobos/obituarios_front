@@ -1,34 +1,51 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {UrlShowUsr} from    '../services/apirest';
+import {UrlCreateObi, UrlShowObit} from    '../services/apirest';
 import {UrlCreateUsr} from    '../services/apirest';
 import {UrlUpdateUsr} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
+import {UrlShowObithome} from '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit,faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css'
 class CrudObituario extends React.Component{
     state={
-       usuarios:[],
+       obituarios:[],
        modalInsertar:false,
        modalEliminar: false,
        form:{ 
         "id":"",
         "nombre":"",
         "apellidos":"",
-        "ciudad":"",
+        "mensaje":"",
+        "ciudadid":"",
         "sedeid":"",
-        "password":""
+        "salaid":"",
+        "iglesiaid":"",
+        "horamisa":"",
+        "cementerioid":"",
+        "horadestinofinal":"",
+        "fechaexequias":"",
+        "virtual":"",
+        "iniciopublicacion":"",
+        "finpublicacion":""
     },
     error:false,
     errorMsj:"",
-    tipomodal:""
+    tipomodal:"",
+    sedeid: null,
+    salaid: null,
+    iglesiaid: null,
+    cementerioid: null,
+    fecha: new Date()
     }
     componentDidMount(){
         this.peticionGet();
         }
     peticionGet=()=>{
-        axios.get(UrlShowUsr).then(async response=>{
+        axios.get(UrlShowObithome).then(async response=>{
          await this.setState({obituarios: response.data[0]});
         })
         }
@@ -47,7 +64,7 @@ class CrudObituario extends React.Component{
     }  
     manejadorSubmit =e=>{e.preventDefault();}
     peticionPost=async()=>{
-        await axios.post(UrlCreateUsr, this.state.form).then(response => {
+        await axios.post(UrlCreateObi, this.state.form).then(response => {
             this.modalInsertar();
             this.peticionGet();
             this.setState
@@ -55,10 +72,20 @@ class CrudObituario extends React.Component{
                 
                 modalInsertar:false,
                 error:false,
-                nombres : response.data.nombres,
+                nombre : response.data.nombre,
                 apellidos : response.data.apellidos,
-                username : response.data.username,
-                rolid : response.data.rolid
+                mensaje : response.data.mensaje,
+                ciudadid : response.data.ciudadid,
+                sedeid : response.data.sedeid,
+                salaid : response.data.salaid,
+                iglesiaid : response.data.iglesiaid,
+                horamisa : response.data.horamisa,
+                cementerioid : response.data.cementerioid,
+                horadestinofinal : response.data.horadestinofinal,
+                fechaexequias : response.data.fechaexequias,
+                virtual : response.data.virtual,
+                iniciopublicacion : response.data.iniciopublicacion,
+                finpublicacion : response.data.finpublicacion
             })
         }).catch(error => {
             this.setState
@@ -105,11 +132,13 @@ class CrudObituario extends React.Component{
     }
 
    
-      
+    cambioFecha=fecha=>{
+        this.setState({fecha: fecha})
+    }
 
 
 render(){
-    const {usuarios} = this.state;
+    const {obituarios} = this.state;
     const {form}=this.state;
     return(
         <React.Fragment>
@@ -123,23 +152,44 @@ render(){
                         <th>Id</th>
                         <th>Nombres</th>
                         <th>Apellidos</th>
-                        <th>Nombre usuario</th>
-                        <th>Acción</th>
+                        <th>Mensaje</th>
+                        <th>Ciudad</th>
+                        <th>Sede</th>
+                        <th>Sala</th>
+                        <th>Iglesia</th>
+                        <th>Hora de misa</th>
+                        <th>Cementerio</th>
+                        <th>Hora destino final</th>
+                        <th>Fecha Exequias</th>
+                        <th>Acom. Virtual</th>
+                        <th>Inicio publicación</th>
+                        <th>Fin publicación</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {usuarios.map
-                    ((usr,index)=>{
+                    {obituarios.map
+                    ((obi,index)=>{
                     return(
                         <tr key={index}>
-                        <td>{usr.id}</td>
-                        <td>{usr.nombres}</td>
-                        <td>{usr.apellidos}</td>
-                        <td>{usr.username}</td>
+                        <td>{obi.idobituario}</td>
+                        <td>{obi.nombreobituario}</td>
+                        <td>{obi.apellidosobituario}</td>
+                        <td>{obi.mensajeobituario}</td>
+                        <td>{obi.ciudadid}</td>
+                        <td>{obi.nombresede}</td>
+                        <td>{obi.nombresala}</td>
+                        <td>{obi.nombreiglesia}</td>
+                        <td>{obi.horamisa}</td>
+                        <td>{obi.nombrecementerio}</td>
+                        <td>{obi.horadestinofinal}</td>
+                        <td>{obi.fechaexequias}</td>
+                        <td>{obi.virtual}</td>
+                        <td>{obi.iniciopublicacion}</td>
+                        <td>{obi.finpublicacion}</td>
                         <td>
-                        <button className="btn btn-edit" onClick={()=>{this.seleccionarusuario(usr);this.modalInsertar()}}><FontAwesomeIcon icon={faEdit}/></button>
+                        <button className="btn btn-edit" onClick={()=>{this.seleccionarusuario(obi);this.modalInsertar();this.setState({tipomodal: "actualizar"})}}><FontAwesomeIcon icon={faEdit}/></button>
                         {"   "}
-                        <button className="btn btn-danger" onClick={()=>{this.seleccionarusuario(usr);this.setState({modalEliminar:true})}}><FontAwesomeIcon icon={faTrashAlt}/></button>
+                        <button className="btn btn-danger" onClick={()=>{this.seleccionarusuario(obi);this.setState({modalEliminar:true})}}><FontAwesomeIcon icon={faTrashAlt}/></button>
                         </td>
                         </tr>
                         )}
@@ -160,13 +210,32 @@ render(){
                
                  <form onSubmit={this.manejadorSubmit}>
                     
-                    <input type="text" className="form-control" name="nombres" placeholder="Nombres" onChange={this.handleChange} value={form?form.nombres:""}/>
+                    <input type="text" className="form-control" name="nombre" placeholder="Nombres" onChange={this.handleChange} value={form?form.nombre:""}/>
                  
                     <input type="text" className="form-control" name="apellidos" placeholder="Apeliidos" onChange={this.handleChange} value={form?form.apellidos:""}/>
-                    <input type="text" className="form-control"name="username" placeholder="Username"onChange={this.handleChange} value={form?form.username:""}/>
-                    <input type="text" className="form-control"name="rolid" placeholder="rolid" onChange={this.handleChange} value={form?form.rolid:""}/>
-                    <input type="password" className="form-control"name="password" placeholder="password" onChange={this.handleChange} value={form?form.password:""}/>
-                    
+                    <input type="text" className="form-control" name="mensaje" placeholder="Mensaje" onChange={this.handleChange} value={form?form.mensaje:""}/>
+                    <input type="text" className="form-control"name="ciudadid" placeholder="ciudadid"onChange={this.handleChange} value={form?form.ciudadid:""}/>
+                    <select name="sedeid" className="form-control" value={this.state.sedeid} onChange={this.handleChange} ><option value="">Seleccione una sede</option>
+                        {this.state.obituarios.map((obi,index)=>{ return(<option key={obi.sedeid} value={obi.sedeid}>{obi.nombresede} </option>)})}
+                    </select>
+                    <select name="salaid" className="form-control" value={this.state.salaid} onChange={this.handleChange} ><option value="">Seleccione una sala</option>
+                        {this.state.obituarios.map((obi,index)=>{ return(<option key={obi.salaid} value={obi.salaid}>{obi.nombresala} </option>)})}
+                    </select>
+                    <select name="iglesiaid" className="form-control" value={this.state.iglesiaid} onChange={this.handleChange} ><option value="">Seleccione una iglesia</option>
+                        {this.state.obituarios.map((obi,index)=>{ return(<option key={obi.iglesiaid} value={obi.iglesiaid}>{obi.nombreiglesia} </option>)})}
+                    </select>
+                    <input type="text" className="form-control"name="horamisa" placeholder="horamisa" onChange={this.handleChange} value={form?form.horamisa:""}/>
+                    <select name="cementerioid" className="form-control" value={this.state.cementerioid} onChange={this.handleChange} ><option value="">Seleccione un cementerio</option>
+                        {this.state.obituarios.map((obi,index)=>{ return(<option key={obi.cementerioid} value={obi.cementerioid}>{obi.nombrecementerio} </option>)})}
+                    </select>
+                    Fecha Exequias <input  name="fechaexequias"  type="date"   
+                    className="form-control"  onChange={ this.handleChange} />
+                    Acomp. Virtual<input type="checkbox" name="virtual" onChange={this.handleChange} value="S"/> <br/>
+                    <input type="text" className="form-control"name="horadestinofinal" placeholder="horadestinofinal" onChange={this.handleChange} value={form?form.horadestinofinal:""}/>
+                    Fecha inicio publicación <input  name="iniciopublicacion"  type="date"   
+                    className="form-control"  onChange={ this.handleChange} />
+                    Fecha fin publicación <input  name="finpublicacion"  type="date"   
+                    className="form-control"  onChange={ this.handleChange} /><br/>
                 </form>   
 
 
@@ -181,9 +250,10 @@ render(){
 
 
                 <ModalFooter>
+                    
                     {this.state.tipomodal === "insertar"?
                     <button className="btn btn-crear-usuario" onClick={()=>this.peticionPost()}>Insertar</button>:
-                    <button className="btn btn-crear-usuario" onClick={()=>this.peticionPut()}>Actualizar</button>
+                    <button className="btn btn-crear-usuario" onClick={()=>this.peticionPut()}>Actualizar</button>  
                     }
 
                     <button className="btn btn-danger" onClick={()=>this.modalInsertar()}>Cancelar</button>
