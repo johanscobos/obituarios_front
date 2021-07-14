@@ -39,7 +39,8 @@ class CrudObituario extends React.Component{
     salaid: null,
     iglesiaid: null,
     cementerioid: null,
-    fecha: new Date()
+    fecha: new Date(),
+    virtual: "N"
     }
     componentDidMount(){
         this.peticionGet();
@@ -101,15 +102,26 @@ class CrudObituario extends React.Component{
         })        
     }
 
-    seleccionarusuario=async(usr)=>{
+    seleccionarobituario=async(obi)=>{
+        console.log(obi)
         await this.setState({
             form:{
-                id:usr.id,
-                nombres: usr.nombres,
-                apellidos: usr.apellidos,
-                rolid: usr.rolid,
-                username: usr.username
-            }
+                id:obi.idobituario,
+                nombre:obi.nombreobituario,
+                apellidos:obi.apellidosobituario,
+                mensaje:obi.mensajeobituario,
+                ciudadid:obi.ciudadid,
+                horamisa: obi.horamisa,
+                horadestinofinal:obi.horadestinofinal,
+                fechaexequias:obi.fechaexequias,
+                virtual: obi.virtual,
+                iniciopublicacion:obi.iniciopublicacion,
+                finpublicacion: obi.finpublicacion
+            },
+            sedeid:obi.sedeid,
+            salaid:obi.salaid,
+            iglesiaid:obi.iglesiaid,
+            cementerioid: obi.cementerioid
         })
     }
     peticionPut=async()=>{
@@ -187,9 +199,9 @@ render(){
                         <td>{obi.iniciopublicacion}</td>
                         <td>{obi.finpublicacion}</td>
                         <td>
-                        <button className="btn btn-edit" onClick={()=>{this.seleccionarusuario(obi);this.modalInsertar();this.setState({tipomodal: "actualizar"})}}><FontAwesomeIcon icon={faEdit}/></button>
+                        <button className="btn btn-edit" onClick={()=>{this.seleccionarobituario(obi);this.modalInsertar();this.setState({tipomodal: "actualizar"})}}><FontAwesomeIcon icon={faEdit}/></button>
                         {"   "}
-                        <button className="btn btn-danger" onClick={()=>{this.seleccionarusuario(obi);this.setState({modalEliminar:true})}}><FontAwesomeIcon icon={faTrashAlt}/></button>
+                        <button className="btn btn-danger" onClick={()=>{this.seleccionarobituario(obi);this.setState({modalEliminar:true})}}><FontAwesomeIcon icon={faTrashAlt}/></button>
                         </td>
                         </tr>
                         )}
@@ -218,7 +230,7 @@ render(){
                     <select name="sedeid" className="form-control" value={this.state.sedeid} onChange={this.handleChange} ><option value="">Seleccione una sede</option>
                         {this.state.obituarios.map((obi,index)=>{ return(<option key={obi.sedeid} value={obi.sedeid}>{obi.nombresede} </option>)})}
                     </select>
-                    <select name="salaid" className="form-control" value={this.state.salaid} onChange={this.handleChange} ><option value="">Seleccione una sala</option>
+                    <select name="salaid" className="form-control" value={this.state.salaid?this.state.salaid:""} onChange={this.handleChange} ><option value="">Seleccione una sala</option>
                         {this.state.obituarios.map((obi,index)=>{ return(<option key={obi.salaid} value={obi.salaid}>{obi.nombresala} </option>)})}
                     </select>
                     <select name="iglesiaid" className="form-control" value={this.state.iglesiaid} onChange={this.handleChange} ><option value="">Seleccione una iglesia</option>
@@ -229,13 +241,13 @@ render(){
                         {this.state.obituarios.map((obi,index)=>{ return(<option key={obi.cementerioid} value={obi.cementerioid}>{obi.nombrecementerio} </option>)})}
                     </select>
                     Fecha Exequias <input  name="fechaexequias"  type="date"   
-                    className="form-control"  onChange={ this.handleChange} />
-                    Acomp. Virtual<input type="checkbox" name="virtual" onChange={this.handleChange} value="S"/> <br/>
+                    className="form-control"  onChange={ this.handleChange} value={form?form.fechaexequias:""}/>
+                    Acomp. Virtual<input type="checkbox" name="virtual"  onChange={this.handleChange}/> <br/>
                     <input type="text" className="form-control"name="horadestinofinal" placeholder="horadestinofinal" onChange={this.handleChange} value={form?form.horadestinofinal:""}/>
                     Fecha inicio publicación <input  name="iniciopublicacion"  type="date"   
-                    className="form-control"  onChange={ this.handleChange} />
+                    className="form-control"  onChange={ this.handleChange} defaultValue={this.state.fecha} value={form?form.iniciopublicacion:""}/>
                     Fecha fin publicación <input  name="finpublicacion"  type="date"   
-                    className="form-control"  onChange={ this.handleChange} /><br/>
+                    className="form-control"  onChange={ this.handleChange} value={form?form.finpublicacion:""} /><br/>
                 </form>   
 
 
