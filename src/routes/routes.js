@@ -2,6 +2,7 @@ import {BrowserRouter,Switch,Route, Redirect,Link,NavLink} from 'react-router-do
 import Login from '../components/Login';
 import CrudUser from '../components/CrudUser';
 import CrudObituario from '../components/CrudObituario';
+import CrudSala from '../components/crudSalas';
 import HeaderDasboard from '../components/HeaderDasboard';
 import Home from '../components/Home';
 
@@ -64,6 +65,11 @@ export const Routes=() => {
                   <div className="col-md-12">
                  {isAuth ? 
                  <Route path="/crudObituario" exact render = {props=>(<CrudObituario{...props}/>)}/>: <Redirect to ="/Login"></Redirect>}
+                  </div>   
+
+                  <div className="col-md-12">
+                  {isAuth ? 
+                  <Route path="/crudSala" exact render = {props=>(<CrudSala{...props}/>)}/>: <Redirect to ="/Login"></Redirect>}
                   </div>               
                 </div>
               </main>

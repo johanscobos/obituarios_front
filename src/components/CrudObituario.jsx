@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {UrlCreateObi, UrlShowObit} from    '../services/apirest';
-import {UrlCreateUsr} from    '../services/apirest';
-import {UrlUpdateUsr} from    '../services/apirest';
+import {UrlCreateObi} from    '../services/apirest';
+import {UrlUpdateObi} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
 import {UrlShowObithome} from '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -40,7 +39,7 @@ class CrudObituario extends React.Component{
     iglesiaid: null,
     cementerioid: null,
     fecha: new Date(),
-    virtual: "N"
+    virtual: false
     }
     componentDidMount(){
         this.peticionGet();
@@ -53,6 +52,9 @@ class CrudObituario extends React.Component{
     modalInsertar=()=>{
         this.setState({modalInsertar: !this.state.modalInsertar})
     }
+    handleCheck = async e=>{
+        this.setState({virtual: !this.state.virtual})
+    }
     handleChange= async e=>{
         e.persist();
         await this.setState({
@@ -61,7 +63,7 @@ class CrudObituario extends React.Component{
                 [e.target.name]: e.target.value
             }
         })
-        console.log(this.state.form)
+        console.log({id:this.state.form.id,apellidos:this.state.form.apellidos,ciudadid:this.state.form.ciudadid,fechaexequias:this.state.form.fechaexequias,finpublicacion:this.state.form.finpublicacion,horadestinofinal:this.state.form.horadestinofinal,horamisa:this.state.form.horamisa,iniciopublicacion:this.state.form.iniciopublicacion,mensaje:this.state.form.mensaje,nombre:this.state.form.nombre,virtual:this.state.form.virtual,sedeid:this.state.sedeid,salaid:this.state.salaid,cementerioid:this.state.cementerioid,iglesiaid:this.state.iglesiaid})
     }  
     manejadorSubmit =e=>{e.preventDefault();}
     peticionPost=async()=>{
@@ -125,7 +127,8 @@ class CrudObituario extends React.Component{
         })
     }
     peticionPut=async()=>{
-        await axios.put(UrlUpdateUsr+this.state.form.id,this.state.form).then(response=>{
+        await axios.put(UrlUpdateObi+this.state.form.id,{id:this.state.form.id,apellidos:this.state.form.apellidos,ciudadid:this.state.form.ciudadid,fechaexequias:this.state.form.fechaexequias,finpublicacion:this.state.form.finpublicacion,horadestinofinal:this.state.form.horadestinofinal,horamisa:this.state.form.horamisa,iniciopublicacion:this.state.form.iniciopublicacion,mensaje:this.state.form.mensaje,nombre:this.state.form.nombre,virtual:this.state.form.virtual,sedeid:this.state.sedeid,salaid:this.state.salaid,cementerioid:this.state.cementerioid,iglesiaid:this.state.iglesiaid}).then(response=>{
+            console.log(this.state.form)
             this.modalInsertar();
             this.peticionGet();
             this.setState
@@ -242,7 +245,7 @@ render(){
                     </select>
                     Fecha Exequias <input  name="fechaexequias"  type="date"   
                     className="form-control"  onChange={ this.handleChange} value={form?form.fechaexequias:""}/>
-                    Acomp. Virtual<input type="checkbox" name="virtual"  onChange={this.handleChange}/> <br/>
+                    Acomp. Virtual<input type="checkbox" name="virtual"  onChange={this.handleCheck} defaultChecked={this.state.virtual}/> <br/>
                     <input type="text" className="form-control"name="horadestinofinal" placeholder="horadestinofinal" onChange={this.handleChange} value={form?form.horadestinofinal:""}/>
                     Fecha inicio publicación <input  name="iniciopublicacion"  type="date"   
                     className="form-control"  onChange={ this.handleChange} defaultValue={this.state.fecha} value={form?form.iniciopublicacion:""}/>

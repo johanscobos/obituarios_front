@@ -17,7 +17,7 @@ class HeaderDasboard extends React.Component{
     }
     cerrarSesion =()=>{
         localStorage.removeItem('Token');
-        window.location = '/Login'
+        window.location = '/Home'
     }  
 render(){
     return(
