@@ -3,6 +3,9 @@ import Login from '../components/Login';
 import CrudUser from '../components/CrudUser';
 import CrudObituario from '../components/CrudObituario';
 import CrudSala from '../components/crudSalas';
+import CrudSede from '../components/crudSedes';
+import CrudCementerios from '../components/crudCementerios';
+import CrudIglesia from '../components/crudIglesia';
 import HeaderDasboard from '../components/HeaderDasboard';
 import Home from '../components/Home';
 
@@ -70,7 +73,22 @@ export const Routes=() => {
                   <div className="col-md-12">
                   {isAuth ? 
                   <Route path="/crudSala" exact render = {props=>(<CrudSala{...props}/>)}/>: <Redirect to ="/Login"></Redirect>}
-                  </div>               
+                  </div>    
+
+                  <div className="col-md-12">
+                  {isAuth ? 
+                  <Route path="/crudSedes" exact render = {props=>(<CrudSede{...props}/>)}/>: <Redirect to ="/Login"></Redirect>}
+                  </div>  
+
+                  <div className="col-md-12">
+                  {isAuth ? 
+                  <Route path="/crudCementerios" exact render = {props=>(<CrudCementerios{...props}/>)}/>: <Redirect to ="/Login"></Redirect>}
+                  </div>    
+
+                  <div className="col-md-12">
+                  {isAuth ? 
+                  <Route path="/crudIglesias" exact render = {props=>(<CrudIglesia{...props}/>)}/>: <Redirect to ="/Login"></Redirect>}
+                  </div>          
                 </div>
               </main>
               
