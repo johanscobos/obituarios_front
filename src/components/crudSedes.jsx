@@ -1,35 +1,35 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {UrlCreateSala} from    '../services/apirest';
-import {UrlUpdSala} from    '../services/apirest';
+import {UrlCreateSede} from    '../services/apirest';
+import {UrlUpdateSede} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
-import {UrlShowSala} from '../services/apirest';
+import {UrlShowSede} from '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit,faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
 import 'react-datepicker/dist/react-datepicker.css'
-class CrudSalas extends React.Component{
+class CrudSedes extends React.Component{
     state={
-       salas:[],
+       sedes:[],
        modalInsertar:false,
        modalEliminar: false,
        form:{ 
         "id":"",
-        "nombresala":"",
-        "sedeid":"",
-        "ipid":"",
+        "nombresede":"",
+        "direccion":"",
+        "telefono":"",
+        "ciudad":""
     },
     error:false,
     errorMsj:"",
-    sedeid: null,
-    ipid: null
+    ciudadid:null
     }
     componentDidMount(){
         this.peticionGet();
         }
     peticionGet=()=>{
-        axios.get(UrlShowSala).then(async response=>{
-         await this.setState({salas: response.data[0]});
+        axios.get(UrlShowSede).then(async response=>{
+         await this.setState({sedes: response.data[0]});
         })
         }
     modalInsertar=()=>{
@@ -46,7 +46,7 @@ class CrudSalas extends React.Component{
     }  
     manejadorSubmit =e=>{e.preventDefault();}
     peticionPost=async()=>{
-        await axios.post(UrlCreateSala, this.state.form).then(response => {
+        await axios.post(UrlCreateSede, this.state.form).then(response => {
             this.modalInsertar();
             this.peticionGet();
             this.setState
@@ -54,36 +54,38 @@ class CrudSalas extends React.Component{
                 
                 modalInsertar:false,
                 error:false,
-                nombresala : response.data.nombresala,
-                sedeid : response.data.sedeid,
-                ipid : response.data.ipid
+                nombresede : response.data.nombresede,
+                direccion : response.data.direccion,
+                telefono : response.data.telefono,
+                ciudad : response.data.ciudad
             })
         }).catch(error => {
             this.setState
             ({
                 error : true,
                 errorMsj:error.response.request.response,
-                nombresala:"",
-                sedeid:"",
-                ipid:""
+                nombresede:"",
+                direccion:"",
+                telefono:""
             })
         
         })        
     }
 
-    seleccionarsala=async(sal)=>{
-        console.log(sal)
+    seleccionarsede=async(sed)=>{
+        console.log(sed)
         await this.setState({
             form:{
-                id:sal.id,
-                nombresala:sal.nombresala,
-                sedeid : sal.sedeid,
-                ipid:sal.ipid,
+                id:sed.id,
+                nombresede:sed.nombresede,
+                direccion : sed.direccion,
+                telefono:sed.telefono,
+                ciudad:sed.ciudad
             }
         })
     }
     peticionPut=async()=>{
-        await axios.put(UrlUpdSala+this.state.form.id,this.state.form).then(response=>{
+        await axios.put(UrlUpdateSede+this.state.form.id,this.state.form).then(response=>{
             console.log(this.state.form)
             this.modalInsertar();
             this.peticionGet();
@@ -109,36 +111,38 @@ class CrudSalas extends React.Component{
 
 
 render(){
-    const {salas} = this.state;
+    const {sedes} = this.state;
     const {form}=this.state;
     return(
         <React.Fragment>
         <div >
             <br />
-            <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}>Crear sala</button>
+            <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}>Crear sede</button>
             <br /><br />
             <table className="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th>Id</th>
                         <th>Nombres</th>
-                        <th>Sede</th>
-                        <th>Ip</th>
+                        <th>Dirección</th>
+                        <th>Teléfono</th>
+                        <th>Ciudad</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {salas.map
-                    ((sal,index)=>{
+                    {sedes.map
+                    ((sed,index)=>{
                     return(
                         <tr key={index}>
-                        <td>{sal.id}</td>
-                        <td>{sal.nombresala}</td>
-                        <td>{sal.sedeid}</td>
-                        <td>{sal.ipid}</td>
+                        <td>{sed.id}</td>
+                        <td>{sed.nombresede}</td>
+                        <td>{sed.direccion}</td>
+                        <td>{sed.telefono}</td>
+                        <td>{sed.ciudad}</td>
                         <td>
-                        <button className="btn btn-edit" onClick={()=>{this.seleccionarsala(sal);this.modalInsertar();this.setState({tipomodal: "actualizar"})}}><FontAwesomeIcon icon={faEdit}/></button>
+                        <button className="btn btn-edit" onClick={()=>{this.seleccionarsede(sed);this.modalInsertar();this.setState({tipomodal: "actualizar"})}}><FontAwesomeIcon icon={faEdit}/></button>
                         {"   "}
-                        <button className="btn btn-danger" onClick={()=>{this.seleccionarsala(sal);this.setState({modalEliminar:true})}}><FontAwesomeIcon icon={faTrashAlt}/></button>
+                        <button className="btn btn-danger" onClick={()=>{this.seleccionarsede(sed);this.setState({modalEliminar:true})}}><FontAwesomeIcon icon={faTrashAlt}/></button>
                         </td>
                         </tr>
                         )}
@@ -150,7 +154,7 @@ render(){
            
             <div class="modal-header">
             {this.state.tipomodal === "insertar"?
-                    <h5 class="modal-title">Crear Sala</h5> :<h5 class="modal-title">Actualizar Sala</h5>                    
+                    <h5 class="modal-title">Crear Sede</h5> :<h5 class="modal-title">Actualizar Sede</h5>                    
                     }
             </div>
             
@@ -159,10 +163,13 @@ render(){
                
                  <form onSubmit={this.manejadorSubmit}>
                     
-                    <input type="text" className="form-control" name="nombresala" placeholder="Nombre sala" onChange={this.handleChange} value={form?form.nombresala:""}/>
+                    <input type="text" className="form-control" name="nombresede" placeholder="Nombre sede" onChange={this.handleChange} value={form?form.nombresede:""}/>
                  
-                    <input type="text" className="form-control" name="sedeid" placeholder="Sede" onChange={this.handleChange} value={form?form.sedeid:""}/>
-                    <input type="text" className="form-control" name="ipid" placeholder="IP" onChange={this.handleChange} value={form?form.ipid:""} />
+                    <input type="text" className="form-control" name="direccion" placeholder="Direccion" onChange={this.handleChange} value={form?form.direccion:""}/>
+                    <input type="text" className="form-control" name="telefono" placeholder="Telefono" onChange={this.handleChange} value={form?form.telefono:""} />
+                    <select name="ciudad" className="form-control" value={this.state.ciudadid} onChange={this.handleChange} ><option value="">Seleccione una ciudad</option>
+                        {this.state.sedes.map((sed,index)=>{ return(<option key={sed.id} value={sed.id}>{sed.nombresede} </option>)})}
+                    </select>
                     
                 </form>   
 
@@ -209,4 +216,4 @@ render(){
 }
 
 
-export default CrudSalas;
+export default CrudSedes;

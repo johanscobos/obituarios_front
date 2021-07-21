@@ -1,35 +1,34 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {UrlCreateSala} from    '../services/apirest';
-import {UrlUpdSala} from    '../services/apirest';
+import {UrlCreateIglesia} from    '../services/apirest';
+import {UrlUpdateIglesia} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
-import {UrlShowSala} from '../services/apirest';
+import {UrlShowIglesia} from '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit,faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
 import 'react-datepicker/dist/react-datepicker.css'
-class CrudSalas extends React.Component{
+class CrudCementerios extends React.Component{
     state={
-       salas:[],
+       iglesias:[],
        modalInsertar:false,
        modalEliminar: false,
        form:{ 
         "id":"",
-        "nombresala":"",
-        "sedeid":"",
-        "ipid":"",
+        "nombresede":"",
+        "direccion":"",
+        "ciudad":""
     },
     error:false,
     errorMsj:"",
-    sedeid: null,
-    ipid: null
+    ciudadid:null
     }
     componentDidMount(){
         this.peticionGet();
         }
     peticionGet=()=>{
-        axios.get(UrlShowSala).then(async response=>{
-         await this.setState({salas: response.data[0]});
+        axios.get(UrlShowIglesia).then(async response=>{
+         await this.setState({iglesias: response.data[0]});
         })
         }
     modalInsertar=()=>{
@@ -46,7 +45,7 @@ class CrudSalas extends React.Component{
     }  
     manejadorSubmit =e=>{e.preventDefault();}
     peticionPost=async()=>{
-        await axios.post(UrlCreateSala, this.state.form).then(response => {
+        await axios.post(UrlCreateIglesia, this.state.form).then(response => {
             this.modalInsertar();
             this.peticionGet();
             this.setState
@@ -54,36 +53,36 @@ class CrudSalas extends React.Component{
                 
                 modalInsertar:false,
                 error:false,
-                nombresala : response.data.nombresala,
-                sedeid : response.data.sedeid,
-                ipid : response.data.ipid
+                nombre : response.data.nombre,
+                direccion : response.data.direccion,
+                ciudad : response.data.ciudad
             })
         }).catch(error => {
             this.setState
             ({
                 error : true,
                 errorMsj:error.response.request.response,
-                nombresala:"",
-                sedeid:"",
-                ipid:""
+                nombre:"",
+                direccion:"",
+                ciudad:""
             })
         
         })        
     }
 
-    seleccionarsala=async(sal)=>{
-        console.log(sal)
+    seleccionariglesia=async(igl)=>{
+        console.log(igl)
         await this.setState({
             form:{
-                id:sal.id,
-                nombresala:sal.nombresala,
-                sedeid : sal.sedeid,
-                ipid:sal.ipid,
+                id:igl.id,
+                nombre:igl.nombre,
+                direccion : igl.direccion,
+                ciudad:igl.ciudad
             }
         })
     }
     peticionPut=async()=>{
-        await axios.put(UrlUpdSala+this.state.form.id,this.state.form).then(response=>{
+        await axios.put(UrlUpdateIglesia+this.state.form.id,this.state.form).then(response=>{
             console.log(this.state.form)
             this.modalInsertar();
             this.peticionGet();
@@ -109,36 +108,36 @@ class CrudSalas extends React.Component{
 
 
 render(){
-    const {salas} = this.state;
+    const {iglesias} = this.state;
     const {form}=this.state;
     return(
         <React.Fragment>
         <div >
             <br />
-            <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}>Crear sala</button>
+            <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}>Crear iglesia</button>
             <br /><br />
             <table className="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th>Id</th>
                         <th>Nombres</th>
-                        <th>Sede</th>
-                        <th>Ip</th>
+                        <th>Dirección</th>
+                        <th>Ciudad</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {salas.map
-                    ((sal,index)=>{
+                    {iglesias.map
+                    ((igl,index)=>{
                     return(
                         <tr key={index}>
-                        <td>{sal.id}</td>
-                        <td>{sal.nombresala}</td>
-                        <td>{sal.sedeid}</td>
-                        <td>{sal.ipid}</td>
+                        <td>{igl.id}</td>
+                        <td>{igl.nombre}</td>
+                        <td>{igl.direccion}</td>
+                        <td>{igl.ciudad}</td>
                         <td>
-                        <button className="btn btn-edit" onClick={()=>{this.seleccionarsala(sal);this.modalInsertar();this.setState({tipomodal: "actualizar"})}}><FontAwesomeIcon icon={faEdit}/></button>
+                        <button className="btn btn-edit" onClick={()=>{this.seleccionariglesia(igl);this.modalInsertar();this.setState({tipomodal: "actualizar"})}}><FontAwesomeIcon icon={faEdit}/></button>
                         {"   "}
-                        <button className="btn btn-danger" onClick={()=>{this.seleccionarsala(sal);this.setState({modalEliminar:true})}}><FontAwesomeIcon icon={faTrashAlt}/></button>
+                        <button className="btn btn-danger" onClick={()=>{this.seleccionariglesia(igl);this.setState({modalEliminar:true})}}><FontAwesomeIcon icon={faTrashAlt}/></button>
                         </td>
                         </tr>
                         )}
@@ -150,7 +149,7 @@ render(){
            
             <div class="modal-header">
             {this.state.tipomodal === "insertar"?
-                    <h5 class="modal-title">Crear Sala</h5> :<h5 class="modal-title">Actualizar Sala</h5>                    
+                    <h5 class="modal-title">Crear Cementerio</h5> :<h5 class="modal-title">Actualizar Iglesia</h5>                    
                     }
             </div>
             
@@ -159,10 +158,12 @@ render(){
                
                  <form onSubmit={this.manejadorSubmit}>
                     
-                    <input type="text" className="form-control" name="nombresala" placeholder="Nombre sala" onChange={this.handleChange} value={form?form.nombresala:""}/>
+                    <input type="text" className="form-control" name="nombre" placeholder="Nombre" onChange={this.handleChange} value={form?form.nombre:""}/>
                  
-                    <input type="text" className="form-control" name="sedeid" placeholder="Sede" onChange={this.handleChange} value={form?form.sedeid:""}/>
-                    <input type="text" className="form-control" name="ipid" placeholder="IP" onChange={this.handleChange} value={form?form.ipid:""} />
+                    <input type="text" className="form-control" name="direccion" placeholder="Direccion" onChange={this.handleChange} value={form?form.direccion:""}/>
+                    <select name="ciudad" className="form-control" value={this.state.ciudadid} onChange={this.handleChange} ><option value="">Seleccione una ciudad</option>
+                        {this.state.iglesias.map((igl,index)=>{ return(<option key={igl.id} value={igl.id}>{igl.nombre} </option>)})}
+                    </select>
                     
                 </form>   
 
@@ -209,4 +210,4 @@ render(){
 }
 
 
-export default CrudSalas;
+export default CrudCementerios;
