@@ -8,52 +8,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit,faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
 import DatePicker from 'react-datepicker';
-import DataTable,  { createTheme } from 'react-data-table-component';
-//mport MaterialTable from 'material-table';
-import 'react-datepicker/dist/react-datepicker.css';
-
-const columnas = [
-    {
-        name: 'ID',
-        selector:'idobituario',
-        sortable: true
-    },
-    {
-        name: 'Nombre',
-        selector:'nombreobituario',
-        sortable: true
-    },
-    {
-        name: 'Apellidos',
-        selector:'apellidosobituario',
-        sortable: true
-    },
-    {
-        name: 'SEDE',
-        selector:'nombresede',
-        sortable: true
-    },
-    {
-        name: 'SALA',
-        selector:'nombresala',
-        sortable: true
-    },
-    {
-        name: 'FECHA INICIAL',
-        selector:'iniciopublicacion',
-        sortable: true
-    },
-    {
-        name: 'ACCIÓN',       
-        cell: row => <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}>Crear obituario</button>
-        ,
-
-    },
-
- 
-    
-]
-
+import 'react-datepicker/dist/react-datepicker.css'
 class CrudObituario extends React.Component{
     state={
        obituarios:[],
@@ -86,8 +41,7 @@ class CrudObituario extends React.Component{
     fecha: new Date(),
     virtual: false
     }
-
-        componentDidMount(){
+    componentDidMount(){
         this.peticionGet();
         }
     peticionGet=()=>{
@@ -202,20 +156,7 @@ render(){
     const {obituarios} = this.state;
     const {form}=this.state;
     return(
-        
         <React.Fragment>
-
-      <DataTable
-        columns={columnas}
-        data={obituarios}
-        title="LIstado de obituarios"
-        theme="solarized"
-  
-
-
-        />
-
-        
         <div >
             <br />
             <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}>Crear obituario</button>

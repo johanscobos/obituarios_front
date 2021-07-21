@@ -34,7 +34,7 @@ export const Routes=() => {
                       <NavLink exact to="/CrudUser" className="nav-link px-3 btn-active-menu"><FontAwesomeIcon className="me-2" icon={faUser}/><span>Usuarios</span></NavLink>
                     </li>
                     <li className="menu-barra_lateral_item">
-                      <a href="#" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faBible}/><span>Obituarios</span></a>
+                    <NavLink exact to="/crudObituario" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faBible}/><span>Obituarios</span></NavLink>
                     </li>
                     <li className="menu-barra_lateral_item">
                       <a href="#" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faStoreAlt}/><span>Sedes de Velación</span></a>

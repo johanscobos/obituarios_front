@@ -5,9 +5,24 @@ export const UrlUpdateUsr="http://localhost:8089/user/update/";
 export const UrlDeleteUsr="http://localhost:8089/user/destroy/";
 export const UrlShowObit="http://localhost:8089/obituario/show/";
 export const UrlShowObithome="http://localhost:8089/obituario/showobithome/";
-export const UrlCreateObi="http://localhost:8089/obituarios/create"
-export const UrlUpdateObi="http://localhost:8089/obituarios/update/";
-export const UrlShowSala="http://localhost:8089/salas/show/";
-export const UrlCreateSala="http://localhost:8089/salas/create/";
-export const UrlUpdSala="http://localhost:8089/salas/update/";
+
+export const UrlCreateObi="http://localhost:8089/obituarios/create";
+export const UrlUpdateObi="http://localhost:8089/user/update/";
 export const UrlShowRole="http://localhost:8089/role/show/";
+export const UrlCreateSala="http://localhost:8089/salas/createSala";
+export const UrlShowSala="http://localhost:8089/salas/show";
+export const UrlUpdSala="http://localhost:8089/salas/updateSala";
+
+
+/*
+export const UrlLogin="https://apiobituarios.laofrenda.com.co/users/login";
+export const UrlCreateUsr="https://apiobituarios.laofrenda.com.co/user/create";
+export const UrlShowUsr="https://apiobituarios.laofrenda.com.co/user/showRole";
+export const UrlUpdateUsr="https://apiobituarios.laofrenda.com.co/user/update/";
+export const UrlDeleteUsr="https://apiobituarios.laofrenda.com.co/user/destroy/";
+export const UrlShowObit="https://apiobituarios.laofrenda.com.co/obituario/show/";
+export const UrlShowObithome="https://apiobituarios.laofrenda.com.co/obituario/showobithome/";
+export const UrlCreateObi="https://apiobituarios.laofrenda.com.co/obituarios/create";
+export const UrlUpdateObi="https://apiobituarios.laofrenda.com.co/user/update/";
+export const UrlShowRole="https://apiobituarios.laofrenda.com.co/obituarios/role/show/";
+*/
