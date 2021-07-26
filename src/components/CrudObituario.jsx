@@ -1,100 +1,84 @@
-import React, { useState } from 'react';
+import React, { useEffects, useState } from 'react';
 import axios from 'axios';
 import {UrlCreateObi} from    '../services/apirest';
 import {UrlUpdateObi} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
 import {UrlShowObithome} from '../services/apirest';
+import ReactPaginate from 'react-paginate';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faEdit,faTrashAlt} from '@fortawesome/free-solid-svg-icons'
+import {faEdit,faTrashAlt, faSearch} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
-import DatePicker from 'react-datepicker';
-import DataTable,  { createTheme } from 'react-data-table-component';
-//mport MaterialTable from 'material-table';
+//import DatePicker from 'react-datepicker';
+
 import 'react-datepicker/dist/react-datepicker.css';
 
-const columnas = [
-    {
-        name: 'ID',
-        selector:'idobituario',
-        sortable: true
-    },
-    {
-        name: 'Nombre',
-        selector:'nombreobituario',
-        sortable: true
-    },
-    {
-        name: 'Apellidos',
-        selector:'apellidosobituario',
-        sortable: true
-    },
-    {
-        name: 'SEDE',
-        selector:'nombresede',
-        sortable: true
-    },
-    {
-        name: 'SALA',
-        selector:'nombresala',
-        sortable: true
-    },
-    {
-        name: 'FECHA INICIAL',
-        selector:'iniciopublicacion',
-        sortable: true
-    },
-    {
-        name: 'ACCIÓN',       
-        cell: row => <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}>Crear obituario</button>
-        ,
-
-    },
-
- 
-    
-]
-
 class CrudObituario extends React.Component{
-    state={
-       obituarios:[],
-       modalInsertar:false,
-       modalEliminar: false,
-       form:{ 
-        "id":"",
-        "nombre":"",
-        "apellidos":"",
-        "mensaje":"",
-        "ciudadid":"",
-        "sedeid":"",
-        "salaid":"",
-        "iglesiaid":"",
-        "horamisa":"",
-        "cementerioid":"",
-        "horadestinofinal":"",
-        "fechaexequias":"",
-        "virtual":"",
-        "iniciopublicacion":"",
-        "finpublicacion":""
-    },
-    error:false,
-    errorMsj:"",
-    tipomodal:"",
-    sedeid: null,
-    salaid: null,
-    iglesiaid: null,
-    cementerioid: null,
-    fecha: new Date(),
-    virtual: false
-    }
 
+    constructor(props){
+        super(props)
+
+        this.state={
+            obituarios:[],
+            tablaObituarios:[],
+            tablaBusquedaObituarios:[],
+            busqueda:"",
+            perPage: 3,
+            currentPage: 0,
+            offset: 0,
+            pageCount: 0,
+                        
+            modalInsertar:false,
+            modalEliminar: false,
+            form:{ 
+             "id":"",
+             "nombre":"",
+             "apellidos":"",
+             "mensaje":"",
+             "ciudadid":"",
+             "sedeid":"",
+             "salaid":"",
+             "iglesiaid":"",
+             "horamisa":"",
+             "cementerioid":"",
+             "horadestinofinal":"",
+             "fechaexequias":"",
+             "virtual":"",
+             "iniciopublicacion":"",
+             "finpublicacion":""
+         },
+         error:false,
+         errorMsj:"",
+         tipomodal:"",
+         sedeid: null,
+         salaid: null,
+         iglesiaid: null,
+         cementerioid: null,
+         fecha: new Date(),
+         virtual: false
+         }
+
+         this.handlePageClick = this.handlePageClick.bind(this);
+    }
+       
+      
         componentDidMount(){
         this.peticionGet();
         }
-    peticionGet=()=>{
+
+    peticionGet=()=>{ 
         axios.get(UrlShowObithome).then(async response=>{
-         await this.setState({obituarios: response.data[0]});
-        })
+        
+        var data = response.data[0];          
+        var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+       
+        this.setState({
+             pageCount: Math.ceil(data.length / this.state.perPage),
+             obituarios: response.data[0],
+            tablaObituarios: slice
+         }) 
+        });
         }
+
     modalInsertar=()=>{
         this.setState({modalInsertar: !this.state.modalInsertar})
     }
@@ -198,32 +182,100 @@ class CrudObituario extends React.Component{
     }
 
 
+    filtrar=(terminoBusqueda)=>{
+        const {tablaObituarios}=this.state; //traigo la tabla de datos
+
+        var resultadoBusquedad = tablaObituarios.filter((elemento)=>{
+
+            if(elemento.nombreobituario.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+             ||elemento.apellidosobituario.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+             ||elemento.nombrecementerio.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+             ||elemento.nombreiglesia.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+             ||elemento.nombresede.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+             ||elemento.nombresala.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+            ){
+                return elemento;
+            }
+        });
+      
+        this.setState({tablaObituarios: resultadoBusquedad});// actualizo el estado de obituarios
+      }
+
+    handleChangess= async e=>{
+        e.persist();
+        await this.setState({busqueda: e.target.value});
+      
+        // Verificamos si el campo de busqueda tiene datos
+        if(e.target.value==""){            
+            const data = this.state.obituarios;
+            const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
+            this.setState({
+                pageCount: Math.ceil(data.length / this.state.perPage),
+                tablaObituarios:slice
+            })
+        }
+         //si el campo de busqueda tiene datos llamamos a la función filtrar
+         else{
+                this.filtrar(e.target.value); 
+            }
+     } 
+
+    handlePageClick = (e) => {
+        const selectedPage = e.selected;
+        const offset = selectedPage * this.state.perPage;
+
+        this.setState({
+               currentPage: selectedPage,
+               offset: offset
+        }, () =>{
+            this.loadMoreData()
+        });
+    };
+
+  
+    loadMoreData(){
+        const data = this.state.obituarios;
+        const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
+
+        this.setState({
+            pageCount: Math.ceil(data.length / this.state.perPage),
+            tablaObituarios:slice
+        })
+    }
+  
+ 
 render(){
     const {obituarios} = this.state;
+    const {tablaObituarios} = this.state;
     const {form}=this.state;
+    const {busqueda}=this.state;
     return(
         
         <React.Fragment>
-
-      <DataTable
-        columns={columnas}
-        data={obituarios}
-        title="LIstado de obituarios"
-        theme="solarized"
-  
-
-
-        />
-
-        
-        <div >
+     <div >
             <br />
-            <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}>Crear obituario</button>
-            <br /><br />
+            <div className="containerAuxTop">
+               <div>
+                    <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}>Crear obituario</button>
+               </div>
+                {/*
+                <div className="containerInput">
+                    <input type="text" className="form-control inputBuscar" placeholder="Buscar" value={busqueda} onChange={this.handleChangess}/>
+                    <button className="btn btn-success">
+                        <FontAwesomeIcon icon={faSearch}/>
+                    </button>
+                </div>
+                
+                */
+
+                }
+                
+            </div>
+         
             <table className="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        
                         <th>Nombres</th>
                         <th>Apellidos</th>
                         <th>Mensaje</th>
@@ -236,16 +288,21 @@ render(){
                         <th>Hora destino final</th>
                         <th>Fecha Exequias</th>
                         <th>Acom. Virtual</th>
+                       {/*  
                         <th>Inicio publicación</th>
                         <th>Fin publicación</th>
+                        */}
+                       
+
+                        <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {obituarios.map
+                    {tablaObituarios.map
                     ((obi,index)=>{
                     return(
                         <tr key={index}>
-                        <td>{obi.idobituario}</td>
+                        
                         <td>{obi.nombreobituario}</td>
                         <td>{obi.apellidosobituario}</td>
                         <td>{obi.mensajeobituario}</td>
@@ -258,8 +315,13 @@ render(){
                         <td>{obi.horadestinofinal}</td>
                         <td>{obi.fechaexequias}</td>
                         <td>{obi.virtual}</td>
-                        <td>{obi.iniciopublicacion}</td>
-                        <td>{obi.finpublicacion}</td>
+                        {
+                            /*
+                            <td>{obi.iniciopublicacion}</td>
+                            <td>{obi.finpublicacion}</td>
+                            */
+                        }                       
+
                         <td>
                         <button className="btn btn-edit" onClick={()=>{this.seleccionarobituario(obi);this.modalInsertar();this.setState({tipomodal: "actualizar"})}}><FontAwesomeIcon icon={faEdit}/></button>
                         {"   "}
@@ -270,7 +332,20 @@ render(){
                     ) }
                 </tbody>
             </table>
-           
+           <ReactPaginate 
+                previousLabel={"Anterior"}
+                nextLabel={"Siguiente"}
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={this.state.pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={this.handlePageClick}
+                containerClassName={"pagination"}
+                subContainerClassName={"pages pagination"}
+                activeClassName={"active"}       
+
+           />
             <Modal isOpen= {this.state.modalInsertar} >
            
             <div class="modal-header">
@@ -281,8 +356,7 @@ render(){
             
             <ModalBody>                    
                    
-               
-                 <form onSubmit={this.manejadorSubmit}>
+                    <form onSubmit={this.manejadorSubmit}>
                     
                     <input type="text" className="form-control" name="nombre" placeholder="Nombres" onChange={this.handleChange} value={form?form.nombre:""}/>
                  

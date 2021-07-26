@@ -26,7 +26,7 @@ export const Routes=() => {
         <Route path="/login" exact render = {props=>(<Login{...props}/>)}></Route>
 
            <section className="test">
-              <HeaderDasboard />
+              <HeaderDasboard/>
 
             <div class="offcanvas offcanvas-start bg-dark  menu-lateral text-white sidebar-nav" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
               
@@ -40,13 +40,13 @@ export const Routes=() => {
                     <NavLink exact to="/crudObituario" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faBible}/><span>Obituarios</span></NavLink>
                     </li>
                     <li className="menu-barra_lateral_item">
-                      <a href="#" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faStoreAlt}/><span>Sedes de Velación</span></a>
+                      <NavLink exact to="/crudSedes" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faStoreAlt}/><span>Sedes de Velación</span></NavLink>
                     </li>
                     <li className="menu-barra_lateral_item">
-                      <a href="#" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faGripHorizontal}/><span>Salas de Velación</span></a>
+                      <NavLink exact to="/crudSala" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faGripHorizontal}/><span>Salas de Velación</span></NavLink>
                     </li>
                     <li className="menu-barra_lateral_item">
-                      <a href="#" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faArchway}/><span>Cementerios</span></a>
+                      <NavLink exact to="/crudCementerios" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faArchway}/><span>Cementerios</span></NavLink>
                     </li>
                     <li className="menu-barra_lateral_item">
                       <a href="#" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faNetworkWired}/><span>IP Servidor</span></a>

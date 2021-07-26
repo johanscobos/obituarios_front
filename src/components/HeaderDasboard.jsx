@@ -7,6 +7,7 @@ import {faSearch,faUser} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalBody,ModalFooter,ModalHeader} from 'reactstrap'
 import LogoBlanco from '../assets/img/logo-la-ofrenda-blanco.png';
 import { Redirect } from 'react-router';
+
 class HeaderDasboard extends React.Component{ 
     manejadorChange = async e=>{
         await this.setState({
@@ -22,8 +23,12 @@ class HeaderDasboard extends React.Component{
 render(){
     return(
         
+       
             <nav class="navbar navbar-expand-lg navbar-dark bg-corporativo bg-dark fixed-top">
             <div class="container-fluid">
+
+       
+
 
             <button class="navbar-toggler me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
             <span class="navbar-toggler-icon" data-bs-target="#offcanvasExample"></span>
