@@ -88,7 +88,13 @@ export const Routes=() => {
                   <div className="col-md-12">
                   {isAuth ? 
                   <Route path="/crudIglesias" exact render = {props=>(<CrudIglesia{...props}/>)}/>: <Redirect to ="/Login"></Redirect>}
-                  </div>          
+                  </div> 
+                  
+                  <div className="col-md-12">
+                  {isAuth ? 
+                  <Route path="/cruIo" exact render = {props=>(<CrudIglesia{...props}/>)}/>: <Redirect to ="/Login"></Redirect>}
+                  </div> 
+                           
                 </div>
               </main>
               

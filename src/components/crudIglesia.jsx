@@ -4,6 +4,7 @@ import {UrlCreateIglesia} from    '../services/apirest';
 import {UrlUpdateIglesia} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
 import {UrlShowIglesia} from '../services/apirest';
+import {UrlShowUbicacion} from '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit,faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
@@ -11,6 +12,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 class CrudCementerios extends React.Component{
     state={
        iglesias:[],
+       ubicaciones:[],
        modalInsertar:false,
        modalEliminar: false,
        form:{ 
@@ -21,16 +23,22 @@ class CrudCementerios extends React.Component{
     },
     error:false,
     errorMsj:"",
-    ciudadid:null
+    ciudad:null
     }
     componentDidMount(){
         this.peticionGet();
+        this.peticionGetUbicacion();
         }
     peticionGet=()=>{
         axios.get(UrlShowIglesia).then(async response=>{
          await this.setState({iglesias: response.data[0]});
         })
         }
+    peticionGetUbicacion=()=>{
+        axios.get(UrlShowUbicacion).then(async response=>{
+        await this.setState({ubicaciones: response.data[0]});
+        })
+    }
     modalInsertar=()=>{
         this.setState({modalInsertar: !this.state.modalInsertar})
     }
@@ -109,6 +117,7 @@ class CrudCementerios extends React.Component{
 
 render(){
     const {iglesias} = this.state;
+    const {ubicaciones} = this.state;
     const {form}=this.state;
     return(
         <React.Fragment>
@@ -161,8 +170,8 @@ render(){
                     <input type="text" className="form-control" name="nombre" placeholder="Nombre" onChange={this.handleChange} value={form?form.nombre:""}/>
                  
                     <input type="text" className="form-control" name="direccion" placeholder="Direccion" onChange={this.handleChange} value={form?form.direccion:""}/>
-                    <select name="ciudad" className="form-control" value={this.state.ciudadid} onChange={this.handleChange} ><option value="">Seleccione una ciudad</option>
-                        {this.state.iglesias.map((igl,index)=>{ return(<option key={igl.id} value={igl.id}>{igl.nombre} </option>)})}
+                    <select name="ciudad" className="form-control" value={form?this.state.form.ciudad:""} onChange={this.handleChange} ><option value="">Seleccione una ciudad</option>
+                        {this.state.ubicaciones.map((ciud,index)=>{ return(<option key={ciud.id} value={ciud.id}>{ciud.ciudad} </option>)})}
                     </select>
                     
                 </form>   

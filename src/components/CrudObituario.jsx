@@ -1,16 +1,20 @@
 import React, { useEffects, useState } from 'react';
 import axios from 'axios';
-import {UrlCreateObi} from    '../services/apirest';
+import {UrlCreateObi, UrlShowSala, UrlShowSede} from    '../services/apirest';
 import {UrlUpdateObi} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
 import {UrlShowObithome} from '../services/apirest';
 import ReactPaginate from 'react-paginate';
+import {UrlShowIglesia} from '../services/apirest';
+import {UrlShowCementerio} from '../services/apirest';
+import {UrlShowUbicacion} from '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit,faTrashAlt, faSearch} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
-//import DatePicker from 'react-datepicker';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css'
+import { faAcquisitionsIncorporated } from '@fortawesome/free-brands-svg-icons';
 
-import 'react-datepicker/dist/react-datepicker.css';
 
 class CrudObituario extends React.Component{
 
@@ -26,6 +30,12 @@ class CrudObituario extends React.Component{
             currentPage: 0,
             offset: 0,
             pageCount: 0,
+
+            sedes:[],
+            salas: [],
+            iglesias:[],
+            cementerios:[],
+            ubicaciones:[],
                         
             modalInsertar:false,
             modalEliminar: false,
@@ -58,11 +68,17 @@ class CrudObituario extends React.Component{
          }
 
          this.handlePageClick = this.handlePageClick.bind(this);
-    }
+
+        }
        
       
         componentDidMount(){
         this.peticionGet();
+        this.peticionGetSede();
+        this.peticionGetSala();
+        this.peticionGetIglesia();
+        this.peticionGetCementerio();
+        this.peticionGetUbicacion();
         }
 
     peticionGet=()=>{ 
@@ -74,16 +90,44 @@ class CrudObituario extends React.Component{
         this.setState({
              pageCount: Math.ceil(data.length / this.state.perPage),
              obituarios: response.data[0],
-            tablaObituarios: slice
+             tablaObituarios: slice
          }) 
         });
         }
-
+        peticionGetSede=()=>{
+            axios.get(UrlShowSede).then(async response=>{
+            await this.setState({sedes: response.data[0]});
+           })
+                }
+            
+        peticionGetSala=()=>{
+            axios.get(UrlShowSala).then(async response=>{
+            await this.setState({salas: response.data[0]});
+            })
+        }
+        
+        peticionGetCementerio=()=>{
+            axios.get(UrlShowCementerio).then(async response=>{
+                await this.setState({cementerios: response.data[0]});
+                })
+        }
+        peticionGetIglesia=()=>{
+            axios.get(UrlShowIglesia).then(async response=>{
+            await this.setState({iglesias: response.data[0]});
+           })
+                }
+        
+        peticionGetUbicacion=()=>{
+            axios.get(UrlShowUbicacion).then(async response=>{
+            await this.setState({ubicaciones: response.data[0]});
+            })
+        }
     modalInsertar=()=>{
         this.setState({modalInsertar: !this.state.modalInsertar})
     }
     handleCheck = async e=>{
-        this.setState({virtual: !this.state.virtual})
+        await this.setState({virtual: !this.state.virtual})
+        console.log(this.state.virtual)
     }
     handleChange= async e=>{
         e.persist();
@@ -93,13 +137,16 @@ class CrudObituario extends React.Component{
                 [e.target.name]: e.target.value
             }
         })
-        console.log({id:this.state.form.id,apellidos:this.state.form.apellidos,ciudadid:this.state.form.ciudadid,fechaexequias:this.state.form.fechaexequias,finpublicacion:this.state.form.finpublicacion,horadestinofinal:this.state.form.horadestinofinal,horamisa:this.state.form.horamisa,iniciopublicacion:this.state.form.iniciopublicacion,mensaje:this.state.form.mensaje,nombre:this.state.form.nombre,virtual:this.state.form.virtual,sedeid:this.state.sedeid,salaid:this.state.salaid,cementerioid:this.state.cementerioid,iglesiaid:this.state.iglesiaid})
+        console.log({id:this.state.form.id,apellidos:this.state.form.apellidos,ciudadid:this.state.form.ciudadid,fechaexequias:this.state.form.fechaexequias,finpublicacion:this.state.form.finpublicacion,horadestinofinal:this.state.form.horadestinofinal,horamisa:this.state.form.horamisa,iniciopublicacion:this.state.form.iniciopublicacion,mensaje:this.state.form.mensaje,nombre:this.state.form.nombre,virtual:this.state.virtual,sedeid:this.state.sedeid,salaid:this.state.salaid,cementerioid:this.state.form.cementerioid,iglesiaid:this.state.form.iglesiaid})
     }  
     manejadorSubmit =e=>{e.preventDefault();}
+
     peticionPost=async()=>{
         await axios.post(UrlCreateObi, this.state.form).then(response => {
+            console.log(response)
             this.modalInsertar();
             this.peticionGet();
+            console.log(response)
             this.setState
             ({
                 
@@ -109,15 +156,13 @@ class CrudObituario extends React.Component{
                 apellidos : response.data.apellidos,
                 mensaje : response.data.mensaje,
                 ciudadid : response.data.ciudadid,
-                sedeid : response.data.sedeid,
-                salaid : response.data.salaid,
                 iglesiaid : response.data.iglesiaid,
                 horamisa : response.data.horamisa,
                 cementerioid : response.data.cementerioid,
                 horadestinofinal : response.data.horadestinofinal,
                 fechaexequias : response.data.fechaexequias,
-                virtual : response.data.virtual,
                 iniciopublicacion : response.data.iniciopublicacion,
+                virtual: response.data.virtual,
                 finpublicacion : response.data.finpublicacion
             })
         }).catch(error => {
@@ -249,6 +294,12 @@ render(){
     const {tablaObituarios} = this.state;
     const {form}=this.state;
     const {busqueda}=this.state;
+    const {sedes} = this.state;
+    const {salas} = this.state;
+    const{cementerios}= this.state;
+    const{ubicaciones}= this.state;
+    const{iglesias} =this.state;
+
     return(
         
         <React.Fragment>
@@ -306,7 +357,7 @@ render(){
                         <td>{obi.nombreobituario}</td>
                         <td>{obi.apellidosobituario}</td>
                         <td>{obi.mensajeobituario}</td>
-                        <td>{obi.ciudadid}</td>
+                        <td>{obi.ciudadobituario}</td>
                         <td>{obi.nombresede}</td>
                         <td>{obi.nombresala}</td>
                         <td>{obi.nombreiglesia}</td>
@@ -362,23 +413,27 @@ render(){
                  
                     <input type="text" className="form-control" name="apellidos" placeholder="Apeliidos" onChange={this.handleChange} value={form?form.apellidos:""}/>
                     <input type="text" className="form-control" name="mensaje" placeholder="Mensaje" onChange={this.handleChange} value={form?form.mensaje:""}/>
-                    <input type="text" className="form-control"name="ciudadid" placeholder="ciudadid"onChange={this.handleChange} value={form?form.ciudadid:""}/>
-                    <select name="sedeid" className="form-control" value={this.state.sedeid} onChange={this.handleChange} ><option value="">Seleccione una sede</option>
-                        {this.state.obituarios.map((obi,index)=>{ return(<option key={obi.sedeid} value={obi.sedeid}>{obi.nombresede} </option>)})}
+                    <select name="ciudadid" className="form-control" value={form?this.state.form.ciudadid:""} onChange={this.handleChange} ><option value="">Seleccione una ciudad</option>
+                        {this.state.ubicaciones.map((ciud,index)=>{ return(<option key={ciud.id} value={ciud.id}>{ciud.ciudad} </option>)})}
                     </select>
-                    <select name="salaid" className="form-control" value={this.state.salaid?this.state.salaid:""} onChange={this.handleChange} ><option value="">Seleccione una sala</option>
-                        {this.state.obituarios.map((obi,index)=>{ return(<option key={obi.salaid} value={obi.salaid}>{obi.nombresala} </option>)})}
+                    <select name="sedeid" className="form-control" value={form?this.state.form.sedeid:""} onChange={this.handleChange} ><option value="">Seleccione una sede</option>
+                        {this.state.sedes.map((sed,index)=>{ return(<option key={sed.id} value={sed.id}>{sed.nombresede} </option>)})}
                     </select>
-                    <select name="iglesiaid" className="form-control" value={this.state.iglesiaid} onChange={this.handleChange} ><option value="">Seleccione una iglesia</option>
-                        {this.state.obituarios.map((obi,index)=>{ return(<option key={obi.iglesiaid} value={obi.iglesiaid}>{obi.nombreiglesia} </option>)})}
+                    <select name="salaid" className="form-control" value={form?this.state.form.salaid:""} onChange={this.handleChange} ><option value="">Seleccione una sala</option>
+                        {this.state.salas.map((sal,index)=>{ return(<option key={sal.id} value={sal.id}>{sal.nombresala} </option>)})}
+                    </select>
+                    <select name="iglesiaid" className="form-control" value={form?this.state.form.iglesiaid:""} onChange={this.handleChange} ><option value="">Seleccione una iglesia</option>
+                        {this.state.iglesias.map((igl,index)=>{ return(<option key={igl.id} value={igl.id}>{igl.nombre} </option>)})}
                     </select>
                     <input type="text" className="form-control"name="horamisa" placeholder="horamisa" onChange={this.handleChange} value={form?form.horamisa:""}/>
-                    <select name="cementerioid" className="form-control" value={this.state.cementerioid} onChange={this.handleChange} ><option value="">Seleccione un cementerio</option>
-                        {this.state.obituarios.map((obi,index)=>{ return(<option key={obi.cementerioid} value={obi.cementerioid}>{obi.nombrecementerio} </option>)})}
+                    <select name="cementerioid" className="form-control" value={form?this.state.form.cementerioid:""} onChange={this.handleChange} ><option value="">Seleccione un cementerio</option>
+                        {this.state.cementerios.map((cem,index)=>{ return(<option key={cem.id} value={cem.id}>{cem.nombre} </option>)})}
                     </select>
                     Fecha Exequias <input  name="fechaexequias"  type="date"   
                     className="form-control"  onChange={ this.handleChange} value={form?form.fechaexequias:""}/>
-                    Acomp. Virtual<input type="checkbox" name="virtual"  onChange={this.handleCheck} defaultChecked={this.state.virtual}/> <br/>
+                      <select name="virtual" className="form-control" value={form?this.state.form.virtual:""} onChange={this.handleChange} ><option value="">Acomp. Virtual</option>
+                        <option value="S">Si</option><option value="N">No</option>
+                    </select>
                     <input type="text" className="form-control"name="horadestinofinal" placeholder="horadestinofinal" onChange={this.handleChange} value={form?form.horadestinofinal:""}/>
                     Fecha inicio publicación <input  name="iniciopublicacion"  type="date"   
                     className="form-control"  onChange={ this.handleChange} defaultValue={this.state.fecha} value={form?form.iniciopublicacion:""}/>

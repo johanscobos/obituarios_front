@@ -1,25 +1,30 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {UrlCreateCementerio} from    '../services/apirest';
-import {UrlUpdateCementerio} from    '../services/apirest';
+import {UrlShowIp} from    '../services/apirest';
+import {UrlCreateSede} from    '../services/apirest';
+import {UrlUpdateSede} from    '../services/apirest';
+import {UrlShowUbicacion} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
-import {UrlShowCementerio} from '../services/apirest';
-import {UrlShowUbicacion} from '../services/apirest';
+import {UrlShowSede} from '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit,faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
 import 'react-datepicker/dist/react-datepicker.css'
-class CrudCementerios extends React.Component{
+class CrudSedes extends React.Component{
     state={
-       cementerios:[],
+       sedes:[],
+       ips:[],
        ubicaciones:[],
        modalInsertar:false,
        modalEliminar: false,
        form:{ 
         "id":"",
-        "nombre":"",
+        "nombresede":"",
         "direccion":"",
+        "telefono":"",
         "ciudad":""
+        "ipid":"",
+        "direccionip":"",
     },
     error:false,
     errorMsj:"",
@@ -29,11 +34,15 @@ class CrudCementerios extends React.Component{
         this.peticionGet();
         this.peticionGetUbicacion();
         }
+
+
     peticionGet=()=>{
-        axios.get(UrlShowCementerio).then(async response=>{
-         await this.setState({cementerios: response.data[0]});
+        axios.get(UrlShowIp).then(async response=>{
+         await this.setState({ips: response.data[0]});
         })
         }
+
+
     peticionGetUbicacion=()=>{
         axios.get(UrlShowUbicacion).then(async response=>{
         await this.setState({ubicaciones: response.data[0]});
@@ -53,7 +62,7 @@ class CrudCementerios extends React.Component{
     }  
     manejadorSubmit =e=>{e.preventDefault();}
     peticionPost=async()=>{
-        await axios.post(UrlCreateCementerio, this.state.form).then(response => {
+        await axios.post(UrlCreateSede, this.state.form).then(response => {
             this.modalInsertar();
             this.peticionGet();
             this.setState
@@ -61,8 +70,9 @@ class CrudCementerios extends React.Component{
                 
                 modalInsertar:false,
                 error:false,
-                nombre : response.data.nombre,
+                nombresede : response.data.nombresede,
                 direccion : response.data.direccion,
+                telefono : response.data.telefono,
                 ciudad : response.data.ciudad
             })
         }).catch(error => {
@@ -70,27 +80,28 @@ class CrudCementerios extends React.Component{
             ({
                 error : true,
                 errorMsj:error.response.request.response,
-                nombre:"",
+                nombresede:"",
                 direccion:"",
-                ciudad:""
+                telefono:""
             })
         
         })        
     }
 
-    seleccionarcementerio=async(cem)=>{
-        console.log(cem)
+    seleccionarsede=async(sed)=>{
+        console.log(sed)
         await this.setState({
             form:{
-                id:cem.id,
-                nombre:cem.nombre,
-                direccion : cem.direccion,
-                ciudad:cem.ciudad
+                id:sed.id,
+                nombresede:sed.nombresede,
+                direccion : sed.direccion,
+                telefono:sed.telefono,
+                ciudad:sed.ciudad
             }
         })
     }
     peticionPut=async()=>{
-        await axios.put(UrlUpdateCementerio+this.state.form.id,this.state.form).then(response=>{
+        await axios.put(UrlUpdateSede+this.state.form.id,this.state.form).then(response=>{
             console.log(this.state.form)
             this.modalInsertar();
             this.peticionGet();
@@ -116,14 +127,15 @@ class CrudCementerios extends React.Component{
 
 
 render(){
-    const {cementerios} = this.state;
+    const {sedes} = this.state;
+    const {ips} = this.state;
     const {ubicaciones} = this.state;
     const {form}=this.state;
     return(
         <React.Fragment>
         <div >
             <br />
-            <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}>Crear cementerio</button>
+            <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}>Crear sede</button>
             <br /><br />
             <table className="table table-striped table-hover">
                 <thead>
@@ -131,22 +143,24 @@ render(){
                         <th>Id</th>
                         <th>Nombres</th>
                         <th>Dirección</th>
+                        <th>Teléfono</th>
                         <th>Ciudad</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {cementerios.map
-                    ((cem,index)=>{
+                    {ips.map
+                    ((sed,index)=>{
                     return(
                         <tr key={index}>
-                        <td>{cem.id}</td>
-                        <td>{cem.nombre}</td>
-                        <td>{cem.direccion}</td>
-                        <td>{cem.ciudad}</td>
+                        <td>{sed.id}</td>
+                        <td>{sed.nombresede}</td>
+                        <td>{sed.direccion}</td>
+                        <td>{sed.telefono}</td>
+                        <td>{sed.ciudad}</td>
                         <td>
-                        <button className="btn btn-edit" onClick={()=>{this.seleccionarcementerio(cem);this.modalInsertar();this.setState({tipomodal: "actualizar"})}}><FontAwesomeIcon icon={faEdit}/></button>
+                        <button className="btn btn-edit" onClick={()=>{this.seleccionarsede(sed);this.modalInsertar();this.setState({tipomodal: "actualizar"})}}><FontAwesomeIcon icon={faEdit}/></button>
                         {"   "}
-                        <button className="btn btn-danger" onClick={()=>{this.seleccionarcementerio(cem);this.setState({modalEliminar:true})}}><FontAwesomeIcon icon={faTrashAlt}/></button>
+                        <button className="btn btn-danger" onClick={()=>{this.seleccionarsede(sed);this.setState({modalEliminar:true})}}><FontAwesomeIcon icon={faTrashAlt}/></button>
                         </td>
                         </tr>
                         )}
@@ -158,7 +172,7 @@ render(){
            
             <div class="modal-header">
             {this.state.tipomodal === "insertar"?
-                    <h5 class="modal-title">Crear Cementerio</h5> :<h5 class="modal-title">Actualizar Cementerio</h5>                    
+                    <h5 class="modal-title">Crear Sede</h5> :<h5 class="modal-title">Actualizar Sede</h5>                    
                     }
             </div>
             
@@ -167,9 +181,10 @@ render(){
                
                  <form onSubmit={this.manejadorSubmit}>
                     
-                    <input type="text" className="form-control" name="nombre" placeholder="Nombre" onChange={this.handleChange} value={form?form.nombre:""}/>
+                    <input type="text" className="form-control" name="nombresede" placeholder="Nombre sede" onChange={this.handleChange} value={form?form.nombresede:""}/>
                  
                     <input type="text" className="form-control" name="direccion" placeholder="Direccion" onChange={this.handleChange} value={form?form.direccion:""}/>
+                    <input type="text" className="form-control" name="telefono" placeholder="Telefono" onChange={this.handleChange} value={form?form.telefono:""} />
                     <select name="ciudad" className="form-control" value={form?this.state.form.ciudad:""} onChange={this.handleChange} ><option value="">Seleccione una ciudad</option>
                         {this.state.ubicaciones.map((ciud,index)=>{ return(<option key={ciud.id} value={ciud.id}>{ciud.ciudad} </option>)})}
                     </select>
@@ -219,4 +234,4 @@ render(){
 }
 
 
-export default CrudCementerios;
+export default CrudSedes;

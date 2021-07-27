@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import {UrlCreateSede} from    '../services/apirest';
 import {UrlUpdateSede} from    '../services/apirest';
+import {UrlShowUbicacion} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
 import {UrlShowSede} from '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -11,6 +12,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 class CrudSedes extends React.Component{
     state={
        sedes:[],
+       ubicaciones:[],
        modalInsertar:false,
        modalEliminar: false,
        form:{ 
@@ -22,16 +24,22 @@ class CrudSedes extends React.Component{
     },
     error:false,
     errorMsj:"",
-    ciudadid:null
+    ciudad:null
     }
     componentDidMount(){
         this.peticionGet();
+        this.peticionGetUbicacion();
         }
     peticionGet=()=>{
         axios.get(UrlShowSede).then(async response=>{
          await this.setState({sedes: response.data[0]});
         })
         }
+    peticionGetUbicacion=()=>{
+        axios.get(UrlShowUbicacion).then(async response=>{
+        await this.setState({ubicaciones: response.data[0]});
+        })
+    }
     modalInsertar=()=>{
         this.setState({modalInsertar: !this.state.modalInsertar})
     }
@@ -112,6 +120,7 @@ class CrudSedes extends React.Component{
 
 render(){
     const {sedes} = this.state;
+    const {ubicaciones} = this.state;
     const {form}=this.state;
     return(
         <React.Fragment>
@@ -167,8 +176,8 @@ render(){
                  
                     <input type="text" className="form-control" name="direccion" placeholder="Direccion" onChange={this.handleChange} value={form?form.direccion:""}/>
                     <input type="text" className="form-control" name="telefono" placeholder="Telefono" onChange={this.handleChange} value={form?form.telefono:""} />
-                    <select name="ciudad" className="form-control" value={this.state.ciudadid} onChange={this.handleChange} ><option value="">Seleccione una ciudad</option>
-                        {this.state.sedes.map((sed,index)=>{ return(<option key={sed.id} value={sed.id}>{sed.nombresede} </option>)})}
+                    <select name="ciudad" className="form-control" value={form?this.state.form.ciudad:""} onChange={this.handleChange} ><option value="">Seleccione una ciudad</option>
+                        {this.state.ubicaciones.map((ciud,index)=>{ return(<option key={ciud.id} value={ciud.id}>{ciud.ciudad} </option>)})}
                     </select>
                     
                 </form>   
