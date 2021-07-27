@@ -21,3 +21,4 @@ export const UrlCreateIglesia="http://localhost:8089/iglesias/create/";
 export const UrlUpdateIglesia="http://localhost:8089/iglesias/update/";
 export const UrlShowRole="http://localhost:8089/role/show/";
 export const UrlShowUbicacion="http://localhost:8089/ubicaciones/show";
+export const UrlShowIp="http://localhost:8089/ips/show";

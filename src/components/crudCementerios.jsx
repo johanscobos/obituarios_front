@@ -139,10 +139,10 @@ render(){
                     ((cem,index)=>{
                     return(
                         <tr key={index}>
-                        <td>{cem.id}</td>
-                        <td>{cem.nombre}</td>
-                        <td>{cem.direccion}</td>
-                        <td>{cem.ciudad}</td>
+                        <td>{cem.cementerioid}</td>
+                        <td>{cem.nombrecementerio}</td>
+                        <td>{cem.direccioncementerio}</td>
+                        <td>{cem.ciudadcementerio}</td>
                         <td>
                         <button className="btn btn-edit" onClick={()=>{this.seleccionarcementerio(cem);this.modalInsertar();this.setState({tipomodal: "actualizar"})}}><FontAwesomeIcon icon={faEdit}/></button>
                         {"   "}

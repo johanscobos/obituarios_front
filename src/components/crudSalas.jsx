@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {UrlCreateSala} from    '../services/apirest';
+import {UrlCreateSala, UrlShowSede} from    '../services/apirest';
 import {UrlUpdSala} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
 import {UrlShowSala} from '../services/apirest';
+import {UrlShowIp} from '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit,faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
@@ -11,6 +12,8 @@ import 'react-datepicker/dist/react-datepicker.css'
 class CrudSalas extends React.Component{
     state={
        salas:[],
+       sedes:[],
+       ips:[],
        modalInsertar:false,
        modalEliminar: false,
        form:{ 
@@ -26,10 +29,22 @@ class CrudSalas extends React.Component{
     }
     componentDidMount(){
         this.peticionGet();
+        this.peticionGetSede();
+        this.peticionGetIp();
         }
     peticionGet=()=>{
         axios.get(UrlShowSala).then(async response=>{
          await this.setState({salas: response.data[0]});
+        })
+        }
+    peticionGetSede=()=>{
+        axios.get(UrlShowSede).then(async response=>{
+            await this.setState({sedes: response.data[0]});
+        })
+        }
+    peticionGetIp=()=>{
+        axios.get(UrlShowIp).then(async response=>{
+            await this.setState({ips: response.data[0]});
         })
         }
     modalInsertar=()=>{
@@ -110,6 +125,8 @@ class CrudSalas extends React.Component{
 
 render(){
     const {salas} = this.state;
+    const {sedes} = this.state;
+    const {ips}=this.state;
     const {form}=this.state;
     return(
         <React.Fragment>
@@ -131,10 +148,10 @@ render(){
                     ((sal,index)=>{
                     return(
                         <tr key={index}>
-                        <td>{sal.id}</td>
+                        <td>{sal.salaid}</td>
                         <td>{sal.nombresala}</td>
-                        <td>{sal.sedeid}</td>
-                        <td>{sal.ipid}</td>
+                        <td>{sal.nombresede}</td>
+                        <td>{sal.direccionip}</td>
                         <td>
                         <button className="btn btn-edit" onClick={()=>{this.seleccionarsala(sal);this.modalInsertar();this.setState({tipomodal: "actualizar"})}}><FontAwesomeIcon icon={faEdit}/></button>
                         {"   "}
@@ -161,8 +178,12 @@ render(){
                     
                     <input type="text" className="form-control" name="nombresala" placeholder="Nombre sala" onChange={this.handleChange} value={form?form.nombresala:""}/>
                  
-                    <input type="text" className="form-control" name="sedeid" placeholder="Sede" onChange={this.handleChange} value={form?form.sedeid:""}/>
-                    <input type="text" className="form-control" name="ipid" placeholder="IP" onChange={this.handleChange} value={form?form.ipid:""} />
+                    <select name="sedeid" className="form-control" value={form?this.state.sedeid:""} onChange={this.handleChange} > <option value="">Seleccione una sede</option>
+                        {this.state.sedes.map((sed,index)=>{ return(<option key={sed.sedeid} value={sed.sedeid}>{sed.nombresede} </option>)})}
+                    </select>
+                    <select name="ipid" className="form-control" value={form?this.state.form.ipid:""} onChange={this.handleChange} > <option value="">Seleccione una ip</option>
+                        {this.state.ips.map((ip,index)=>{ return(<option key={ip.id} value={ip.id}>{ip.direccionip} </option>)})}
+                    </select>
                     
                 </form>   
 

@@ -58,6 +58,7 @@ class CrudObituario extends React.Component{
         this.peticionGetIglesia();
         this.peticionGetCementerio();
         this.peticionGetUbicacion();
+        
         }
     peticionGet=()=>{
         axios.get(UrlShowObithome).then(async response=>{

@@ -139,10 +139,10 @@ render(){
                     ((igl,index)=>{
                     return(
                         <tr key={index}>
-                        <td>{igl.id}</td>
-                        <td>{igl.nombre}</td>
-                        <td>{igl.direccion}</td>
-                        <td>{igl.ciudad}</td>
+                        <td>{igl.iglesiaid}</td>
+                        <td>{igl.nombreiglesia}</td>
+                        <td>{igl.direccioniglesia}</td>
+                        <td>{igl.ciudadiglesia}</td>
                         <td>
                         <button className="btn btn-edit" onClick={()=>{this.seleccionariglesia(igl);this.modalInsertar();this.setState({tipomodal: "actualizar"})}}><FontAwesomeIcon icon={faEdit}/></button>
                         {"   "}

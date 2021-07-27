@@ -143,11 +143,11 @@ render(){
                     ((sed,index)=>{
                     return(
                         <tr key={index}>
-                        <td>{sed.id}</td>
+                        <td>{sed.sedeid}</td>
                         <td>{sed.nombresede}</td>
-                        <td>{sed.direccion}</td>
-                        <td>{sed.telefono}</td>
-                        <td>{sed.ciudad}</td>
+                        <td>{sed.direccionsede}</td>
+                        <td>{sed.telefonosede}</td>
+                        <td>{sed.ciudadsede}</td>
                         <td>
                         <button className="btn btn-edit" onClick={()=>{this.seleccionarsede(sed);this.modalInsertar();this.setState({tipomodal: "actualizar"})}}><FontAwesomeIcon icon={faEdit}/></button>
                         {"   "}
