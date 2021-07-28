@@ -9,7 +9,7 @@ import {UrlShowIglesia} from '../services/apirest';
 import {UrlShowCementerio} from '../services/apirest';
 import {UrlShowUbicacion} from '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faEdit,faTrashAlt, faSearch} from '@fortawesome/free-solid-svg-icons'
+import {faEdit,faTrashAlt, faSearch,faPlus,faTimes,faCheck} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'
@@ -79,6 +79,7 @@ class CrudObituario extends React.Component{
         this.peticionGetIglesia();
         this.peticionGetCementerio();
         this.peticionGetUbicacion();
+        
         }
 
     peticionGet=()=>{ 
@@ -246,11 +247,14 @@ class CrudObituario extends React.Component{
         this.setState({tablaObituarios: resultadoBusquedad});// actualizo el estado de obituarios
       }
 
-    handleChangess= async e=>{
+     //hande de busqueda 
+    handleChangeBuscar= async e=>{
         e.persist();
         await this.setState({busqueda: e.target.value});
       
         // Verificamos si el campo de busqueda tiene datos
+
+        //si el campo de busqueda está vacio:
         if(e.target.value==""){            
             const data = this.state.obituarios;
             const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
@@ -259,7 +263,7 @@ class CrudObituario extends React.Component{
                 tablaObituarios:slice
             })
         }
-         //si el campo de busqueda tiene datos llamamos a la función filtrar
+         //si el campo de busqueda tiene datos llamamos a la función filtrar:
          else{
                 this.filtrar(e.target.value); 
             }
@@ -296,9 +300,9 @@ render(){
     const {busqueda}=this.state;
     const {sedes} = this.state;
     const {salas} = this.state;
-    const{cementerios}= this.state;
-    const{ubicaciones}= this.state;
-    const{iglesias} =this.state;
+    const {cementerios}= this.state;
+    const {ubicaciones}= this.state;
+    const {iglesias} =this.state;
 
     return(
         
@@ -307,17 +311,17 @@ render(){
             <br />
             <div className="containerAuxTop">
                <div>
-                    <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}>Crear obituario</button>
+                    <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}><FontAwesomeIcon className="me-2" icon={faPlus}/>Crear obituario</button>
                </div>
-                {/*
+                {
                 <div className="containerInput">
-                    <input type="text" className="form-control inputBuscar" placeholder="Buscar" value={busqueda} onChange={this.handleChangess}/>
+                    <input type="text" className="form-control inputBuscar" placeholder="Buscar" value={busqueda} onChange={this.handleChangeBuscar}/>
                     <button className="btn btn-success">
                         <FontAwesomeIcon icon={faSearch}/>
                     </button>
                 </div>
                 
-                */
+                
 
                 }
                 
@@ -412,7 +416,7 @@ render(){
                     <input type="text" className="form-control" name="nombre" placeholder="Nombres" onChange={this.handleChange} value={form?form.nombre:""}/>
                  
                     <input type="text" className="form-control" name="apellidos" placeholder="Apeliidos" onChange={this.handleChange} value={form?form.apellidos:""}/>
-                    <input type="text" className="form-control" name="mensaje" placeholder="Mensaje" onChange={this.handleChange} value={form?form.mensaje:""}/>
+                    <textarea className="form-control" name="mensaje" placeholder="Mensaje" onChange={this.handleChange} value={form?form.mensaje:""}/>
                     <select name="ciudadid" className="form-control" value={form?this.state.form.ciudadid:""} onChange={this.handleChange} ><option value="">Seleccione una ciudad</option>
                         {this.state.ubicaciones.map((ciud,index)=>{ return(<option key={ciud.id} value={ciud.id}>{ciud.ciudad} </option>)})}
                     </select>
@@ -425,19 +429,19 @@ render(){
                     <select name="iglesiaid" className="form-control" value={form?this.state.form.iglesiaid:""} onChange={this.handleChange} ><option value="">Seleccione una iglesia</option>
                         {this.state.iglesias.map((igl,index)=>{ return(<option key={igl.id} value={igl.id}>{igl.nombre} </option>)})}
                     </select>
-                    <input type="text" className="form-control"name="horamisa" placeholder="horamisa" onChange={this.handleChange} value={form?form.horamisa:""}/>
+                    <input type="text" className="form-control"name="horamisa" placeholder="Hora Misa" onChange={this.handleChange} value={form?form.horamisa:""}/>
                     <select name="cementerioid" className="form-control" value={form?this.state.form.cementerioid:""} onChange={this.handleChange} ><option value="">Seleccione un cementerio</option>
                         {this.state.cementerios.map((cem,index)=>{ return(<option key={cem.id} value={cem.id}>{cem.nombre} </option>)})}
                     </select>
-                    Fecha Exequias <input  name="fechaexequias"  type="date"   
+                    <span className="destacado">Fecha Exequias:</span> <input  name="fechaexequias"  type="date"   
                     className="form-control"  onChange={ this.handleChange} value={form?form.fechaexequias:""}/>
                       <select name="virtual" className="form-control" value={form?this.state.form.virtual:""} onChange={this.handleChange} ><option value="">Acomp. Virtual</option>
                         <option value="S">Si</option><option value="N">No</option>
                     </select>
-                    <input type="text" className="form-control"name="horadestinofinal" placeholder="horadestinofinal" onChange={this.handleChange} value={form?form.horadestinofinal:""}/>
-                    Fecha inicio publicación <input  name="iniciopublicacion"  type="date"   
+                    <input type="text" className="form-control"name="horadestinofinal" placeholder="Hora Destino Final" onChange={this.handleChange} value={form?form.horadestinofinal:""}/>
+                    <span className="destacado">Fecha inicio publicación:</span> <input  name="iniciopublicacion"  type="date"   
                     className="form-control"  onChange={ this.handleChange} defaultValue={this.state.fecha} value={form?form.iniciopublicacion:""}/>
-                    Fecha fin publicación <input  name="finpublicacion"  type="date"   
+                    <span className="destacado">Fecha fin publicación:</span> <input  name="finpublicacion"  type="date"   
                     className="form-control"  onChange={ this.handleChange} value={form?form.finpublicacion:""} /><br/>
                 </form>   
 
@@ -455,11 +459,11 @@ render(){
                 <ModalFooter>
                     
                     {this.state.tipomodal === "insertar"?
-                    <button className="btn btn-crear-usuario" onClick={()=>this.peticionPost()}>Insertar</button>:
-                    <button className="btn btn-crear-usuario" onClick={()=>this.peticionPut()}>Actualizar</button>  
+                    <button className="btn btn-crear-usuario" onClick={()=>this.peticionPost()}><FontAwesomeIcon className="me-2" icon={faCheck}/>Insertar</button>:
+                    <button className="btn btn-crear-usuario" onClick={()=>this.peticionPut()}><FontAwesomeIcon className="me-2" icon={faEdit}/>ActualizarActualizar</button>  
                     }
 
-                    <button className="btn btn-danger" onClick={()=>this.modalInsertar()}>Cancelar</button>
+                    <button className="btn btn-danger" onClick={()=>this.modalInsertar()}><FontAwesomeIcon className="me-2" icon={faTimes}/>Cancelar</button>
                 </ModalFooter>
             </Modal>
 

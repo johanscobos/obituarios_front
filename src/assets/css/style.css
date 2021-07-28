@@ -209,7 +209,11 @@ html {
   }
 /*=====================================================*/
 
+/*:::::::::::::::::::::::HeaderDasboard::::::::::::::::::::::::::*/
 
+.invisible{
+  display: none;
+}
 /*:::::::::::::::::::::::Crud::::::::::::::::::::::::::*/
 input{
   margin:0.7rem 0;
@@ -247,7 +251,7 @@ color:#fff;
 .containerAuxTop{
   display: flex;
   justify-content: space-between;
-  background-color: #212529;
+  
 }
 .inputBuscar{
   width: 30% !important;

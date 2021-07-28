@@ -64,3 +64,10 @@
 .obituarios-icono{   
     color: #006091
 }
+
+select{
+    margin: 0.7rem 0;    
+}
+.destacado{
+    font-weight: 700;
+}

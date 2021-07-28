@@ -6,7 +6,7 @@ import {UrlDeleteUsr} from    '../services/apirest';
 import {UrlShowIglesia} from '../services/apirest';
 import {UrlShowUbicacion} from '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faEdit,faTrashAlt} from '@fortawesome/free-solid-svg-icons'
+import {faEdit,faTrashAlt,faPlus,faTimes,faCheck} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
 import 'react-datepicker/dist/react-datepicker.css'
 class CrudCementerios extends React.Component{
@@ -123,7 +123,7 @@ render(){
         <React.Fragment>
         <div >
             <br />
-            <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}>Crear iglesia</button>
+            <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}><FontAwesomeIcon className="me-2" icon={faPlus}/>Crear iglesia</button>
             <br /><br />
             <table className="table table-striped table-hover">
                 <thead>
@@ -132,6 +132,7 @@ render(){
                         <th>Nombres</th>
                         <th>Dirección</th>
                         <th>Ciudad</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -139,10 +140,10 @@ render(){
                     ((igl,index)=>{
                     return(
                         <tr key={index}>
-                        <td>{igl.id}</td>
-                        <td>{igl.nombre}</td>
-                        <td>{igl.direccion}</td>
-                        <td>{igl.ciudad}</td>
+                        <td>{igl.iglesiaid}</td>
+                        <td>{igl.nombreiglesia}</td>
+                        <td>{igl.direccioniglesia}</td>
+                        <td>{igl.ciudadiglesia}</td>
                         <td>
                         <button className="btn btn-edit" onClick={()=>{this.seleccionariglesia(igl);this.modalInsertar();this.setState({tipomodal: "actualizar"})}}><FontAwesomeIcon icon={faEdit}/></button>
                         {"   "}
@@ -190,11 +191,11 @@ render(){
                 <ModalFooter>
                     
                     {this.state.tipomodal === "insertar"?
-                    <button className="btn btn-crear-usuario" onClick={()=>this.peticionPost()}>Insertar</button>:
-                    <button className="btn btn-crear-usuario" onClick={()=>this.peticionPut()}>Actualizar</button>  
+                    <button className="btn btn-crear-usuario" onClick={()=>this.peticionPost()}><FontAwesomeIcon className="me-2" icon={faCheck}/>Insertar</button>:
+                    <button className="btn btn-crear-usuario" onClick={()=>this.peticionPut()}><FontAwesomeIcon className="me-2" icon={faEdit}/>Actualizar</button>  
                     }
 
-                    <button className="btn btn-danger" onClick={()=>this.modalInsertar()}>Cancelar</button>
+                    <button className="btn btn-danger" onClick={()=>this.modalInsertar()}><FontAwesomeIcon className="me-2" icon={faTimes}/>Cancelar</button>
                 </ModalFooter>
             </Modal>
 

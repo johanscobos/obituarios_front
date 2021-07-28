@@ -144,6 +144,7 @@ render(){
                         <th>Apellidos</th>
                         <th>Nombre usuario</th>
                         <th>Rol</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>

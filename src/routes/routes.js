@@ -14,7 +14,7 @@ import Home from '../components/Home';
 
 import { isAuthenticated } from '../services/authentication';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faSearch,faUser,faBible,faStoreAlt,faGripHorizontal,faArchway,faNetworkWired} from '@fortawesome/free-solid-svg-icons'
+import {faSearch,faUser,faBible,faStoreAlt,faGripHorizontal,faArchway,faNetworkWired,faChurch} from '@fortawesome/free-solid-svg-icons'
 
 export const Routes=() => {
   const isAuth= isAuthenticated();
@@ -49,9 +49,17 @@ export const Routes=() => {
                       <NavLink exact to="/crudCementerios" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faArchway}/><span>Cementerios</span></NavLink>
                     </li>
                     <li className="menu-barra_lateral_item">
+                      <NavLink exact to="/crudIglesia" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faChurch}/><span>Iglesias</span></NavLink>
+                    </li>
+                    {
+                      /*
+                      <li className="menu-barra_lateral_item">
                       <a href="#" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faNetworkWired}/><span>IP Servidor</span></a>
                     </li>                  
                    
+                      */
+                    }
+                    
                   </ul>
                 </nav> 
                 
@@ -87,7 +95,7 @@ export const Routes=() => {
 
                   <div className="col-md-12">
                   {isAuth ? 
-                  <Route path="/crudIglesias" exact render = {props=>(<CrudIglesia{...props}/>)}/>: <Redirect to ="/Login"></Redirect>}
+                  <Route path="/crudIglesia" exact render = {props=>(<CrudIglesia{...props}/>)}/>: <Redirect to ="/Login"></Redirect>}
                   </div> 
                   
                   <div className="col-md-12">
