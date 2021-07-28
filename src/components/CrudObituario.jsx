@@ -157,6 +157,8 @@ class CrudObituario extends React.Component{
                 apellidos : response.data.apellidos,
                 mensaje : response.data.mensaje,
                 ciudadid : response.data.ciudadid,
+                sedeid : response.data.sedeid,
+                salaid : response.data.salaid,
                 iglesiaid : response.data.iglesiaid,
                 horamisa : response.data.horamisa,
                 cementerioid : response.data.cementerioid,
@@ -387,7 +389,7 @@ render(){
                     ) }
                 </tbody>
             </table>
-           <ReactPaginate 
+            <ReactPaginate 
                 previousLabel={"Anterior"}
                 nextLabel={"Siguiente"}
                 breakLabel={"..."}
@@ -420,20 +422,20 @@ render(){
                     <select name="ciudadid" className="form-control" value={form?this.state.form.ciudadid:""} onChange={this.handleChange} ><option value="">Seleccione una ciudad</option>
                         {this.state.ubicaciones.map((ciud,index)=>{ return(<option key={ciud.id} value={ciud.id}>{ciud.ciudad} </option>)})}
                     </select>
-                    <select name="sedeid" className="form-control" value={form?this.state.form.sedeid:""} onChange={this.handleChange} ><option value="">Seleccione una sede</option>
-                        {this.state.sedes.map((sed,index)=>{ return(<option key={sed.id} value={sed.id}>{sed.nombresede} </option>)})}
+                    <select name="sedeid" className="form-control" value={form?this.state.sedeid:""} onChange={this.handleChange} ><option value="">Seleccione una sede</option>
+                        {this.state.sedes.map((sed,index)=>{ return(<option key={sed.sedeid} value={sed.sedeid}>{sed.nombresede} </option>)})}
                     </select>
                     <select name="salaid" className="form-control" value={form?this.state.form.salaid:""} onChange={this.handleChange} ><option value="">Seleccione una sala</option>
-                        {this.state.salas.map((sal,index)=>{ return(<option key={sal.id} value={sal.id}>{sal.nombresala} </option>)})}
+                        {this.state.salas.map((sal,index)=>{ return(<option key={sal.salaid} value={sal.salaid}>{sal.nombresala} </option>)})}
                     </select>
                     <select name="iglesiaid" className="form-control" value={form?this.state.form.iglesiaid:""} onChange={this.handleChange} ><option value="">Seleccione una iglesia</option>
-                        {this.state.iglesias.map((igl,index)=>{ return(<option key={igl.id} value={igl.id}>{igl.nombreiglesia} </option>)})}
+                        {this.state.iglesias.map((igl,index)=>{ return(<option key={igl.iglesiaid} value={igl.iglesiaid}>{igl.nombreiglesia} </option>)})}
                     </select>
                     
                     <input type="text" className="form-control"name="horamisa" placeholder="Hora Misa" onChange={this.handleChange} value={form?form.horamisa:""}/>
 
                     <select name="cementerioid" className="form-control" value={form?this.state.form.cementerioid:""} onChange={this.handleChange} ><option value="">Seleccione un cementerio</option>
-                        {this.state.cementerios.map((cem,index)=>{ return(<option key={cem.id} value={cem.id}>{cem.nombrecementerio} </option>)})}
+                        {this.state.cementerios.map((cem,index)=>{ return(<option key={cem.cementerioid} value={cem.cementerioid}>{cem.nombrecementerio} </option>)})}
                     </select>
                     <span className="destacado">Fecha Exequias:</span> <input  name="fechaexequias"  type="date"   
                     className="form-control"  onChange={ this.handleChange} value={form?form.fechaexequias:""}/>
