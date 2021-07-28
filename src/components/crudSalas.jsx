@@ -90,7 +90,7 @@ class CrudSalas extends React.Component{
         console.log(sal)
         await this.setState({
             form:{
-                id:sal.id,
+                id:sal.salaid,
                 nombresala:sal.nombresala,
                 sedeid : sal.sedeid,
                 ipid:sal.ipid,
@@ -137,7 +137,6 @@ render(){
             <table className="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Nombres</th>
                         <th>Sede</th>
                         <th>Ip</th>
@@ -149,7 +148,6 @@ render(){
                     ((sal,index)=>{
                     return(
                         <tr key={index}>
-                        <td>{sal.salaid}</td>
                         <td>{sal.nombresala}</td>
                         <td>{sal.nombresede}</td>
                         <td>{sal.direccionip}</td>
@@ -179,7 +177,7 @@ render(){
                     
                     <input type="text" className="form-control" name="nombresala" placeholder="Nombre sala" onChange={this.handleChange} value={form?form.nombresala:""}/>
                  
-                    <select name="sedeid" className="form-control" value={form?this.state.sedeid:""} onChange={this.handleChange} > <option value="">Seleccione una sede</option>
+                    <select name="sedeid" className="form-control" value={form?this.state.form.sedeid:""} onChange={this.handleChange} > <option value="">Seleccione una sede</option>
                         {this.state.sedes.map((sed,index)=>{ return(<option key={sed.sedeid} value={sed.sedeid}>{sed.nombresede} </option>)})}
                     </select>
                     <select name="ipid" className="form-control" value={form?this.state.form.ipid:""} onChange={this.handleChange} > <option value="">Seleccione una ip</option>

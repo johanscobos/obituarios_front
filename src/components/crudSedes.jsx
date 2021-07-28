@@ -84,11 +84,11 @@ class CrudSedes extends React.Component{
         console.log(sed)
         await this.setState({
             form:{
-                id:sed.id,
+                id:sed.sedeid,
                 nombresede:sed.nombresede,
-                direccion : sed.direccion,
-                telefono:sed.telefono,
-                ciudad:sed.ciudad
+                direccion : sed.direccionsede,
+                telefono:sed.telefonosede,
+                ciudad:sed.ciudadid
             }
         })
     }

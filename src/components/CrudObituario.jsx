@@ -425,16 +425,16 @@ render(){
                     <select name="sedeid" className="form-control" value={form?this.state.sedeid:""} onChange={this.handleChange} ><option value="">Seleccione una sede</option>
                         {this.state.sedes.map((sed,index)=>{ return(<option key={sed.sedeid} value={sed.sedeid}>{sed.nombresede} </option>)})}
                     </select>
-                    <select name="salaid" className="form-control" value={form?this.state.form.salaid:""} onChange={this.handleChange} ><option value="">Seleccione una sala</option>
+                    <select name="salaid" className="form-control" value={form?this.state.salaid:""} onChange={this.handleChange} ><option value="">Seleccione una sala</option>
                         {this.state.salas.map((sal,index)=>{ return(<option key={sal.salaid} value={sal.salaid}>{sal.nombresala} </option>)})}
                     </select>
-                    <select name="iglesiaid" className="form-control" value={form?this.state.form.iglesiaid:""} onChange={this.handleChange} ><option value="">Seleccione una iglesia</option>
+                    <select name="iglesiaid" className="form-control" value={form?this.state.iglesiaid:""} onChange={this.handleChange} ><option value="">Seleccione una iglesia</option>
                         {this.state.iglesias.map((igl,index)=>{ return(<option key={igl.iglesiaid} value={igl.iglesiaid}>{igl.nombreiglesia} </option>)})}
                     </select>
                     
                     <input type="text" className="form-control"name="horamisa" placeholder="Hora Misa" onChange={this.handleChange} value={form?form.horamisa:""}/>
 
-                    <select name="cementerioid" className="form-control" value={form?this.state.form.cementerioid:""} onChange={this.handleChange} ><option value="">Seleccione un cementerio</option>
+                    <select name="cementerioid" className="form-control" value={form?this.state.cementerioid:""} onChange={this.handleChange} ><option value="">Seleccione un cementerio</option>
                         {this.state.cementerios.map((cem,index)=>{ return(<option key={cem.cementerioid} value={cem.cementerioid}>{cem.nombrecementerio} </option>)})}
                     </select>
                     <span className="destacado">Fecha Exequias:</span> <input  name="fechaexequias"  type="date"   
@@ -464,7 +464,7 @@ render(){
                     
                     {this.state.tipomodal === "insertar"?
                     <button className="btn btn-crear-usuario" onClick={()=>this.peticionPost()}><FontAwesomeIcon className="me-2" icon={faCheck}/>Insertar</button>:
-                    <button className="btn btn-crear-usuario" onClick={()=>this.peticionPut()}><FontAwesomeIcon className="me-2" icon={faEdit}/>ActualizarActualizar</button>  
+                    <button className="btn btn-crear-usuario" onClick={()=>this.peticionPut()}><FontAwesomeIcon className="me-2" icon={faEdit}/>Actualizar</button>  
                     }
 
                     <button className="btn btn-danger" onClick={()=>this.modalInsertar()}><FontAwesomeIcon className="me-2" icon={faTimes}/>Cancelar</button>

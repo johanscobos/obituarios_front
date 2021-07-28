@@ -82,10 +82,10 @@ class CrudCementerios extends React.Component{
         console.log(igl)
         await this.setState({
             form:{
-                id:igl.id,
-                nombre:igl.nombre,
-                direccion : igl.direccion,
-                ciudad:igl.ciudad
+                id:igl.iglesiaid,
+                nombre:igl.nombreiglesia,
+                direccion : igl.direccioniglesia,
+                ciudad:igl.ciudadid
             }
         })
     }
@@ -128,7 +128,6 @@ render(){
             <table className="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Nombres</th>
                         <th>Dirección</th>
                         <th>Ciudad</th>
@@ -140,7 +139,6 @@ render(){
                     ((igl,index)=>{
                     return(
                         <tr key={index}>
-                        <td>{igl.iglesiaid}</td>
                         <td>{igl.nombreiglesia}</td>
                         <td>{igl.direccioniglesia}</td>
                         <td>{igl.ciudadiglesia}</td>
