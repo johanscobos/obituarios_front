@@ -19,7 +19,7 @@ import { faAcquisitionsIncorporated } from '@fortawesome/free-brands-svg-icons';
 class CrudObituario extends React.Component{
 
     constructor(props){
-        super(props)
+       super(props)
 
         this.state={
             obituarios:[],
@@ -69,7 +69,7 @@ class CrudObituario extends React.Component{
 
          this.handlePageClick = this.handlePageClick.bind(this);
 
-        }
+       }
        
       
         componentDidMount(){
@@ -427,11 +427,13 @@ render(){
                         {this.state.salas.map((sal,index)=>{ return(<option key={sal.id} value={sal.id}>{sal.nombresala} </option>)})}
                     </select>
                     <select name="iglesiaid" className="form-control" value={form?this.state.form.iglesiaid:""} onChange={this.handleChange} ><option value="">Seleccione una iglesia</option>
-                        {this.state.iglesias.map((igl,index)=>{ return(<option key={igl.id} value={igl.id}>{igl.nombre} </option>)})}
+                        {this.state.iglesias.map((igl,index)=>{ return(<option key={igl.id} value={igl.id}>{igl.nombreiglesia} </option>)})}
                     </select>
+                    
                     <input type="text" className="form-control"name="horamisa" placeholder="Hora Misa" onChange={this.handleChange} value={form?form.horamisa:""}/>
+
                     <select name="cementerioid" className="form-control" value={form?this.state.form.cementerioid:""} onChange={this.handleChange} ><option value="">Seleccione un cementerio</option>
-                        {this.state.cementerios.map((cem,index)=>{ return(<option key={cem.id} value={cem.id}>{cem.nombre} </option>)})}
+                        {this.state.cementerios.map((cem,index)=>{ return(<option key={cem.id} value={cem.id}>{cem.nombrecementerio} </option>)})}
                     </select>
                     <span className="destacado">Fecha Exequias:</span> <input  name="fechaexequias"  type="date"   
                     className="form-control"  onChange={ this.handleChange} value={form?form.fechaexequias:""}/>
