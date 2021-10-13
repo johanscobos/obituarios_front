@@ -1,10 +1,11 @@
 import React, { useEffects, useState } from 'react';
 import axios from 'axios';
-import {UrlCreateObi, UrlShowSala, UrlShowSede} from    '../services/apirest';
+import {UrlCreateObi, UrlDeleteObi, UrlShowSala, UrlShowSede} from    '../services/apirest';
 import {UrlUpdateObi} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
 import {UrlShowObithome} from '../services/apirest';
-import ReactPaginate from 'react-paginate';
+import {UrlShowObit} from '../services/apirest';
+//import ReactPaginate from 'react-paginate';
 import {UrlShowIglesia} from '../services/apirest';
 import {UrlShowCementerio} from '../services/apirest';
 import {UrlShowUbicacion} from '../services/apirest';
@@ -26,7 +27,7 @@ class CrudObituario extends React.Component{
             tablaObituarios:[],
             tablaBusquedaObituarios:[],
             busqueda:"",
-            perPage: 3,
+            perPage: 999,
             currentPage: 0,
             offset: 0,
             pageCount: 0,
@@ -83,7 +84,7 @@ class CrudObituario extends React.Component{
         }
 
     peticionGet=()=>{ 
-        axios.get(UrlShowObithome).then(async response=>{
+        axios.get(UrlShowObit).then(async response=>{
         
         var data = response.data[0];          
         var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
@@ -91,7 +92,8 @@ class CrudObituario extends React.Component{
         this.setState({
              pageCount: Math.ceil(data.length / this.state.perPage),
              obituarios: response.data[0],
-             tablaObituarios: slice
+            // tablaObituarios: slice
+             tablaObituarios: data
          }) 
         });
         }
@@ -217,7 +219,7 @@ class CrudObituario extends React.Component{
     }
     peticionDelete=async()=>{
         console.log('a');
-        await axios.put(UrlDeleteUsr+this.state.form.id).then(response=>{
+        await axios.delete(UrlDeleteObi+this.state.form.id).then(response=>{
             this.setState({modalEliminar: false});
             this.peticionGet();
 
@@ -355,7 +357,7 @@ render(){
                     </tr>
                 </thead>
                 <tbody>
-                    {tablaObituarios.map
+                    {tablaObituarios &&tablaObituarios.map
                     ((obi,index)=>{
                     return(
                         <tr key={index}>
@@ -389,7 +391,9 @@ render(){
                     ) }
                 </tbody>
             </table>
-            <ReactPaginate 
+            {
+                /*
+                 <ReactPaginate 
                 previousLabel={"Anterior"}
                 nextLabel={"Siguiente"}
                 breakLabel={"..."}
@@ -403,6 +407,10 @@ render(){
                 activeClassName={"active"}       
 
            />
+                */
+
+            }
+           
             <Modal isOpen= {this.state.modalInsertar} >
            
             <div class="modal-header">
@@ -475,7 +483,7 @@ render(){
 
             <Modal isOpen={this.state.modalEliminar}>
                 <ModalBody>
-                    ¿Estás seguro(a) que deseas eliminar al obituario {form&& form.nombres}
+                    ¿Estás seguro(a) que deseas eliminar el obituario {form&& form.nombres} ?
                 </ModalBody>
                 <ModalFooter>  
                     <button className="btn btn-danger" onClick={()=>this.peticionDelete()}> Si</button>

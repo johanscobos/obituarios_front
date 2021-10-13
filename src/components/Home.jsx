@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import logoOfrenda from '../assets/img/logo-la-ofrenda.png';
 import iconoLinea from '../assets/img/icono-linea-gratuita.png';
-import Obituarios from '../components/Obituarios';
+import Obituarios from './Obituarios';
 //import {UrlShowObit} from    '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSearch,faUser,faShoppingCart,faMobileAlt} from '@fortawesome/free-solid-svg-icons';
@@ -44,8 +44,8 @@ render(){
                     <h2>LÍNEA GRATUITA NACIONAL: <br />01 8000 18 08 28</h2>
                 </div>
                 <div>
-                    <a href="https://www.laofrenda.com.co/paga-aqui/"><button type="button" class="btn btn-primary btn-paga-aqui"><FontAwesomeIcon icon={faShoppingCart} /><span className="btn-text">PAGA AQUÍ</span></button></a>
-                    <a href="https://laofrenda.com.co/ofrendapp/"  target="_blank"><button type="button" class="btn btn-primary btn-descarga-app"><FontAwesomeIcon icon={faMobileAlt} /><span className="btn-text">DESCARGA APP</span></button></a>
+                    <a href="https://www.laofrenda.com.co/paga-aqui/"><button type="button" className="btn btn-primary btn-paga-aqui"><FontAwesomeIcon icon={faShoppingCart} /><span className="btn-text">PAGA AQUÍ</span></button></a>
+                    <a href="https://laofrenda.com.co/ofrendapp/"  target="_blank"><button type="button" className="btn btn-primary btn-descarga-app"><FontAwesomeIcon icon={faMobileAlt} /><span className="btn-text">DESCARGA APP</span></button></a>
                 </div>                
             </div>
             

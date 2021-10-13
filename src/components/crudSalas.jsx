@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {UrlCreateSala, UrlShowSede} from    '../services/apirest';
+import {UrlCreateSala, UrlDeleteSala, UrlShowSede} from    '../services/apirest';
 import {UrlUpdSala} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
 import {UrlShowSala} from '../services/apirest';
-import {UrlShowIp} from '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit,faTrashAlt,faPlus,faCheck,faTimes} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
@@ -13,24 +12,21 @@ class CrudSalas extends React.Component{
     state={
        salas:[],
        sedes:[],
-       ips:[],
        modalInsertar:false,
        modalEliminar: false,
        form:{ 
         "id":"",
         "nombresala":"",
         "sedeid":"",
-        "ipid":"",
+        "direccionip":"",
     },
     error:false,
     errorMsj:"",
     sedeid: null,
-    ipid: null
+    direccionip: null
     }
     componentDidMount(){
         this.peticionGet();
-        this.peticionGetSede();
-        this.peticionGetIp();
         }
     peticionGet=()=>{
         axios.get(UrlShowSala).then(async response=>{
@@ -40,11 +36,6 @@ class CrudSalas extends React.Component{
     peticionGetSede=()=>{
         axios.get(UrlShowSede).then(async response=>{
             await this.setState({sedes: response.data[0]});
-        })
-        }
-    peticionGetIp=()=>{
-        axios.get(UrlShowIp).then(async response=>{
-            await this.setState({ips: response.data[0]});
         })
         }
     modalInsertar=()=>{
@@ -71,7 +62,7 @@ class CrudSalas extends React.Component{
                 error:false,
                 nombresala : response.data.nombresala,
                 sedeid : response.data.sedeid,
-                ipid : response.data.ipid
+                direccionip : response.data.direccionip
             })
         }).catch(error => {
             this.setState
@@ -80,7 +71,7 @@ class CrudSalas extends React.Component{
                 errorMsj:error.response.request.response,
                 nombresala:"",
                 sedeid:"",
-                ipid:""
+                direccionip:""
             })
         
         })        
@@ -93,7 +84,7 @@ class CrudSalas extends React.Component{
                 id:sal.salaid,
                 nombresala:sal.nombresala,
                 sedeid : sal.sedeid,
-                ipid:sal.ipid,
+                direccionip:sal.direccionip,
             }
         })
     }
@@ -109,8 +100,7 @@ class CrudSalas extends React.Component{
         })
     }
     peticionDelete=async()=>{
-        console.log('a');
-        await axios.put(UrlDeleteUsr+this.state.form.id).then(response=>{
+        await axios.delete(UrlDeleteSala+this.state.form.id).then(response=>{
             this.setState({modalEliminar: false});
             this.peticionGet();
 
@@ -126,7 +116,6 @@ class CrudSalas extends React.Component{
 render(){
     const {salas} = this.state;
     const {sedes} = this.state;
-    const {ips}=this.state;
     const {form}=this.state;
     return(
         <React.Fragment>
@@ -144,7 +133,7 @@ render(){
                     </tr>
                 </thead>
                 <tbody>
-                    {salas.map
+                    {salas && salas.map
                     ((sal,index)=>{
                     return(
                         <tr key={index}>
@@ -164,9 +153,9 @@ render(){
            
             <Modal isOpen= {this.state.modalInsertar} >
            
-            <div class="modal-header">
+            <div className="modal-header">
             {this.state.tipomodal === "insertar"?
-                    <h5 class="modal-title">Crear Sala</h5> :<h5 class="modal-title">Actualizar Sala</h5>                    
+                    <h5 className="modal-title">Crear Sala</h5> :<h5 className="modal-title">Actualizar Sala</h5>                    
                     }
             </div>
             
@@ -176,13 +165,11 @@ render(){
                  <form onSubmit={this.manejadorSubmit}>
                     
                     <input type="text" className="form-control" name="nombresala" placeholder="Nombre sala" onChange={this.handleChange} value={form?form.nombresala:""}/>
-                 
+                    
                     <select name="sedeid" className="form-control" value={form?this.state.form.sedeid:""} onChange={this.handleChange} > <option value="">Seleccione una sede</option>
-                        {this.state.sedes.map((sed,index)=>{ return(<option key={sed.sedeid} value={sed.sedeid}>{sed.nombresede} </option>)})}
+                        {sedes && sedes.map((sed,index)=>{ return(<option key={sed.sedeid} value={sed.sedeid}>{sed.nombresede} </option>)})}
                     </select>
-                    <select name="ipid" className="form-control" value={form?this.state.form.ipid:""} onChange={this.handleChange} > <option value="">Seleccione una ip</option>
-                        {this.state.ips.map((ip,index)=>{ return(<option key={ip.id} value={ip.id}>{ip.direccionip} </option>)})}
-                    </select>
+                    <input type="text" className="form-control" pattern="^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$" name="direccionip" placeholder="Dirección Ip" onChange={this.handleChange} value={form?form.direccionip:""}/>
                     
                 </form>   
 
@@ -212,7 +199,7 @@ render(){
 
             <Modal isOpen={this.state.modalEliminar}>
                 <ModalBody>
-                    ¿Estás seguro(a) que deseas eliminar al obituario {form&& form.nombres}
+                    ¿Estás seguro(a) que deseas eliminar la sala {form&& form.nombres} ?
                 </ModalBody>
                 <ModalFooter>  
                     <button className="btn btn-danger" onClick={()=>this.peticionDelete()}> Si</button>

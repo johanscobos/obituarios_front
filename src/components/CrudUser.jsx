@@ -43,7 +43,6 @@ class CrudUser extends React.Component{
     peticionGetRol=()=>{
         axios.get(UrlShowRole).then(async response=>{
             await this.setState({roles: response.data[0]});
-            console.log(this.state)
         })
         }
     modalInsertar=()=>{
@@ -128,8 +127,6 @@ class CrudUser extends React.Component{
 render(){
     const {usuarios} = this.state;
     const {form}=this.state;
-    const {roles} = this.state;
-    console.log(usuarios);
     return(
         <React.Fragment>
         <div >
@@ -148,7 +145,7 @@ render(){
                     </tr>
                 </thead>
                 <tbody>
-                    {usuarios.map
+                    {usuarios && usuarios.map
                     ((usr,index)=>{
                     return(
                         <tr key={index}>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {UrlCreateSede} from    '../services/apirest';
+import {UrlCreateSede, UrlDeleteSede} from    '../services/apirest';
 import {UrlUpdateSede} from    '../services/apirest';
 import {UrlShowUbicacion} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
@@ -80,15 +80,15 @@ class CrudSedes extends React.Component{
         })        
     }
 
-    seleccionarsede=async(sed)=>{
-        console.log(sed)
+    seleccionarsede=async(vsed)=>{
+        console.log(vsed)
         await this.setState({
             form:{
-                id:sed.sedeid,
-                nombresede:sed.nombresede,
-                direccion : sed.direccionsede,
-                telefono:sed.telefonosede,
-                ciudad:sed.ciudadid
+                id:vsed.sedeid,
+                nombresede:vsed.nombresede,
+                direccion : vsed.direccionsede,
+                telefono:vsed.telefonosede,
+                ciudad:vsed.ciudadid
             }
         })
     }
@@ -104,8 +104,7 @@ class CrudSedes extends React.Component{
         })
     }
     peticionDelete=async()=>{
-        console.log('a');
-        await axios.put(UrlDeleteUsr+this.state.form.id).then(response=>{
+        await axios.delete(UrlDeleteSede+this.state.form.id).then(response=>{
             this.setState({modalEliminar: false});
             this.peticionGet();
 
@@ -140,7 +139,7 @@ render(){
                     </tr>
                 </thead>
                 <tbody>
-                    {sedes.map
+                    {sedes && sedes.map
                     ((sed,index)=>{
                     return(
                         <tr key={index}>
@@ -164,7 +163,7 @@ render(){
            
             <div class="modal-header">
             {this.state.tipomodal === "insertar"?
-                    <h5 class="modal-title">Crear Sede</h5> :<h5 class="modal-title">Actualizar Sede</h5>                    
+                    <h5 className="modal-title">Crear Sede</h5> :<h5 className="modal-title">Actualizar Sede</h5>                    
                     }
             </div>
             
@@ -209,7 +208,7 @@ render(){
 
             <Modal isOpen={this.state.modalEliminar}>
                 <ModalBody>
-                    ¿Estás seguro(a) que deseas eliminar al obituario {form&& form.nombres}
+                    ¿Estás seguro(a) que deseas eliminar la sede {form&& form.nombres} ?
                 </ModalBody>
                 <ModalFooter>  
                     <button className="btn btn-danger" onClick={()=>this.peticionDelete()}> Si</button>

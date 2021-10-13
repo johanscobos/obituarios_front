@@ -13,11 +13,19 @@ import Home from '../components/Home';
 //import '../assets/css/style.css';
 
 import { isAuthenticated } from '../services/authentication';
+//import { isRol } from '../services/authentication';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSearch,faUser,faBible,faStoreAlt,faGripHorizontal,faArchway,faNetworkWired,faChurch} from '@fortawesome/free-solid-svg-icons'
 
+
+/*function Bienvenida() {
+    if (isRol) { return <h1>Bienvenido a la zona de Usuario Registrados !</h1>;}
+}*/
+
 export const Routes=() => {
   const isAuth= isAuthenticated();
+  //const isRol= isRol();
+
     return (
       <BrowserRouter>
     
@@ -32,7 +40,7 @@ export const Routes=() => {
               
               <div class="offcanvas-body p-0">
                 <nav class="navbar-dark">
-                  <ul className="navbar-nav menu-barra_lateral">                   
+                  <ul className="navbar-nav menu-barra_lateral">                 
                     <li className="menu-barra_lateral_item">
                       <NavLink exact to="/CrudUser" className="nav-link px-3 btn-active-menu"><FontAwesomeIcon className="me-2" icon={faUser}/><span>Usuarios</span></NavLink>
                     </li>
@@ -50,16 +58,8 @@ export const Routes=() => {
                     </li>
                     <li className="menu-barra_lateral_item">
                       <NavLink exact to="/crudIglesia" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faChurch}/><span>Iglesias</span></NavLink>
-                    </li>
-                    {
-                      /*
-                      <li className="menu-barra_lateral_item">
-                      <a href="#" className="nav-link px-3 active"><FontAwesomeIcon className="me-2" icon={faNetworkWired}/><span>IP Servidor</span></a>
-                    </li>                  
-                   
-                      */
-                    }
                     
+                    </li>
                   </ul>
                 </nav> 
                 
@@ -74,7 +74,7 @@ export const Routes=() => {
                   </div>
 
                   <div className="col-md-12">
-                 {isAuth ? 
+                 {isAuth? 
                  <Route path="/crudObituario" exact render = {props=>(<CrudObituario{...props}/>)}/>: <Redirect to ="/Login"></Redirect>}
                   </div>   
 
@@ -84,7 +84,7 @@ export const Routes=() => {
                   </div>    
 
                   <div className="col-md-12">
-                  {isAuth ? 
+                  {isAuth? 
                   <Route path="/crudSedes" exact render = {props=>(<CrudSede{...props}/>)}/>: <Redirect to ="/Login"></Redirect>}
                   </div>  
 
@@ -96,11 +96,6 @@ export const Routes=() => {
                   <div className="col-md-12">
                   {isAuth ? 
                   <Route path="/crudIglesia" exact render = {props=>(<CrudIglesia{...props}/>)}/>: <Redirect to ="/Login"></Redirect>}
-                  </div> 
-                  
-                  <div className="col-md-12">
-                  {isAuth ? 
-                  <Route path="/cruIo" exact render = {props=>(<CrudIglesia{...props}/>)}/>: <Redirect to ="/Login"></Redirect>}
                   </div> 
                            
                 </div>

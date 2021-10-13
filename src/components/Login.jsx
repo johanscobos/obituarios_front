@@ -30,9 +30,11 @@ manejadorChange = async e=>{
 manejadorButton=()=>{
     let url= UrlLogin ;
         axios.post(url, this.state.form).then(response => {
+                    console.log(response.data)
                     localStorage.setItem("Token",response.data.api_token);
+                    localStorage.setItem("rolid",response.data.role_id);
+                    localStorage.setItem("departamentoid",response.data.ciudad);
                     window.location = '/crudUser'
-                   // this.props.history.push("/crudUser");
                 }).catch(error => {
                     this.setState
                     ({

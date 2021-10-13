@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {UrlCreateCementerio} from    '../services/apirest';
+import {UrlCreateCementerio, UrlDeleteCementerio} from    '../services/apirest';
 import {UrlUpdateCementerio} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
 import {UrlShowCementerio} from '../services/apirest';
@@ -101,8 +101,7 @@ class CrudCementerios extends React.Component{
         })
     }
     peticionDelete=async()=>{
-        console.log('a');
-        await axios.put(UrlDeleteUsr+this.state.form.id).then(response=>{
+        await axios.delete(UrlDeleteCementerio+this.state.form.id).then(response=>{
             this.setState({modalEliminar: false});
             this.peticionGet();
 
@@ -135,7 +134,7 @@ render(){
                     </tr>
                 </thead>
                 <tbody>
-                    {cementerios.map
+                    {cementerios && cementerios.map
                     ((cem,index)=>{
                     return(
                         <tr key={index}>
@@ -155,9 +154,9 @@ render(){
            
             <Modal isOpen= {this.state.modalInsertar} >
            
-            <div class="modal-header">
+            <div className="modal-header">
             {this.state.tipomodal === "insertar"?
-                    <h5 class="modal-title">Crear Cementerio</h5> :<h5 class="modal-title">Actualizar Cementerio</h5>                    
+                    <h5 className="modal-title">Crear Cementerio</h5> :<h5 className="modal-title">Actualizar Cementerio</h5>                    
                     }
             </div>
             
@@ -201,7 +200,7 @@ render(){
 
             <Modal isOpen={this.state.modalEliminar}>
                 <ModalBody>
-                    ¿Estás seguro(a) que deseas eliminar al obituario {form&& form.nombres}
+                    ¿Estás seguro(a) que deseas eliminar el cementerio {form&& form.nombres} ?
                 </ModalBody>
                 <ModalFooter>  
                     <button className="btn btn-danger" onClick={()=>this.peticionDelete()}> Si</button>
