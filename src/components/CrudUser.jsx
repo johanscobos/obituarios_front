@@ -4,7 +4,7 @@ import {UrlShowUsr} from    '../services/apirest';
 import {UrlCreateUsr} from    '../services/apirest';
 import {UrlUpdateUsr} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
-import {UrlShowRole} from    '../services/apirest';
+import {UrlShowRole,UrlShowUbicacion} from    '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit,faTrashAlt,faFile,faPlus,faCheck,faTimes} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
@@ -21,6 +21,7 @@ class CrudUser extends React.Component{
         "nombres":"",
         "apellidos":"",
         "username":"",
+        "ciudad":"",
         "roleid":"",
         "password":""
     },
@@ -28,12 +29,15 @@ class CrudUser extends React.Component{
     errorMsj:"",
     tipomodal:"",
     selectOptions : [],
+    ubicaciones:[],
     roleid: null,
-    descripcion:""
+    descripcion:"",
+    iddepartamento:null
     }
     componentDidMount(){
         this.peticionGet();
         this.peticionGetRol();
+        this.peticionGetUbicacion();
         }
     peticionGet=()=>{
         axios.get(UrlShowUsr).then(async response=>{
@@ -44,6 +48,12 @@ class CrudUser extends React.Component{
         axios.get(UrlShowRole).then(async response=>{
             await this.setState({roles: response.data[0]});
         })
+        }
+    
+    peticionGetUbicacion=()=>{
+            axios.get(UrlShowUbicacion).then(async response=>{
+            await this.setState({ubicaciones: response.data[0]});
+            })
         }
     modalInsertar=()=>{
         this.setState({modalInsertar: !this.state.modalInsertar})
@@ -98,8 +108,8 @@ class CrudUser extends React.Component{
                 nombres: usr.nombres,
                 apellidos: usr.apellidos,
                 rolid: usr.rolid,
-                username: usr.username
-            }
+                username: usr.username,
+                ciudad:usr.ciudad            }
         })
     }
     peticionPut=async()=>{
@@ -127,6 +137,7 @@ class CrudUser extends React.Component{
 render(){
     const {usuarios} = this.state;
     const {form}=this.state;
+    const {ubicaciones} = this.state;
     return(
         <React.Fragment>
         <div >
@@ -179,8 +190,11 @@ render(){
                  <form onSubmit={this.manejadorSubmit}>
                     
                     <input type="text" className="form-control" name="nombres" placeholder="Nombres" onChange={this.handleChange} value={form?form.nombres:""}/>
-                    <input type="text" className="form-control" name="apellidos" placeholder="Apeliidos" onChange={this.handleChange} value={form?form.apellidos:""}/>
-                    <input type="text" className="form-control"name="username" placeholder="Username"onChange={this.handleChange} value={form?form.username:""}/>
+                    <input type="text" className="form-control" name="apellidos" placeholder="Apeliidos" onChange={this.handleChange} value={form?form.apellidos:""}/> 
+                    {this.state.tipomodal === "insertar"?<input type="text" className="form-control"name="username" placeholder="Username"onChange={this.handleChange} value={form?form.username:""}/>: form.username}
+                    <select name="ciudad" className="form-control" value={form?this.state.form.ciudad:""} onChange={this.handleChange} ><option value="">Seleccione una ciudad</option>
+                        {this.state.ubicaciones.map((ciud,index)=>{ return(<option key={ciud.id} value={ciud.id}>{ciud.ciudad} </option>)})}
+                    </select>
                     <select name="rolid" className="form-control" value={this.state.roleid} onChange={this.handleChange} >
                         {this.state.roles.map((rol,index)=>{ return(<option key={rol.roleid} value={rol.roleid}>{rol.descripcion} </option>)})}
                     </select>

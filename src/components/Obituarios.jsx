@@ -25,10 +25,10 @@ class Obituarios extends React.Component{
     const {obitObj} = this.state;
    
       return(
-          <>                   
+        <React.Fragment>                
          <div className="grid-obituarios">    
       {        console.log(this.state.obitObj),
-             obitObj.map( (obt,index) => {
+             obitObj&&obitObj.map( (obt,index) => {
                               
               return(
                   <article className="card card-obituario">
@@ -74,7 +74,7 @@ class Obituarios extends React.Component{
             ) }
     
           </div>
-      </>
+          </React.Fragment>
       );
   }
   }

@@ -27,6 +27,7 @@ class CrudSalas extends React.Component{
     }
     componentDidMount(){
         this.peticionGet();
+        this.peticionGetSede();
         }
     peticionGet=()=>{
         axios.get(UrlShowSala).then(async response=>{

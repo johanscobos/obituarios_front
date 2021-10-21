@@ -177,7 +177,7 @@ render(){
                     <input type="text" className="form-control" name="direccion" placeholder="Direccion" onChange={this.handleChange} value={form?form.direccion:""}/>
                     <input type="text" className="form-control" name="telefono" placeholder="Telefono" onChange={this.handleChange} value={form?form.telefono:""} />
                     <select name="ciudad" className="form-control" value={form?this.state.form.ciudad:""} onChange={this.handleChange} ><option value="">Seleccione una ciudad</option>
-                        {this.state.ubicaciones.map((ciud,index)=>{ return(<option key={ciud.id} value={ciud.id}>{ciud.ciudad} </option>)})}
+                        {this.state.ubicaciones&&this.state.ubicaciones.map((ciud,index)=>{ return(<option key={ciud.id} value={ciud.id}>{ciud.ciudad} </option>)})}
                     </select>
                     
                 </form>   

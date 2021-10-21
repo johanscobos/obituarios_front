@@ -22,7 +22,7 @@ class Home extends React.Component{
     
 render(){
     return(
-        <>
+        <React.Fragment>
         <header className="header">
             <div className="header_top">
                 <div className="container">
@@ -68,7 +68,7 @@ render(){
             </div>
         </footer>
         
-      </> 
+      </React.Fragment>
     );
 }
 }
