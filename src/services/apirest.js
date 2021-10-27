@@ -5,28 +5,36 @@ export const UrlShowUsr="http://localhost:8089/user/show";
 export const UrlUpdateUsr="http://localhost:8089/user/update/";
 export const UrlDeleteUsr="http://localhost:8089/user/destroy/";
 export const UrlShowObit="http://localhost:8089/obituario/show/";
+export const UrlShowObit2="http://localhost:8089/obituario/showall/";
 export const UrlShowObithome="http://localhost:8089/obituario/showobithome/";
 export const UrlCreateObi="http://localhost:8089/obituarios/create"
 export const UrlUpdateObi="http://localhost:8089/obituarios/update/";
 export const UrlDeleteObi="http://localhost:8089/obituarios/destroy/";
 export const UrlShowSala="http://localhost:8089/salas/show/";
+export const UrlShowSala2="http://localhost:8089/salas/showall/";
 export const UrlCreateSala="http://localhost:8089/salas/create/";
 export const UrlUpdSala="http://localhost:8089/salas/update/";
 export const UrlDeleteSala="http://localhost:8089/salas/destroy/";
 export const UrlShowSede="http://localhost:8089/sedes/show/";
+export const UrlShowSede2="http://localhost:8089/sedes/showall/";
 export const UrlCreateSede="http://localhost:8089/sedes/create/";
 export const UrlUpdateSede="http://localhost:8089/sedes/update/";
 export const UrlDeleteSede="http://localhost:8089/sedes/destroy/";
 export const UrlShowCementerio="http://localhost:8089/cementerios/show/";
+export const UrlShowCementerio2="http://localhost:8089/cementerios/showall/";
 export const UrlCreateCementerio="http://localhost:8089/cementerios/create/";
 export const UrlUpdateCementerio="http://localhost:8089/cementerios/update/";
 export const UrlDeleteCementerio="http://localhost:8089/cementerios/destroy/";
 export const UrlShowIglesia="http://localhost:8089/iglesias/show/";
+export const UrlShowIglesia2="http://localhost:8089/iglesias/showall/";
 export const UrlCreateIglesia="http://localhost:8089/iglesias/create/";
 export const UrlUpdateIglesia="http://localhost:8089/iglesias/update/";
 export const UrlDeleteIglesia="http://localhost:8089/iglesias/destroy/";
 export const UrlShowRole="http://localhost:8089/role/show/";
 export const UrlShowUbicacion="http://localhost:8089/ubicaciones/show";
+export const UrlShowCiudad="http://localhost:8089/ciudades/show/";
+export const UrlShowCiudad2="http://localhost:8089/ciudades/showAll";
+export const UrlShowDepto="http://localhost:8089/ciudades/show/";
 
 
 

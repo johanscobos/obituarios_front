@@ -1,22 +1,24 @@
 import React, { useEffects, useState } from 'react';
 import axios from 'axios';
-import {UrlCreateObi, UrlDeleteObi, UrlShowSala, UrlShowSede} from    '../services/apirest';
+import {UrlCreateObi, UrlDeleteObi, UrlShowSala, UrlShowSala2,UrlShowSede,UrlShowSede2} from    '../services/apirest';
 import {UrlUpdateObi} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
 import {UrlShowObithome} from '../services/apirest';
-import {UrlShowObit} from '../services/apirest';
+import {UrlShowObit,UrlShowObit2} from '../services/apirest';
 //import ReactPaginate from 'react-paginate';
-import {UrlShowIglesia} from '../services/apirest';
-import {UrlShowCementerio} from '../services/apirest';
-import {UrlShowUbicacion} from '../services/apirest';
+import {UrlShowIglesia,UrlShowIglesia2} from '../services/apirest';
+import {UrlShowCementerio,UrlShowCementerio2} from '../services/apirest';
+import {isRol} from '../services/roles';
+import {isDepto} from '../services/ubicaciones';
+import {UrlShowCiudad,UrlShowCiudad2} from '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit,faTrashAlt, faSearch,faPlus,faTimes,faCheck} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'
 import { faAcquisitionsIncorporated } from '@fortawesome/free-brands-svg-icons';
-
-
+const isRole = isRol()
+const isDepato= isDepto()
 class CrudObituario extends React.Component{
 
     constructor(props){
@@ -36,7 +38,7 @@ class CrudObituario extends React.Component{
             salas: [],
             iglesias:[],
             cementerios:[],
-            ubicaciones:[],
+            ciudades:[],
                         
             modalInsertar:false,
             modalEliminar: false,
@@ -45,7 +47,7 @@ class CrudObituario extends React.Component{
              "nombre":"",
              "apellidos":"",
              "mensaje":"",
-             "ciudadid":"",
+             "ciudad":"",
              "sedeid":"",
              "salaid":"",
              "iglesiaid":"",
@@ -65,7 +67,8 @@ class CrudObituario extends React.Component{
          iglesiaid: null,
          cementerioid: null,
          fecha: new Date(),
-         virtual: false
+         virtual: false,
+         ciudad:null
          }
 
          this.handlePageClick = this.handlePageClick.bind(this);
@@ -79,12 +82,12 @@ class CrudObituario extends React.Component{
         this.peticionGetSala();
         this.peticionGetIglesia();
         this.peticionGetCementerio();
-        this.peticionGetUbicacion();
+        this.peticionGetCiudad();
         
         }
 
     peticionGet=()=>{ 
-        axios.get(UrlShowObit).then(async response=>{
+        isRole==1?axios.get(UrlShowObit2).then(async response=>{
         
         var data = response.data[0];          
         var slice = data==null?null:data.slice(this.state.offset, this.state.offset + this.state.perPage);
@@ -95,36 +98,57 @@ class CrudObituario extends React.Component{
             // tablaObituarios: slice
              tablaObituarios: data
          }) 
-        });
+        }) : axios.get(UrlShowObit + isDepato).then(async response=>{
+        
+            var data = response.data[0];          
+            var slice = data==null?null:data.slice(this.state.offset, this.state.offset + this.state.perPage);
+           
+            this.setState({
+                 pageCount: data==null?null:Math.ceil(data.length / this.state.perPage),
+                 obituarios: response.data[0],
+                // tablaObituarios: slice
+                 tablaObituarios: data
+             }) 
+            });;
         }
         peticionGetSede=()=>{
-            axios.get(UrlShowSede).then(async response=>{
+            isRole==1? axios.get(UrlShowSede2).then(async response=>{
+            await this.setState({sedes: response.data[0]});
+           }) :axios.get(UrlShowSede + isDepato).then(async response=>{
             await this.setState({sedes: response.data[0]});
            })
-                }
+       }
             
         peticionGetSala=()=>{
-            axios.get(UrlShowSala).then(async response=>{
+            isRole==1?axios.get(UrlShowSala2).then(async response=>{
             await this.setState({salas: response.data[0]});
-            })
+            }): axios.get(UrlShowSala + isDepato).then(async response=>{
+                await this.setState({salas: response.data[0]});
+                })
         }
         
         peticionGetCementerio=()=>{
-            axios.get(UrlShowCementerio).then(async response=>{
+            isRole==1?axios.get(UrlShowCementerio2).then(async response=>{
                 await this.setState({cementerios: response.data[0]});
-                })
+                }):axios.get(UrlShowCementerio + isDepato).then(async response=>{
+                    await this.setState({cementerios: response.data[0]});
+                    })
         }
         peticionGetIglesia=()=>{
-            axios.get(UrlShowIglesia).then(async response=>{
+           isRole==1? axios.get(UrlShowIglesia2).then(async response=>{
+            await this.setState({iglesias: response.data[0]});
+           }):axios.get(UrlShowIglesia +isDepato).then(async response=>{
             await this.setState({iglesias: response.data[0]});
            })
                 }
         
-        peticionGetUbicacion=()=>{
-            axios.get(UrlShowUbicacion).then(async response=>{
-            await this.setState({ubicaciones: response.data[0]});
-            })
-        }
+    peticionGetCiudad=()=>{
+                   isRole==1? axios.get(UrlShowCiudad2).then(async response=>{
+                    await this.setState({ciudades: response.data[0]});
+                    }):axios.get(UrlShowCiudad + isDepato).then(async response=>{
+                        await this.setState({ciudades: response.data[0]});
+                        })
+   }
     modalInsertar=()=>{
         this.setState({modalInsertar: !this.state.modalInsertar})
     }
@@ -158,7 +182,7 @@ class CrudObituario extends React.Component{
                 nombre : response.data.nombre,
                 apellidos : response.data.apellidos,
                 mensaje : response.data.mensaje,
-                ciudadid : response.data.ciudadid,
+                ciudad : response.data.ciudad,
                 sedeid : response.data.sedeid,
                 salaid : response.data.salaid,
                 iglesiaid : response.data.iglesiaid,
@@ -192,8 +216,12 @@ class CrudObituario extends React.Component{
                 nombre:obi.nombreobituario,
                 apellidos:obi.apellidosobituario,
                 mensaje:obi.mensajeobituario,
-                ciudadid:obi.ciudadid,
+                ciudad:obi.ciud,
+                sedeid:obi.sedeid,
+                salaid:obi.salaid,
+                iglesiaid:obi.iglesiaid,
                 horamisa: obi.horamisa,
+                cementerioid:obi.cementerioid,
                 horadestinofinal:obi.horadestinofinal,
                 fechaexequias:obi.fechaexequias,
                 virtual: obi.virtual,
@@ -207,7 +235,7 @@ class CrudObituario extends React.Component{
         })
     }
     peticionPut=async()=>{
-        await axios.put(UrlUpdateObi+this.state.form.id,{id:this.state.form.id,apellidos:this.state.form.apellidos,ciudadid:this.state.form.ciudadid,fechaexequias:this.state.form.fechaexequias,finpublicacion:this.state.form.finpublicacion,horadestinofinal:this.state.form.horadestinofinal,horamisa:this.state.form.horamisa,iniciopublicacion:this.state.form.iniciopublicacion,mensaje:this.state.form.mensaje,nombre:this.state.form.nombre,virtual:this.state.form.virtual,sedeid:this.state.sedeid,salaid:this.state.salaid,cementerioid:this.state.cementerioid,iglesiaid:this.state.iglesiaid}).then(response=>{
+        await axios.put(UrlUpdateObi+this.state.form.id,this.state.form).then(response=>{
             console.log(this.state.form)
             this.modalInsertar();
             this.peticionGet();
@@ -243,6 +271,7 @@ class CrudObituario extends React.Component{
              ||elemento.nombreiglesia.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
              ||elemento.nombresede.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
              ||elemento.nombresala.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+             ||elemento.ciudadobituario.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
             ){
                 return elemento;
             }
@@ -305,7 +334,7 @@ render(){
     const {sedes} = this.state;
     const {salas} = this.state;
     const {cementerios}= this.state;
-    const {ubicaciones}= this.state;
+    const {ciudades}= this.state;
     const {iglesias} =this.state;
 
     return(
@@ -427,14 +456,14 @@ render(){
                  
                     <input type="text" className="form-control" name="apellidos" placeholder="Apeliidos" onChange={this.handleChange} value={form?form.apellidos:""}/>
                     <textarea className="form-control" name="mensaje" placeholder="Mensaje" onChange={this.handleChange} value={form?form.mensaje:""}/>
-                    <select name="ciudadid" className="form-control" value={form?this.state.form.ciudadid:""} onChange={this.handleChange} ><option value="">Seleccione una ciudad</option>
-                        {this.state.ubicaciones&&this.state.ubicaciones.map((ciud,index)=>{ return(<option key={ciud.id} value={ciud.id}>{ciud.ciudad} </option>)})}
+                    <select name="ciudad" className="form-control" value={form?this.state.form.ciudad:""} onChange={this.handleChange} ><option value="">Seleccione una ciudad</option>
+                        {ciudades&&ciudades.map((ciud,index)=>{ return(<option key={ciud.id} value={ciud.id}>{ciud.nombreciudad} </option>)})}
                     </select>
-                    <select name="sedeid" className="form-control" value={form?this.state.sedeid:""} onChange={this.handleChange} ><option value="">Seleccione una sede</option>
-                        {this.state.sedes&&this.state.sedes.map((sed,index)=>{ return(<option key={sed.sedeid} value={sed.sedeid}>{sed.nombresede} </option>)})}
+                    <select name="sedeid" className="form-control" value={form?this.state.form.sedeid:""} onChange={this.handleChange} > <option value="">Seleccione una sede</option>
+                        {sedes && sedes.map((sed,index)=>{ return(<option key={sed.sedeid} value={sed.sedeid}>{sed.nombresede} </option>)})}
                     </select>
                     <select name="salaid" className="form-control" value={form?this.state.salaid:""} onChange={this.handleChange} ><option value="">Seleccione una sala</option>
-                        {this.state.salas&&this.state.salas.map((sal,index)=>{ return(<option key={sal.salaid} value={sal.salaid}>{sal.nombresala} </option>)})}
+                        {salas&&salas.map((sal,index)=>{ return(<option key={sal.salaid} value={sal.salaid}>{sal.nombresala} </option>)})}
                     </select>
                     <select name="iglesiaid" className="form-control" value={form?this.state.iglesiaid:""} onChange={this.handleChange} ><option value="">Seleccione una iglesia</option>
                         {this.state.iglesias&&this.state.iglesias.map((igl,index)=>{ return(<option key={igl.iglesiaid} value={igl.iglesiaid}>{igl.nombreiglesia} </option>)})}
@@ -445,12 +474,12 @@ render(){
                     <select name="cementerioid" className="form-control" value={form?this.state.cementerioid:""} onChange={this.handleChange} ><option value="">Seleccione un cementerio</option>
                         {this.state.cementerios&&this.state.cementerios.map((cem,index)=>{ return(<option key={cem.cementerioid} value={cem.cementerioid}>{cem.nombrecementerio} </option>)})}
                     </select>
+                    <span className="destacado">Hora destino final:</span><input type="text" className="form-control"name="horadestinofinal" placeholder="Hora Destino Final" onChange={this.handleChange} value={form?form.horadestinofinal:""}/>
                     <span className="destacado">Fecha Exequias:</span> <input  name="fechaexequias"  type="date"   
                     className="form-control"  onChange={ this.handleChange} value={form?form.fechaexequias:""}/>
-                      <select name="virtual" className="form-control" value={form?this.state.form.virtual:""} onChange={this.handleChange} ><option value="">Acomp. Virtual</option>
+                    <span className="destacado">Acomp. virtual?:</span>  <select name="virtual" className="form-control" value={form?this.state.form.virtual:""} onChange={this.handleChange} >
                         <option value="S">Si</option><option value="N">No</option>
                     </select>
-                    <input type="text" className="form-control"name="horadestinofinal" placeholder="Hora Destino Final" onChange={this.handleChange} value={form?form.horadestinofinal:""}/>
                     <span className="destacado">Fecha inicio publicación:</span> <input  name="iniciopublicacion"  type="date"   
                     className="form-control"  onChange={ this.handleChange} defaultValue={this.state.fecha} value={form?form.iniciopublicacion:""}/>
                     <span className="destacado">Fecha fin publicación:</span> <input  name="finpublicacion"  type="date"   

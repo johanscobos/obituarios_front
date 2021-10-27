@@ -2,17 +2,21 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import {UrlCreateSede, UrlDeleteSede} from    '../services/apirest';
 import {UrlUpdateSede} from    '../services/apirest';
-import {UrlShowUbicacion} from    '../services/apirest';
+import {UrlShowCiudad,UrlShowCiudad2} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
-import {UrlShowSede} from '../services/apirest';
+import { isDepto } from '../services/ubicaciones';
+import { isRol } from '../services/roles';
+import {UrlShowSede,UrlShowSede2} from '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit,faTrashAlt,faPlus,faTimes,faCheck} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
 import 'react-datepicker/dist/react-datepicker.css'
+const isDepato=isDepto()
+const isRole = isRol()
 class CrudSedes extends React.Component{
     state={
        sedes:[],
-       ubicaciones:[],
+       ciudades:[],
        modalInsertar:false,
        modalEliminar: false,
        form:{ 
@@ -28,17 +32,21 @@ class CrudSedes extends React.Component{
     }
     componentDidMount(){
         this.peticionGet();
-        this.peticionGetUbicacion();
+        this.peticionGetCiudad();
         }
     peticionGet=()=>{
-        axios.get(UrlShowSede).then(async response=>{
+        isRole==1?axios.get(UrlShowSede2).then(async response=>{
+            await this.setState({sedes: response.data[0]});
+           }):axios.get(UrlShowSede + isDepato).then(async response=>{
          await this.setState({sedes: response.data[0]});
         })
         }
-    peticionGetUbicacion=()=>{
-        axios.get(UrlShowUbicacion).then(async response=>{
-        await this.setState({ubicaciones: response.data[0]});
-        })
+    peticionGetCiudad=()=>{
+        isRole==1?axios.get(UrlShowCiudad2).then(async response=>{
+        await this.setState({ciudades: response.data[0]});
+        }) : axios.get(UrlShowCiudad + isDepato).then(async response=>{
+            await this.setState({ciudades: response.data[0]});
+            })
     }
     modalInsertar=()=>{
         this.setState({modalInsertar: !this.state.modalInsertar})
@@ -88,7 +96,7 @@ class CrudSedes extends React.Component{
                 nombresede:vsed.nombresede,
                 direccion : vsed.direccionsede,
                 telefono:vsed.telefonosede,
-                ciudad:vsed.ciudadid
+                ciudad:vsed.ciud
             }
         })
     }
@@ -119,8 +127,9 @@ class CrudSedes extends React.Component{
 
 render(){
     const {sedes} = this.state;
-    const {ubicaciones} = this.state;
+    const {ciudades} = this.state;
     const {form}=this.state;
+    console.log(ciudades)
     return(
         <React.Fragment>
         <div >
@@ -177,7 +186,7 @@ render(){
                     <input type="text" className="form-control" name="direccion" placeholder="Direccion" onChange={this.handleChange} value={form?form.direccion:""}/>
                     <input type="text" className="form-control" name="telefono" placeholder="Telefono" onChange={this.handleChange} value={form?form.telefono:""} />
                     <select name="ciudad" className="form-control" value={form?this.state.form.ciudad:""} onChange={this.handleChange} ><option value="">Seleccione una ciudad</option>
-                        {this.state.ubicaciones&&this.state.ubicaciones.map((ciud,index)=>{ return(<option key={ciud.id} value={ciud.id}>{ciud.ciudad} </option>)})}
+                        {ciudades&&ciudades.map((ciud,index)=>{ return(<option key={ciud.id} value={ciud.id}>{ciud.nombreciudad} </option>)})}
                     </select>
                     
                 </form>   

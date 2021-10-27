@@ -3,16 +3,20 @@ import axios from 'axios';
 import {UrlCreateIglesia, UrlDeleteIglesia} from    '../services/apirest';
 import {UrlUpdateIglesia} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
-import {UrlShowIglesia} from '../services/apirest';
-import {UrlShowUbicacion} from '../services/apirest';
+import {UrlShowIglesia,UrlShowIglesia2} from '../services/apirest';
+import {UrlShowCiudad,UrlShowCiudad2} from '../services/apirest';
+import {isRol} from '../services/roles';
+import {isDepto} from '../services/ubicaciones';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit,faTrashAlt,faPlus,faTimes,faCheck} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
 import 'react-datepicker/dist/react-datepicker.css'
-class CrudCementerios extends React.Component{
+const isDepato= isDepto()
+const isRole= isRol()
+class CrudIglesias extends React.Component{
     state={
        iglesias:[],
-       ubicaciones:[],
+       ciudades:[],
        modalInsertar:false,
        modalEliminar: false,
        form:{ 
@@ -27,18 +31,22 @@ class CrudCementerios extends React.Component{
     }
     componentDidMount(){
         this.peticionGet();
-        this.peticionGetUbicacion();
+        this.peticionGetCiudad();
         }
     peticionGet=()=>{
-        axios.get(UrlShowIglesia).then(async response=>{
+        isRole==1?axios.get(UrlShowIglesia2).then(async response=>{
          await this.setState({iglesias: response.data[0]});
-        })
+        }) : axios.get(UrlShowIglesia + isDepato).then(async response=>{
+            await this.setState({iglesias: response.data[0]});
+           })
         }
-    peticionGetUbicacion=()=>{
-        axios.get(UrlShowUbicacion).then(async response=>{
-        await this.setState({ubicaciones: response.data[0]});
-        })
-    }
+    peticionGetCiudad=()=>{
+       isRole==1? axios.get(UrlShowCiudad2).then(async response=>{
+            await this.setState({ciudades: response.data[0]});
+            }) : axios.get(UrlShowCiudad + isDepato).then(async response=>{
+                await this.setState({ciudades: response.data[0]});
+                })
+        }
     modalInsertar=()=>{
         this.setState({modalInsertar: !this.state.modalInsertar})
     }
@@ -79,13 +87,12 @@ class CrudCementerios extends React.Component{
     }
 
     seleccionariglesia=async(igle)=>{
-        console.log(igle)
         await this.setState({
             form:{
                 id:igle.iglesiaid,
                 nombre:igle.nombreiglesia,
                 direccion : igle.direccioniglesia,
-                ciudad:igle.ciudadid
+                ciudad:igle.idci
             }
         })
     }
@@ -116,7 +123,7 @@ class CrudCementerios extends React.Component{
 
 render(){
     const {iglesias} = this.state;
-    const {ubicaciones} = this.state;
+    const {ciudades} = this.state;
     const {form}=this.state;
     return(
         <React.Fragment>
@@ -156,7 +163,7 @@ render(){
            
             <div className="modal-header">
             {this.state.tipomodal === "insertar"?
-                    <h5 className="modal-title">Crear Cementerio</h5> :<h5 className="modal-title">Actualizar Iglesia</h5>                    
+                    <h5 className="modal-title">Crear Iglesia</h5> :<h5 className="modal-title">Actualizar Iglesia</h5>                    
                     }
             </div>
             
@@ -169,7 +176,7 @@ render(){
                  
                     <input type="text" className="form-control" name="direccion" placeholder="Direccion" onChange={this.handleChange} value={form?form.direccion:""}/>
                     <select name="ciudad" className="form-control" value={form?this.state.form.ciudad:""} onChange={this.handleChange} ><option value="">Seleccione una ciudad</option>
-                        {this.state.ubicaciones.map((ciud,index)=>{ return(<option key={ciud.id} value={ciud.id}>{ciud.ciudad} </option>)})}
+                        {ciudades&&ciudades.map((ciud,index)=>{ return(<option key={ciud.id} value={ciud.id}>{ciud.nombreciudad} </option>)})}
                     </select>
                     
                 </form>   
@@ -217,4 +224,4 @@ render(){
 }
 
 
-export default CrudCementerios;
+export default CrudIglesias;

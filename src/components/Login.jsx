@@ -2,8 +2,10 @@ import React  from 'react';
 import '../assets/css/Login.css';
 import logoBlanco from '../assets/img/logo-la-ofrenda-blanco.png';
 import {UrlLogin} from    '../services/apirest';
+import {isRol} from    '../services/roles';
 import axios from 'axios';
 import {Redirect} from 'react-router-dom'
+const isRole = isRol()
 class Login extends React.Component{
 
 constructor(props){
@@ -30,11 +32,10 @@ manejadorChange = async e=>{
 manejadorButton=()=>{
     let url= UrlLogin ;
         axios.post(url, this.state.form).then(response => {
-                    console.log(response.data)
                     localStorage.setItem("Token",response.data.api_token);
                     localStorage.setItem("rolid",response.data.role_id);
-                    localStorage.setItem("departamentoid",response.data.ciudad);
-                    window.location = '/crudUser'
+                    localStorage.setItem("departamentoid",response.data.iddepartamento);
+                    response.data.role_id == 1 ? window.location = '/crudUser': window.location = '/crudObituario'
                 }).catch(error => {
                     this.setState
                     ({

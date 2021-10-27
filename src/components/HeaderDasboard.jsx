@@ -20,7 +20,7 @@ class HeaderDasboard extends React.Component{
     cerrarSesion =()=>{
         localStorage.removeItem('Token');
         localStorage.removeItem('rolid');
-        localStorage.removeItem('ciudad');
+        localStorage.removeItem('departamentoid');
         window.location = '/Home'
     }  
 render(){

@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {UrlCreateSala, UrlDeleteSala, UrlShowSede} from    '../services/apirest';
+import {UrlCreateSala, UrlDeleteSala, UrlShowSede,UrlShowSede2} from    '../services/apirest';
 import {UrlUpdSala} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
-import {UrlShowSala} from '../services/apirest';
+import { isDepto } from '../services/ubicaciones';
+import { isRol } from '../services/roles';
+import {UrlShowSala,UrlShowSala2} from '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit,faTrashAlt,faPlus,faCheck,faTimes} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
 import 'react-datepicker/dist/react-datepicker.css'
+const isDepato=isDepto()
+const isRole=isRol()
 class CrudSalas extends React.Component{
     state={
        salas:[],
@@ -24,18 +28,23 @@ class CrudSalas extends React.Component{
     errorMsj:"",
     sedeid: null,
     direccionip: null
+    
     }
     componentDidMount(){
         this.peticionGet();
         this.peticionGetSede();
         }
     peticionGet=()=>{
-        axios.get(UrlShowSala).then(async response=>{
+       isRole == 1? axios.get(UrlShowSala2 ).then(async response=>{
          await this.setState({salas: response.data[0]});
-        })
+        }) : axios.get(UrlShowSala + isDepato).then(async response=>{
+            await this.setState({salas: response.data[0]});
+           })
         }
     peticionGetSede=()=>{
-        axios.get(UrlShowSede).then(async response=>{
+        isRole == 1? axios.get(UrlShowSede2).then(async response=>{
+            await this.setState({sedes: response.data[0]});
+        }): axios.get(UrlShowSede + isDepato).then(async response=>{
             await this.setState({sedes: response.data[0]});
         })
         }

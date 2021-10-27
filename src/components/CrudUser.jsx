@@ -4,7 +4,7 @@ import {UrlShowUsr} from    '../services/apirest';
 import {UrlCreateUsr} from    '../services/apirest';
 import {UrlUpdateUsr} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
-import {UrlShowRole,UrlShowUbicacion} from    '../services/apirest';
+import {UrlShowRole,UrlShowDepto,UrlShowCiudad} from    '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit,faTrashAlt,faFile,faPlus,faCheck,faTimes} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
@@ -13,6 +13,8 @@ import Obituarios from './Obituarios';
 class CrudUser extends React.Component{
     state={
        usuarios:[],
+       ciudades:[],
+       departamentos:[],
        roles:[],
        modalInsertar:false,
        modalEliminar: false,
@@ -21,6 +23,7 @@ class CrudUser extends React.Component{
         "nombres":"",
         "apellidos":"",
         "username":"",
+        "departamento":"",
         "ciudad":"",
         "roleid":"",
         "password":""
@@ -32,12 +35,14 @@ class CrudUser extends React.Component{
     ubicaciones:[],
     roleid: null,
     descripcion:"",
-    iddepartamento:null
+    ciudad:null,
+    departamento:null
     }
     componentDidMount(){
         this.peticionGet();
         this.peticionGetRol();
-        this.peticionGetUbicacion();
+        this.peticionGetDepartamento();
+        this.peticionGetCiudad();
         }
     peticionGet=()=>{
         axios.get(UrlShowUsr).then(async response=>{
@@ -50,9 +55,14 @@ class CrudUser extends React.Component{
         })
         }
     
-    peticionGetUbicacion=()=>{
-            axios.get(UrlShowUbicacion).then(async response=>{
-            await this.setState({ubicaciones: response.data[0]});
+    peticionGetCiudad=()=>{
+            axios.get(UrlShowCiudad).then(async response=>{
+            await this.setState({ciudades: response.data[0]});
+            })
+        }
+        peticionGetDepartamento=()=>{
+            axios.get(UrlShowDepto).then(async response=>{
+            await this.setState({departamentos: response.data[0]});
             })
         }
     modalInsertar=()=>{
@@ -83,7 +93,9 @@ class CrudUser extends React.Component{
                 nombres : response.data.nombres,
                 apellidos : response.data.apellidos,
                 username : response.data.username,
-                rolid : response.data.rolid
+                rolid : response.data.rolid,
+                ciudad:response.data.ciudad,
+                departamento:response.data.departamento
             })
 
             
@@ -102,17 +114,22 @@ class CrudUser extends React.Component{
     }
 
     seleccionarusuario=async(usr)=>{
+        console.log(usr )
         await this.setState({
             form:{
                 id:usr.id,
                 nombres: usr.nombres,
                 apellidos: usr.apellidos,
-                rolid: usr.rolid,
                 username: usr.username,
-                ciudad:usr.ciudad            }
+                //departamento:usr.idciudad,
+                ciudad:usr.idciudad,
+                roleid: usr.roleid,
+                password:""
+                          }
         })
     }
     peticionPut=async()=>{
+        console.log(this.state.form)
         await axios.put(UrlUpdateUsr+this.state.form.id,this.state.form).then(response=>{
             this.modalInsertar();
             this.peticionGet();
@@ -137,7 +154,8 @@ class CrudUser extends React.Component{
 render(){
     const {usuarios} = this.state;
     const {form}=this.state;
-    const {ubicaciones} = this.state;
+    const {ciudades} = this.state;
+    const {departamentos} = this.state;
     return(
         <React.Fragment>
         <div >
@@ -166,7 +184,7 @@ render(){
                         <td>{usr.username}</td>
                         <td>{usr.descripcion}</td>
                         <td>
-                        <button className="btn btn-edit" onClick={()=>{this.seleccionarusuario(usr);this.modalInsertar()}}><FontAwesomeIcon icon={faEdit}/></button>
+                        <button className="btn btn-edit" onClick={()=>{this.setState({form:null,tipomodal:"actualizar"});this.seleccionarusuario(usr);this.modalInsertar()}}><FontAwesomeIcon icon={faEdit}/></button>
                         {"   "}
                         <button className="btn btn-danger" onClick={()=>{this.seleccionarusuario(usr);this.setState({modalEliminar:true})}}><FontAwesomeIcon icon={faTrashAlt}/></button>
                         </td>
@@ -191,11 +209,11 @@ render(){
                     
                     <input type="text" className="form-control" name="nombres" placeholder="Nombres" onChange={this.handleChange} value={form?form.nombres:""}/>
                     <input type="text" className="form-control" name="apellidos" placeholder="Apeliidos" onChange={this.handleChange} value={form?form.apellidos:""}/> 
-                    {this.state.tipomodal === "insertar"?<input type="text" className="form-control"name="username" placeholder="Username"onChange={this.handleChange} value={form?form.username:""}/>: form.username}
-                    <select name="ciudad" className="form-control" value={form?this.state.form.ciudad:""} onChange={this.handleChange} ><option value="">Seleccione una ciudad</option>
-                        {this.state.ubicaciones.map((ciud,index)=>{ return(<option key={ciud.id} value={ciud.id}>{ciud.ciudad} </option>)})}
+                    {this.state.tipomodal === "insertar"?<input type="text" className="form-control"name="username" placeholder="Username"onChange={this.handleChange} value={form?form.username:""}/>:  <input type="text" className="form-control"name="username" placeholder="Username"onChange={this.handleChange} value={form?form.username:""} readOnly/>}
+                     <select name="ciudad" className="form-control" value={form?form.ciudad:""} onChange={this.handleChange} ><option value="">Seleccione una ciudad</option>
+                        {ciudades&&ciudades.map((ciud,index)=>{ return(<option key={ciud.id} value={ciud.id}>{ciud.nombreciudad} </option>)})}
                     </select>
-                    <select name="rolid" className="form-control" value={this.state.roleid} onChange={this.handleChange} >
+                    <select name="roleid" className="form-control" value={form?form.roleid:""} onChange={this.handleChange} ><option value="">Seleccione un rol</option>
                         {this.state.roles.map((rol,index)=>{ return(<option key={rol.roleid} value={rol.roleid}>{rol.descripcion} </option>)})}
                     </select>
                     <input type="password" className="form-control"name="password" placeholder="password" onChange={this.handleChange} value={form?form.password:""}/>

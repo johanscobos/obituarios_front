@@ -16,8 +16,7 @@ class Obituarios extends React.Component{
       peticionGet=()=>{
           axios.get(UrlShowObithome).then(async response=>{
             await this.setState({obitObj: response.data[0]});
-            //const obitObj = response.data;
-            //this.setState({obitObj});
+            
           });     
           }   
    
@@ -27,8 +26,8 @@ class Obituarios extends React.Component{
       return(
         <React.Fragment>                
          <div className="grid-obituarios">    
-      {        console.log(this.state.obitObj),
-             obitObj&&obitObj.map( (obt,index) => {
+      
+      { obitObj&&obitObj.map((obt,index) => {
                               
               return(
                   <article className="card card-obituario">
@@ -65,7 +64,7 @@ class Obituarios extends React.Component{
                       <div className="card-obituario_item">                    
                           <FontAwesomeIcon icon={faMapMarkerAlt} className="obituarios-icono"/><span> CIUDAD</span>                    
                       </div>   
-                      <p className="text-center">{obt.idciudadobituario}</p>
+                      <p className="text-center">{obt.ciudadobituario}</p>
                      
                   </div>            
               </article>
