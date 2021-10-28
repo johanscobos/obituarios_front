@@ -344,8 +344,8 @@ render(){
             <br />
             <div className="containerAuxTop">
                <div>
-                    <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,tipomodal:"insertar"}); this.modalInsertar()}}><FontAwesomeIcon className="me-2" icon={faPlus}/>Crear obituario</button>
-               </div>
+                    <button className="btn btn-crear-usuario" onClick={()=>{this.setState({form:null,iglesiaid:null,sedeid:null,cementerioid:null,ciudad:null,tipomodal:"insertar"}); this.modalInsertar()}}><FontAwesomeIcon className="me-2" icon={faPlus}/>Crear obituario</button>
+               </div> 
                 {
                 <div className="containerInput">
                     <input type="text" className="form-control inputBuscar" placeholder="Buscar" value={busqueda} onChange={this.handleChangeBuscar}/>
@@ -477,7 +477,7 @@ render(){
                     <span className="destacado">Hora destino final:</span><input type="text" className="form-control"name="horadestinofinal" placeholder="Hora Destino Final" onChange={this.handleChange} value={form?form.horadestinofinal:""}/>
                     <span className="destacado">Fecha Exequias:</span> <input  name="fechaexequias"  type="date"   
                     className="form-control"  onChange={ this.handleChange} value={form?form.fechaexequias:""}/>
-                    <span className="destacado">Acomp. virtual?:</span>  <select name="virtual" className="form-control" value={form?this.state.form.virtual:""} onChange={this.handleChange} >
+                    <span className="destacado">Acomp. virtual?:</span>  <select name="virtual" className="form-control" value={form?this.state.form.virtual:""} onChange={this.handleChange} ><option value="">Acomp. Virtual?</option>
                         <option value="S">Si</option><option value="N">No</option>
                     </select>
                     <span className="destacado">Fecha inicio publicación:</span> <input  name="iniciopublicacion"  type="date"   

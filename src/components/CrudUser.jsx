@@ -4,7 +4,7 @@ import {UrlShowUsr} from    '../services/apirest';
 import {UrlCreateUsr} from    '../services/apirest';
 import {UrlUpdateUsr} from    '../services/apirest';
 import {UrlDeleteUsr} from    '../services/apirest';
-import {UrlShowRole,UrlShowDepto,UrlShowCiudad} from    '../services/apirest';
+import {UrlShowRole,UrlShowDepto,UrlShowCiudad2} from    '../services/apirest';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit,faTrashAlt,faFile,faPlus,faCheck,faTimes} from '@fortawesome/free-solid-svg-icons'
 import {Modal,ModalHeader, ModalBody,ModalFooter,FormGroup} from 'reactstrap'
@@ -56,10 +56,10 @@ class CrudUser extends React.Component{
         }
     
     peticionGetCiudad=()=>{
-            axios.get(UrlShowCiudad).then(async response=>{
-            await this.setState({ciudades: response.data[0]});
-            })
-        }
+        axios.get(UrlShowCiudad2).then(async response=>{
+            await this.setState({ciudades: response.data[0]})
+        });
+    }
         peticionGetDepartamento=()=>{
             axios.get(UrlShowDepto).then(async response=>{
             await this.setState({departamentos: response.data[0]});
@@ -114,14 +114,13 @@ class CrudUser extends React.Component{
     }
 
     seleccionarusuario=async(usr)=>{
-        console.log(usr )
+        console.log(usr)
         await this.setState({
             form:{
                 id:usr.id,
                 nombres: usr.nombres,
                 apellidos: usr.apellidos,
                 username: usr.username,
-                //departamento:usr.idciudad,
                 ciudad:usr.idciudad,
                 roleid: usr.roleid,
                 password:""
@@ -137,7 +136,18 @@ class CrudUser extends React.Component{
             ({
                 modalInsertar:false
             })
-        })
+        }).catch(error => {
+            this.setState
+            ({
+                error : true,
+                errorMsj:error.response.request.response,
+                nombres:"",
+                apellidos:"",
+                username:"",
+                rolid:""
+            })
+        
+        })    
     }
     peticionDelete=async()=>{
         await axios.delete(UrlDeleteUsr+this.state.form.id).then(response=>{

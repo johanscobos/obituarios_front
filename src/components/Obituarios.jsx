@@ -40,7 +40,7 @@ class Obituarios extends React.Component{
                       <div className="card-obituario_item">                    
                           <FontAwesomeIcon icon={faPrayingHands}  className="obituarios-icono"/><span> VELACIÓN</span>                    
                       </div>                    
-                      <p className="text-center">{obt.nombresede} <br /> {obt.direccionsedes} <br/ ><span className="destacado">Sala: </span> {obt.nombresala} </p>
+                      <p className="text-center">{obt.nombresede} <br /> {obt.direccionsede} <br/ ><span className="destacado">Sala: </span> {obt.nombresala} </p>
                       <div className="card-obituario_item">                    
                           <FontAwesomeIcon icon={faChurch} className="obituarios-icono"/><span> MISA</span>                    
                       </div>
@@ -50,13 +50,13 @@ class Obituarios extends React.Component{
                       </div>             
                       <p className="text-center">{obt.nombrecementerio}<br /> {obt.direccioncementerio}<br />
                       <span className="destacado">Hora: </span>{obt.horadestinofinal}</p>                        
-                     
+                     {obt.virtual == 'S'?
                       <div className="card-obituario_item">                  
-                          <FontAwesomeIcon icon={faEye} className="obituarios-icono"/><span> ACOMPAÑAMIENTO VIRTUAL</span>                    
-                      </div> 
-                      <p className="text-center"><a href={`http://${obt.direccionip}`} target="_blank">Ingrese a la sala virtual:</a><br />
-                                           
-                     </p>  
+                          <FontAwesomeIcon icon={faEye} className="obituarios-icono"/><span> ACOMPAÑAMIENTO VIRTUAL</span>  
+                      </div>:null}  
+                     {obt.virtual == 'S'?
+                     <p className="text-center"><a href={`http://${obt.direccionip}`} target="_blank">Ingrese a la sala virtual:</a><br />                    
+                     </p> :null}    
                       <div className="card-obituario_item">                    
                           <FontAwesomeIcon icon={faCalendarTimes} className="obituarios-icono"/><span> FECHA EXQUEQUIAS</span>                    
                       </div>   
