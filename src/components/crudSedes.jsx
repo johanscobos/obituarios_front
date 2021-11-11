@@ -139,7 +139,6 @@ render(){
             <table className="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Nombres</th>
                         <th>Dirección</th>
                         <th>Teléfono</th>
@@ -152,7 +151,6 @@ render(){
                     ((sed,index)=>{
                     return(
                         <tr key={index}>
-                        <td>{sed.sedeid}</td>
                         <td>{sed.nombresede}</td>
                         <td>{sed.direccionsede}</td>
                         <td>{sed.telefonosede}</td>

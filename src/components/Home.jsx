@@ -38,22 +38,22 @@ render(){
                 </div>
             </div>
             <div className="header_down container">
-                <div><a href="https://laofrenda.com.co"><img src={logoOfrenda} alt="logo La Ofrenda" /></a></div>
+                <div><a href="https://www.laofrenda.com.co"><img src={logoOfrenda} alt="logo La Ofrenda" /></a></div>
                 <div className="header_down_icono-linea">
                     <img src={iconoLinea} alt="icono linea gratuita" />
                     <h2>LÍNEA GRATUITA NACIONAL: <br />01 8000 18 08 28</h2>
                 </div>
                 <div>
                     <a href="https://www.laofrenda.com.co/paga-aqui/"><button type="button" className="btn btn-primary btn-paga-aqui"><FontAwesomeIcon icon={faShoppingCart} /><span className="btn-text">PAGA AQUÍ</span></button></a>
-                    <a href="https://laofrenda.com.co/ofrendapp/"  target="_blank"><button type="button" className="btn btn-primary btn-descarga-app"><FontAwesomeIcon icon={faMobileAlt} /><span className="btn-text">DESCARGA APP</span></button></a>
+                    <a href="https://www.laofrenda.com.co/ofrendapp/" target="_blank"><button type="button" className="btn btn-primary btn-descarga-app"><FontAwesomeIcon icon={faMobileAlt} /><span className="btn-text">DESCARGA APP</span></button></a>
                 </div>                
             </div>
             
         </header>
         <div className="obituarios-titulo"> 
             <div className="container">
-                <p><a href="https://laofrenda.com.co"> Home</a></p>
-                <h1>Obituarios</h1>
+                <p><a href="https://www.laofrenda.com.co"> Home </a></p>
+                <h1>Obituarios</h1>                
             </div>   
             <div className="obituarios-aux-titulo-overlay"></div>         
         </div> 

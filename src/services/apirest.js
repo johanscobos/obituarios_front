@@ -1,4 +1,5 @@
-
+/*
+                                      controlador/metodo
 export const UrlLogin="http://localhost:8089/users/login";
 export const UrlCreateUsr="http://localhost:8089/user/create";
 export const UrlShowUsr="http://localhost:8089/user/show";
@@ -35,33 +36,84 @@ export const UrlShowUbicacion="http://localhost:8089/ubicaciones/show";
 export const UrlShowCiudad="http://localhost:8089/ciudades/show/";
 export const UrlShowCiudad2="http://localhost:8089/ciudades/showAll";
 export const UrlShowDepto="http://localhost:8089/ciudades/show/";
-
-
+*/
 
 /*
-export const UrlLogin="https://apiobituarios.laofrenda.com.co/users/login";
-export const UrlCreateUsr="https://apiobituarios.laofrenda.com.co/user/create";
-export const UrlShowUsr="https://apiobituarios.laofrenda.com.co/user/showRole";
-export const UrlUpdateUsr="https://apiobituarios.laofrenda.com.co/user/update/";
-export const UrlDeleteUsr="https://apiobituarios.laofrenda.com.co/user/destroy/";
-export const UrlShowObit="https://apiobituarios.laofrenda.com.co/obituario/show/";
-export const UrlShowObithome="https://apiobituarios.laofrenda.com.co/obituario/showobithome/";
-export const UrlCreateObi="https://apiobituarios.laofrenda.com.co/obituarios/create"
-export const UrlUpdateObi="https://apiobituarios.laofrenda.com.co/obituarios/update/";
-export const UrlShowSala="https://apiobituarios.laofrenda.com.co/salas/show/";
-export const UrlCreateSala="https://apiobituarios.laofrenda.com.co/salas/create/";
-export const UrlUpdSala="https://apiobituarios.laofrenda.com.co/salas/update/";
-export const UrlShowSede="https://apiobituarios.laofrenda.com.co/sedes/show/";
-export const UrlCreateSede="https://apiobituarios.laofrenda.com.co/sedes/create/";
-export const UrlUpdateSede="https://apiobituarios.laofrenda.com.co/sedes/update/";
-export const UrlShowCementerio="https://apiobituarios.laofrenda.com.co/cementerios/show/";
-export const UrlCreateCementerio="https://apiobituarios.laofrenda.com.co/cementerios/create/";
-export const UrlUpdateCementerio="https://apiobituarios.laofrenda.com.co/cementerios/update/";
-export const UrlShowIglesia="https://apiobituarios.laofrenda.com.co/iglesias/show/";
-export const UrlCreateIglesia="https://apiobituarios.laofrenda.com.co/iglesias/create/";
-export const UrlUpdateIglesia="https://apiobituarios.laofrenda.com.co/iglesias/update/";
-export const UrlShowRole="https://apiobituarios.laofrenda.com.co/role/show/";
-export const UrlShowUbicacion="https://apiobituarios.laofrenda.com.co/ubicaciones/show";
-export const UrlShowIp="https://apiobituarios.laofrenda.com.co/ips/show/";
-
+export const UrlLogin="https://www.laofrenda.com.co/public-apiobituarios/users/login";
+export const UrlCreateUsr="https://www.laofrenda.com.co/public-apiobituarios/user/create";
+export const UrlShowUsr="https://www.laofrenda.com.co/public-apiobituarios/user/show";
+export const UrlUpdateUsr="https://www.laofrenda.com.co/public-apiobituarios/user/update/";
+export const UrlDeleteUsr="https://www.laofrenda.com.co/public-apiobituarios/user/destroy/";
+export const UrlShowObit="https://www.laofrenda.com.co/public-apiobituarios/obituario/show/";
+export const UrlShowObit2="https://www.laofrenda.com.co/public-apiobituarios/obituario/showall/";
+export const UrlShowObithome="https://www.laofrenda.com.co/public-apiobituarios/obituario/showobithome/";
+export const UrlCreateObi="https://www.laofrenda.com.co/public-apiobituarios/obituarios/create"
+export const UrlUpdateObi="https://www.laofrenda.com.co/public-apiobituarios/obituarios/update/";
+export const UrlDeleteObi="https://www.laofrenda.com.co/public-apiobituarios/obituarios/destroy/";
+export const UrlShowSala="https://www.laofrenda.com.co/public-apiobituarios/salas/show/";
+export const UrlShowSala2="https://www.laofrenda.com.co/public-apiobituarios/salas/showall/";
+export const UrlCreateSala="https://www.laofrenda.com.co/public-apiobituarios/salas/create/";
+export const UrlUpdSala="https://www.laofrenda.com.co/public-apiobituarios/salas/update/";
+export const UrlDeleteSala="https://www.laofrenda.com.co/public-apiobituarios/salas/destroy/";
+export const UrlShowSede="https://www.laofrenda.com.c/public-apiobituarioso/sedes/show/";
+export const UrlShowSede2="https://www.laofrenda.com.co/public-apiobituarios/sedes/showall/";
+export const UrlCreateSede="https://www.laofrenda.com.co/public-apiobituarios/sedes/create/";
+export const UrlUpdateSede="https://www.laofrenda.com.co/public-apiobituarios/sedes/update/";
+export const UrlDeleteSede="https://www.laofrenda.com.co/public-apiobituarios/sedes/destroy/";
+export const UrlShowCementerio="https://www.laofrenda.com.co/public-apiobituarios/cementerios/show/";
+export const UrlShowCementerio2="https://www.laofrenda.com.co/public-apiobituarios/cementerios/showall/";
+export const UrlCreateCementerio="https://www.laofrenda.com.co/public-apiobituarios/cementerios/create/";
+export const UrlUpdateCementerio="https://www.laofrenda.com.co/public-apiobituarios/cementerios/update/";
+export const UrlDeleteCementerio="https://www.laofrenda.com.co/public-apiobituarios/cementerios/destroy/";
+export const UrlShowIglesia="https://www.laofrenda.com.co/public-apiobituarios/iglesias/show/";
+export const UrlShowIglesia2="https://www.laofrenda.com.co/public-apiobituarios/iglesias/showall/";
+export const UrlCreateIglesia="https://www.laofrenda.com.co/public-apiobituarios/iglesias/create/";
+export const UrlUpdateIglesia="https://www.laofrenda.com.co/public-apiobituarios/iglesias/update/";
+export const UrlDeleteIglesia="https://www.laofrenda.com.co/public-apiobituarios/iglesias/destroy/";
+export const UrlShowRole="https://www.laofrenda.com.co/public-apiobituarios/role/show/";
+export const UrlShowUbicacion="https://www.laofrenda.com.co/public-apiobituarios/ubicaciones/show";
+export const UrlShowCiudad="https://www.laofrenda.com.co/public-apiobituarios/ciudades/show/";
+export const UrlShowCiudad2="https://www.laofrenda.com.co/public-apiobituarios/ciudades/showAll";
+export const UrlShowDepto="https:/www.laofrenda.com.co/public-apiobituarios/ciudades/show/";
 */
+
+export const UrlLogin="https://obituarios.laofrenda.com.co/api-obituarios/public/users/login";
+export const UrlCreateUsr="https://obituarios.laofrenda.com.co/api-obituarios/public/user/create";
+export const UrlShowUsr="https://obituarios.laofrenda.com.co/api-obituarios/public/user/show";
+export const UrlUpdateUsr="https://obituarios.laofrenda.com.co/api-obituarios/public/user/update/";
+export const UrlDeleteUsr="https://obituarios.laofrenda.com.co/api-obituarios/public/user/destroy/";
+export const UrlShowObit="https://obituarios.laofrenda.com.co/api-obituarios/public/obituario/show/";
+export const UrlShowObit2="https://obituarios.laofrenda.com.co/api-obituarios/public/obituario/showall/";
+export const UrlShowObithome="https://obituarios.laofrenda.com.co/api-obituarios/public/obituario/showobithome/";
+export const UrlCreateObi="https://obituarios.laofrenda.com.co/api-obituarios/public/obituarios/create"
+export const UrlUpdateObi="https://obituarios.laofrenda.com.co/api-obituarios/public/obituarios/update/";
+export const UrlDeleteObi="https://obituarios.laofrenda.com.co/api-obituarios/public/obituarios/destroy/";
+export const UrlShowSala="https://obituarios.laofrenda.com.co/api-obituarios/public/salas/show/";
+export const UrlShowSala2="https://obituarios.laofrenda.com.co/api-obituarios/public/salas/showall/";
+export const UrlCreateSala="https://obituarios.laofrenda.com.co/api-obituarios/public/salas/create";
+export const UrlUpdSala="https://obituarios.laofrenda.com.co/api-obituarios/public/salas/update/";
+export const UrlDeleteSala="https://obituarios.laofrenda.com.co/api-obituarios/public/salas/destroy/";
+export const UrlShowSede="https://obituarios.laofrenda.com.co/api-obituarios/public/sedes/show/";
+export const UrlShowSede2="https://obituarios.laofrenda.com.co/api-obituarios/public/sedes/showall/";
+export const UrlCreateSede="https://obituarios.laofrenda.com.co/api-obituarios/public/sedes/create";
+export const UrlUpdateSede="https://obituarios.laofrenda.com.co/api-obituarios/public/sedes/update/";
+export const UrlDeleteSede="https://obituarios.laofrenda.com.co/api-obituarios/public/sedes/destroy/";
+export const UrlShowCementerio="https://obituarios.laofrenda.com.co/api-obituarios/public/cementerios/show/";
+export const UrlShowCementerio2="https://obituarios.laofrenda.com.co/api-obituarios/public/cementerios/showall/";
+export const UrlCreateCementerio="https://obituarios.laofrenda.com.co/api-obituarios/public/cementerios/create";
+export const UrlUpdateCementerio="https://obituarios.laofrenda.com.co/api-obituarios/public/cementerios/update/";
+export const UrlDeleteCementerio="https://obituarios.laofrenda.com.co/api-obituarios/public/cementerios/destroy/";
+export const UrlShowIglesia="https://obituarios.laofrenda.com.co/api-obituarios/public/iglesias/show/";
+export const UrlShowIglesia2="https://obituarios.laofrenda.com.co/api-obituarios/public/iglesias/showall/";
+export const UrlCreateIglesia="https://obituarios.laofrenda.com.co/api-obituarios/public/iglesias/create";
+export const UrlUpdateIglesia="https://obituarios.laofrenda.com.co/api-obituarios/public/iglesias/update/";
+export const UrlDeleteIglesia="https://obituarios.laofrenda.com.co/api-obituarios/public/iglesias/destroy/";
+export const UrlShowRole="https://obituarios.laofrenda.com.co/api-obituarios/public/role/show/";
+export const UrlShowUbicacion="https://obituarios.laofrenda.com.co/api-obituarios/public/ubicaciones/show";
+export const UrlShowCiudad="https://obituarios.laofrenda.com.co/api-obituarios/public/ciudades/show/";
+export const UrlShowCiudad2="https://obituarios.laofrenda.com.co/api-obituarios/public/ciudades/showAll";
+export const UrlShowDepto="https:/obituarios.laofrenda.com.co/api-obituarios/public/ciudades/show/";
+
+
+
+

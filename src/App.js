@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '@popperjs/core'; 
 import 'bootstrap/dist/js/bootstrap.min.js';
 import './assets/css/style.css';
-import {BrowserRouter,Switch,Route, Redirect,Link,NavLink} from 'react-router-dom'
+import {BrowserRouter,Switch,Route, Redirect,NavLink} from 'react-router-dom';
 import Routes from './routes/routes'
 import Login from './components/Login';
 import CrudUser from './components/CrudUser';
@@ -22,10 +22,12 @@ import { isRol } from './services/roles';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSearch,faUser,faBible,faStoreAlt,faGripHorizontal,faArchway,faNetworkWired,faChurch} from '@fortawesome/free-solid-svg-icons'
 function App() {
+
+  
   const isAuth= isAuthenticated();
   const isRole=isRol();
   return (
-<BrowserRouter>
+    <BrowserRouter>
     
     <Switch>          
     <Route path="/" exact><Home /></Route>

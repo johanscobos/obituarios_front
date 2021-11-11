@@ -27,10 +27,11 @@ export const Routes=() => {
   //const isRol= isRol();
 
     return (
-      <BrowserRouter>
+      <BrowserRouter basename="/obituario">
     
         <Switch>          
         <Route path="/" exact><Home /></Route>
+        <Route path={process.env.PUBLIC_URL + '/obituario'}></Route>
         <Route path="/login" exact render = {props=>(<Login{...props}/>)}></Route>
 
            <section className="test">
