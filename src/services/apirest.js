@@ -1,5 +1,8 @@
 /*
-                                      controlador/metodo
+              RUTAS LOCALES
+              controlador/metodo
+*/
+/*
 export const UrlLogin="http://localhost:8089/users/login";
 export const UrlCreateUsr="http://localhost:8089/user/create";
 export const UrlShowUsr="http://localhost:8089/user/show";
@@ -13,69 +16,33 @@ export const UrlUpdateObi="http://localhost:8089/obituarios/update/";
 export const UrlDeleteObi="http://localhost:8089/obituarios/destroy/";
 export const UrlShowSala="http://localhost:8089/salas/show/";
 export const UrlShowSala2="http://localhost:8089/salas/showall/";
-export const UrlCreateSala="http://localhost:8089/salas/create/";
+export const UrlCreateSala="http://localhost:8089/salas/create";
 export const UrlUpdSala="http://localhost:8089/salas/update/";
 export const UrlDeleteSala="http://localhost:8089/salas/destroy/";
 export const UrlShowSede="http://localhost:8089/sedes/show/";
 export const UrlShowSede2="http://localhost:8089/sedes/showall/";
-export const UrlCreateSede="http://localhost:8089/sedes/create/";
+export const UrlCreateSede="http://localhost:8089/sedes/create";
 export const UrlUpdateSede="http://localhost:8089/sedes/update/";
 export const UrlDeleteSede="http://localhost:8089/sedes/destroy/";
 export const UrlShowCementerio="http://localhost:8089/cementerios/show/";
 export const UrlShowCementerio2="http://localhost:8089/cementerios/showall/";
-export const UrlCreateCementerio="http://localhost:8089/cementerios/create/";
+export const UrlCreateCementerio="http://localhost:8089/cementerios/create";
 export const UrlUpdateCementerio="http://localhost:8089/cementerios/update/";
 export const UrlDeleteCementerio="http://localhost:8089/cementerios/destroy/";
 export const UrlShowIglesia="http://localhost:8089/iglesias/show/";
 export const UrlShowIglesia2="http://localhost:8089/iglesias/showall/";
-export const UrlCreateIglesia="http://localhost:8089/iglesias/create/";
+export const UrlCreateIglesia="http://localhost:8089/iglesias/create";
 export const UrlUpdateIglesia="http://localhost:8089/iglesias/update/";
 export const UrlDeleteIglesia="http://localhost:8089/iglesias/destroy/";
 export const UrlShowRole="http://localhost:8089/role/show/";
 export const UrlShowUbicacion="http://localhost:8089/ubicaciones/show";
 export const UrlShowCiudad="http://localhost:8089/ciudades/show/";
 export const UrlShowCiudad2="http://localhost:8089/ciudades/showAll";
-export const UrlShowDepto="http://localhost:8089/ciudades/show/";
+export const UrlShowDepto="http://localhost:8089ciudades/show/";
+
 */
 
-/*
-export const UrlLogin="https://www.laofrenda.com.co/public-apiobituarios/users/login";
-export const UrlCreateUsr="https://www.laofrenda.com.co/public-apiobituarios/user/create";
-export const UrlShowUsr="https://www.laofrenda.com.co/public-apiobituarios/user/show";
-export const UrlUpdateUsr="https://www.laofrenda.com.co/public-apiobituarios/user/update/";
-export const UrlDeleteUsr="https://www.laofrenda.com.co/public-apiobituarios/user/destroy/";
-export const UrlShowObit="https://www.laofrenda.com.co/public-apiobituarios/obituario/show/";
-export const UrlShowObit2="https://www.laofrenda.com.co/public-apiobituarios/obituario/showall/";
-export const UrlShowObithome="https://www.laofrenda.com.co/public-apiobituarios/obituario/showobithome/";
-export const UrlCreateObi="https://www.laofrenda.com.co/public-apiobituarios/obituarios/create"
-export const UrlUpdateObi="https://www.laofrenda.com.co/public-apiobituarios/obituarios/update/";
-export const UrlDeleteObi="https://www.laofrenda.com.co/public-apiobituarios/obituarios/destroy/";
-export const UrlShowSala="https://www.laofrenda.com.co/public-apiobituarios/salas/show/";
-export const UrlShowSala2="https://www.laofrenda.com.co/public-apiobituarios/salas/showall/";
-export const UrlCreateSala="https://www.laofrenda.com.co/public-apiobituarios/salas/create/";
-export const UrlUpdSala="https://www.laofrenda.com.co/public-apiobituarios/salas/update/";
-export const UrlDeleteSala="https://www.laofrenda.com.co/public-apiobituarios/salas/destroy/";
-export const UrlShowSede="https://www.laofrenda.com.c/public-apiobituarioso/sedes/show/";
-export const UrlShowSede2="https://www.laofrenda.com.co/public-apiobituarios/sedes/showall/";
-export const UrlCreateSede="https://www.laofrenda.com.co/public-apiobituarios/sedes/create/";
-export const UrlUpdateSede="https://www.laofrenda.com.co/public-apiobituarios/sedes/update/";
-export const UrlDeleteSede="https://www.laofrenda.com.co/public-apiobituarios/sedes/destroy/";
-export const UrlShowCementerio="https://www.laofrenda.com.co/public-apiobituarios/cementerios/show/";
-export const UrlShowCementerio2="https://www.laofrenda.com.co/public-apiobituarios/cementerios/showall/";
-export const UrlCreateCementerio="https://www.laofrenda.com.co/public-apiobituarios/cementerios/create/";
-export const UrlUpdateCementerio="https://www.laofrenda.com.co/public-apiobituarios/cementerios/update/";
-export const UrlDeleteCementerio="https://www.laofrenda.com.co/public-apiobituarios/cementerios/destroy/";
-export const UrlShowIglesia="https://www.laofrenda.com.co/public-apiobituarios/iglesias/show/";
-export const UrlShowIglesia2="https://www.laofrenda.com.co/public-apiobituarios/iglesias/showall/";
-export const UrlCreateIglesia="https://www.laofrenda.com.co/public-apiobituarios/iglesias/create/";
-export const UrlUpdateIglesia="https://www.laofrenda.com.co/public-apiobituarios/iglesias/update/";
-export const UrlDeleteIglesia="https://www.laofrenda.com.co/public-apiobituarios/iglesias/destroy/";
-export const UrlShowRole="https://www.laofrenda.com.co/public-apiobituarios/role/show/";
-export const UrlShowUbicacion="https://www.laofrenda.com.co/public-apiobituarios/ubicaciones/show";
-export const UrlShowCiudad="https://www.laofrenda.com.co/public-apiobituarios/ciudades/show/";
-export const UrlShowCiudad2="https://www.laofrenda.com.co/public-apiobituarios/ciudades/showAll";
-export const UrlShowDepto="https:/www.laofrenda.com.co/public-apiobituarios/ciudades/show/";
-*/
+/*::PRODUCCION::*/
 
 export const UrlLogin="https://obituarios.laofrenda.com.co/api-obituarios/public/users/login";
 export const UrlCreateUsr="https://obituarios.laofrenda.com.co/api-obituarios/public/user/create";
